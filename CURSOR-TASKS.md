@@ -80,5 +80,7 @@ review the branch you push and merge it if it meets the bar below.
 - [x] 3a — generated question bank
   - Kept the 5 handwritten questions and generated 28 more at module scope from curriculum + ep05-beats (idiom gloss vs trap/literal, Beijing → standard, vocab Chinese → English with same-deck distractors, grammar cloze from worked examples). Bank total 33, all with `why` and a `beatId`.
   - `pickQuiz(n=5)` shuffles client-side and always includes at least 2 handwritten questions.
-- [ ] 3b — sampled quiz + score history
+- [x] 3b — sampled quiz + score history
+  - Questions come from `pickQuiz(5)` after mount (brief empty shell first) so prerender stays stable; Try again draws a fresh sample.
+  - Finishing an attempt appends `{ts, score, total}` and the score card shows "Best so far: X/5" plus attempt count, including the first run.
 - [ ] 4 (optional) — episode meta registry

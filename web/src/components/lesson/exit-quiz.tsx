@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { EP05_QUIZ, type QuizQuestion } from "@/data/quiz";
+import { pickQuiz, type QuizQuestion } from "@/data/quiz";
+import { pushQuizResult, readQuizHistory, type QuizHistoryEntry } from "@/lib/player-storage";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { ArrowLeft, ArrowRight, Check, RotateCcw, X } from "lucide-react";
@@ -45,50 +46,76 @@ function ChoiceButton({
   );
 }
 
-/*
- * AGENT-TASK(3b) [sampled quiz + score history]
- * Brief + workflow: /CURSOR-TASKS.md; requires tasks 1a and 3a.
- * - Draw the attempt's questions with pickQuiz(5) instead of using EP05_QUIZ
- *   directly. The page is prerendered, so sample AFTER mount (useEffect into
- *   state, rendering a brief empty shell first) — never during render, or
- *   hydration will mismatch. "Try again" draws a fresh sample.
- * - On finish, pushQuizResult({ ts: Date.now(), score, total }) and show the
- *   best previous score ("Best so far: X/5") from readQuizHistory() on the
- *   score card, plus attempt count. Handle the empty-history first run.
- * - Update the header copy ("Five questions drawn from...") if it no longer
- *   matches what the sample contains.
- * When done, replace this block with: AGENT-DONE(3b): <summary>.
- */
+/* AGENT-DONE(3b): pickQuiz(5) after mount (empty shell first); Try again resamples; finish pushes quiz history and shows best/attempt count, including first run. */
 export function ExitQuiz() {
+  const [questions, setQuestions] = useState<QuizQuestion[] | null>(null);
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [history, setHistory] = useState<QuizHistoryEntry[] | null>(null);
+  const recordedRef = useRef(false);
 
-  const question = EP05_QUIZ[index];
+  const startAttempt = () => {
+    recordedRef.current = false;
+    setQuestions(pickQuiz(5));
+    setIndex(0);
+    setPicked(null);
+    setAnswers({});
+  };
+
+  /* eslint-disable react-hooks/set-state-in-effect -- sample and history are client-only */
+  useEffect(() => {
+    startAttempt();
+    setHistory(readQuizHistory());
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const question = questions?.[index];
   const revealed = picked !== null;
-  const finished = index >= EP05_QUIZ.length;
+  const finished = questions !== null && index >= questions.length;
 
   const score = useMemo(
-    () => EP05_QUIZ.filter((q) => answers[q.id] === q.correctId).length,
-    [answers],
+    () =>
+      questions
+        ? questions.filter((q) => answers[q.id] === q.correctId).length
+        : 0,
+    [answers, questions],
   );
 
   const handlePick = (id: string) => {
-    if (picked) return;
+    if (picked || !question) return;
     setPicked(id);
     setAnswers((prev) => ({ ...prev, [question.id]: id }));
   };
 
   const handleNext = () => {
+    if (questions && index === questions.length - 1 && !recordedRef.current) {
+      recordedRef.current = true;
+      const finalScore = questions.filter((q) => {
+        const chosen = q.id === question?.id ? picked : answers[q.id];
+        return chosen === q.correctId;
+      }).length;
+      pushQuizResult({
+        ts: Date.now(),
+        score: finalScore,
+        total: questions.length,
+      });
+      setHistory(readQuizHistory());
+    }
     setPicked(null);
     setIndex((i) => i + 1);
   };
 
   const handleRestart = () => {
-    setIndex(0);
-    setPicked(null);
-    setAnswers({});
+    startAttempt();
   };
+
+  const attempts = history && history.length > 0 ? history.length : finished ? 1 : 0;
+  const best =
+    history && history.length > 0
+      ? Math.max(...history.map((e) => e.score))
+      : score;
+  const total = questions?.length ?? 5;
 
   return (
     <div className="min-h-screen bg-stone-950 text-white">
@@ -109,22 +136,32 @@ export function ExitQuiz() {
             Exit quiz
           </h1>
           <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/55">
-            Five questions drawn from lines you just watched — Beijing speech,
-            a false-friend idiom, the 比 ladder, and why she says 阿姨.
+            Five questions sampled from a larger bank — Beijing speech, idioms,
+            vocabulary, and grammar from lines you just watched. Each attempt
+            draws a new set.
           </p>
         </header>
 
-        {finished ? (
+        {!questions ? (
+          <p className="text-sm text-white/50">Drawing five questions…</p>
+        ) : finished ? (
           <div className="rounded-2xl border border-amber-400/30 bg-amber-500/10 p-6 md:p-8">
             <p className="text-[10px] font-semibold uppercase tracking-widest text-amber-300/80">
               Score
             </p>
             <p className="mt-2 font-serif text-5xl text-white">
               {score}
-              <span className="text-2xl text-white/50"> / {EP05_QUIZ.length}</span>
+              <span className="text-2xl text-white/50"> / {total}</span>
+            </p>
+            <p className="mt-2 text-sm text-white/55">
+              Best so far: {best}/{total}
+              <span className="text-white/35">
+                {" "}
+                · {attempts} {attempts === 1 ? "attempt" : "attempts"}
+              </span>
             </p>
             <p className="mt-3 text-sm text-white/70">
-              {score === EP05_QUIZ.length
+              {score === total
                 ? "All five — you caught the register switches and the false friend."
                 : score >= 3
                   ? "Solid. Revisit the missed cards on the study guide, then try again."
@@ -146,11 +183,11 @@ export function ExitQuiz() {
               </Link>
             </div>
           </div>
-        ) : (
+        ) : question ? (
           <article className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 md:p-7">
             <div className="mb-4 flex items-center justify-between text-xs text-white/40">
               <span>
-                Question {index + 1} of {EP05_QUIZ.length}
+                Question {index + 1} of {total}
               </span>
               {question.promptZh && (
                 <span lang="zh-CN" className="font-serif text-base text-amber-200/90">
@@ -208,13 +245,13 @@ export function ExitQuiz() {
                     onClick={handleNext}
                     className="mt-4 bg-amber-600 text-white hover:bg-amber-500"
                   >
-                    {index === EP05_QUIZ.length - 1 ? "See score" : "Next question"}
+                    {index === total - 1 ? "See score" : "Next question"}
                   </Button>
                 </div>
               </div>
             )}
           </article>
-        )}
+        ) : null}
       </div>
     </div>
   );
