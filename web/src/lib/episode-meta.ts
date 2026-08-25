@@ -1,22 +1,34 @@
-/*
- * AGENT-TASK(4) [multi-episode prep — OPTIONAL, structure only]
- * Brief + workflow: /CURSOR-TASKS.md. Attempt only after tasks 5, 1, 2, 3 are
- * done and green.
- * Goal: make adding episode 2 a data drop, not a code change. Introduce an
- * EpisodeMeta interface and an EPISODES registry keyed by episode id (e.g.
- * "ep05"), with EP05_META as its first entry (keep the named export as an
- * alias so nothing breaks). Parameterize the hardcoded "ep05" path segments
- * in lib/voices.ts (audioPath), lib/lesson-utils.ts (GHIBLI_BASE/FRAMES_BASE)
- * and the storage keys in lib/player-storage.ts ("hwk-ep05:*") to derive from
- * an episode id, defaulting to "ep05". NO UI changes, NO new routes — same
- * rendered output as before, verified by npm run build.
- * When done, replace this block with: AGENT-DONE(4): <summary>.
- */
+/** AGENT-DONE(4): EpisodeMeta + EPISODES registry; audio/image/storage paths derive from episode id (default ep05). Named EP05_META export kept. */
+
+export const DEFAULT_EPISODE_ID = "ep05";
+
+export interface EpisodeCharacter {
+  name: string;
+  nameEn: string;
+  color: string;
+}
+
+export interface EpisodeMeta {
+  id: string;
+  series: string;
+  seriesEn: string;
+  episode: number;
+  /** Ghibli-stylized frame used as the title cover background */
+  coverSource: string;
+  title: string;
+  titlePinyin: string;
+  titleEn: string;
+  taglineZh: string;
+  taglineEn: string;
+  year: string;
+  characters: readonly EpisodeCharacter[];
+}
+
 export const EP05_META = {
+  id: DEFAULT_EPISODE_ID,
   series: "家有儿女",
   seriesEn: "Home With Kids",
   episode: 5,
-  /** Ghibli-stylized frame used as the title cover background */
   coverSource: "00m02s_001_来 宝贝 喝点牛奶.jpg",
   title: "猫鼠之争",
   titlePinyin: "Māo shǔ zhī zhēng",
@@ -30,4 +42,8 @@ export const EP05_META = {
     { name: "夏东海", nameEn: "Donghai", color: "bg-blue-400" },
     { name: "夏雨", nameEn: "Xia Yu", color: "bg-green-400" },
   ],
-} as const;
+} as const satisfies EpisodeMeta;
+
+export const EPISODES: Record<string, typeof EP05_META> = {
+  [EP05_META.id]: EP05_META,
+};

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import beatsData from "@/data/ep05-beats.json";
 import {
@@ -12,9 +12,11 @@ import {
 } from "@/data/curriculum";
 import type { Beat } from "@/types/lesson";
 import { cn } from "@/lib/utils";
+import { readSeen } from "@/lib/player-storage";
 import {
   ArrowLeft,
   BookOpen,
+  Download,
   Landmark,
   Layers,
   MapPin,
@@ -82,6 +84,53 @@ function HeardAtLinks({ ids, className }: { ids: string[]; className?: string })
   );
 }
 
+function matchesQuery(
+  query: string,
+  chinese: string,
+  pinyin: string,
+  english: string,
+): boolean {
+  if (!query) return true;
+  const q = query.toLowerCase();
+  return (
+    chinese.includes(query) ||
+    pinyin.toLowerCase().includes(q) ||
+    english.toLowerCase().includes(q)
+  );
+}
+
+function csvEscape(value: string): string {
+  if (/[",\n\r]/.test(value)) return `"${value.replace(/"/g, '""')}"`;
+  return value;
+}
+
+function downloadCsv(filename: string, rows: string[][]) {
+  const header = ["chinese", "pinyin", "english", "note", "heardAt"];
+  const lines = [header, ...rows].map((row) => row.map(csvEscape).join(","));
+  const blob = new Blob([`\uFEFF${lines.join("\n")}`], {
+    type: "text/csv;charset=utf-8",
+  });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function isStudied(ids: string[], seen: Set<string> | null): boolean {
+  if (!seen || seen.size === 0 || ids.length === 0) return false;
+  return ids.every((id) => seen.has(id));
+}
+
+function StudiedBadge() {
+  return (
+    <span className="rounded-full bg-emerald-500/20 px-1.5 py-0.5 text-[10px] font-medium text-emerald-200">
+      studied
+    </span>
+  );
+}
+
 function Section({
   children,
   className,
@@ -94,16 +143,12 @@ function Section({
   );
 }
 
-function DecksTab({ query }: { query: string }) {
+function DecksTab({ query, seen }: { query: string; seen: Set<string> | null }) {
   return (
     <div className="space-y-5">
       {VOCAB_DECKS.map((deck) => {
-        const items = deck.items.filter(
-          (i) =>
-            !query ||
-            i.chinese.includes(query) ||
-            i.pinyin.toLowerCase().includes(query.toLowerCase()) ||
-            i.english.toLowerCase().includes(query.toLowerCase()),
+        const items = deck.items.filter((i) =>
+          matchesQuery(query, i.chinese, i.pinyin, i.english),
         );
         if (!items.length) return null;
 
@@ -127,6 +172,7 @@ function DecksTab({ query }: { query: string }) {
                     </span>
                     <span className="text-sm text-teal-200">{item.pinyin}</span>
                     <span className="text-sm text-white/75">{item.english}</span>
+                    {isStudied(item.heardAt, seen) && <StudiedBadge />}
                   </div>
                   {item.breakdown && (
                     <p className="mt-1 text-xs text-violet-200/80">
@@ -149,13 +195,9 @@ function DecksTab({ query }: { query: string }) {
   );
 }
 
-function IdiomsTab({ query }: { query: string }) {
-  const items = IDIOMS.filter(
-    (i) =>
-      !query ||
-      i.chinese.includes(query) ||
-      i.pinyin.toLowerCase().includes(query.toLowerCase()) ||
-      i.english.toLowerCase().includes(query.toLowerCase()),
+function IdiomsTab({ query, seen }: { query: string; seen: Set<string> | null }) {
+  const items = IDIOMS.filter((i) =>
+    matchesQuery(query, i.chinese, i.pinyin, i.english),
   );
 
   return (
@@ -166,7 +208,10 @@ function IdiomsTab({ query }: { query: string }) {
             {idiom.chinese}
           </h2>
           <p className="mt-1 text-base text-teal-200">{idiom.pinyin}</p>
-          <p className="mt-1.5 text-base text-white/85">{idiom.english}</p>
+          <p className="mt-1.5 flex flex-wrap items-baseline gap-x-2 gap-y-1 text-base text-white/85">
+            {idiom.english}
+            {isStudied(idiom.anchors, seen) && <StudiedBadge />}
+          </p>
 
           <p className="mt-3 border-t border-white/10 pt-3 text-sm text-white/65">
             <span className="font-semibold text-white/85">Literal: </span>
@@ -312,30 +357,55 @@ function CultureTab({ query }: { query: string }) {
   );
 }
 
-/*
- * AGENT-TASK(2) [vocab export + studied highlighting]
- * Brief + workflow: /CURSOR-TASKS.md; requires task 1a helpers.
- * (a) Export: add an "Export CSV" button in the page header area (next to the
- *     search input) that downloads the CURRENT tab's visible entries as a
- *     UTF-8 CSV with BOM (so Chinese opens correctly in Excel/Anki import).
- *     Columns: chinese,pinyin,english,note,heardAt (join multiple ids with
- *     ";"). Client-side only: build a Blob, createObjectURL, temporary <a>
- *     click, revokeObjectURL. Filename like hwk-ep05-<tab>.csv. Only the
- *     decks and idioms tabs need export; hide the button on other tabs.
- * (b) Studied badges: using readSeen() (loaded once in a useEffect), mark
- *     deck items and idioms whose heardAt/anchor beats are ALL in the seen
- *     set with a small emerald "studied" badge after the English gloss.
- *     No layout shift when the set is empty.
- * When done, replace this block with: AGENT-DONE(2): <summary>.
- */
+/* AGENT-DONE(2): CSV export (BOM, current filtered decks/idioms tab) plus emerald studied badges when every heardAt/anchor beat is in readSeen(). */
 export function StudyGuide() {
   const [tab, setTab] = useState<TabId>("decks");
   const [query, setQuery] = useState("");
+  const [seen, setSeen] = useState<Set<string> | null>(null);
 
   const totalItems = useMemo(
     () => TABS.reduce((n, t) => n + t.count, 0),
     [],
   );
+
+  /* eslint-disable react-hooks/set-state-in-effect -- localStorage is only safe after mount */
+  useEffect(() => {
+    setSeen(readSeen());
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  const canExport = tab === "decks" || tab === "idioms";
+
+  const handleExport = () => {
+    const q = query;
+    if (tab === "decks") {
+      const rows = VOCAB_DECKS.flatMap((deck) =>
+        deck.items
+          .filter((i) => matchesQuery(q, i.chinese, i.pinyin, i.english))
+          .map((i) => [
+            i.chinese,
+            i.pinyin,
+            i.english,
+            i.note ?? "",
+            i.heardAt.join(";"),
+          ]),
+      );
+      downloadCsv("hwk-ep05-decks.csv", rows);
+      return;
+    }
+    if (tab === "idioms") {
+      const rows = IDIOMS.filter((i) =>
+        matchesQuery(q, i.chinese, i.pinyin, i.english),
+      ).map((i) => [
+        i.chinese,
+        i.pinyin,
+        i.english,
+        i.trap ?? "",
+        i.anchors.join(";"),
+      ]);
+      downloadCsv("hwk-ep05-idioms.csv", rows);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-stone-950 text-white">
@@ -383,17 +453,29 @@ export function StudyGuide() {
             ))}
           </div>
 
-          <input
-            type="search"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search 中文, pinyin, or English…"
-            className="mt-3 w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/35 focus:border-amber-400/50 focus:outline-none"
-          />
+          <div className="mt-3 flex items-center gap-2">
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search 中文, pinyin, or English…"
+              className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/35 focus:border-amber-400/50 focus:outline-none"
+            />
+            {canExport && (
+              <button
+                type="button"
+                onClick={handleExport}
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
+              >
+                <Download className="size-3.5" />
+                Export CSV
+              </button>
+            )}
+          </div>
         </div>
 
-        {tab === "decks" && <DecksTab query={query} />}
-        {tab === "idioms" && <IdiomsTab query={query} />}
+        {tab === "decks" && <DecksTab query={query} seen={seen} />}
+        {tab === "idioms" && <IdiomsTab query={query} seen={seen} />}
         {tab === "grammar" && <GrammarTab query={query} />}
         {tab === "beijing" && <BeijingTab query={query} />}
         {tab === "culture" && <CultureTab query={query} />}

@@ -19,21 +19,12 @@ interface EpisodeCoverSheetProps {
   onStart?: () => void;
   onPreset?: (preset: PresetMode) => void;
   activeMode?: PresetMode | "custom";
+  /** Dialogue beats the learner has actually watched; null until storage is read */
+  seenCount?: number | null;
+  dialogueTotal?: number;
 }
 
-/*
- * AGENT-TASK(1c) [progress on the cover]
- * Brief + workflow: /CURSOR-TASKS.md; requires task 1a helpers.
- * Between the mode-chip row and the quiz/study/audition nav cards below,
- * render a one-line progress note when the learner has history:
- *   "You've studied N of 173 lines" — N = readSeen() ids that are dialogue
- *   beats (import the beats data or accept a prop from smart-player; prefer
- *   a prop `seenCount` computed in smart-player to keep this component dumb).
- * Style: text-[11px] text-white/50, amber number, matching the cover's look.
- * localStorage must be read in a useEffect (page is prerendered) — render
- * nothing until the value is known to avoid hydration mismatch.
- * When done, replace this block with: AGENT-DONE(1c): <summary>.
- */
+/* AGENT-DONE(1c): one-line cover progress from seenCount/dialogueTotal props; hidden until storage is known and N > 0. */
 const MODE_CHIPS: { id: PresetMode; label: string }[] = [
   { id: "immersion", label: "Story only" },
   { id: "listen", label: "Chinese → English" },
@@ -56,6 +47,8 @@ export function EpisodeCoverSheet({
   onStart,
   onPreset,
   activeMode,
+  seenCount = null,
+  dialogueTotal = 173,
 }: EpisodeCoverSheetProps) {
   const [urlIndex, setUrlIndex] = useState(0);
 
@@ -204,6 +197,13 @@ export function EpisodeCoverSheet({
               </button>
             ))}
           </div>
+        )}
+
+        {!playing && seenCount != null && seenCount > 0 && (
+          <p className="mt-3 text-[11px] text-white/50">
+            You&apos;ve studied <span className="text-amber-300">{seenCount}</span> of{" "}
+            {dialogueTotal} lines
+          </p>
         )}
 
         {!playing && (

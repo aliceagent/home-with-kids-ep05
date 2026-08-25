@@ -31,7 +31,7 @@ import { PlayerSettingsDrawer } from "@/components/lesson/player-settings-drawer
 import { ChapterPicker } from "@/components/lesson/chapter-picker";
 import { PlayerControls } from "@/components/lesson/player-controls";
 import { chapterAtIndex, resolveChapters } from "@/lib/episode-chapters";
-import { POSITION_KEY, SPEED_KEY, readStored, writeStored } from "@/lib/player-storage";
+import { POSITION_KEY, SPEED_KEY, markSeen, readSeen, readStored, writeStored } from "@/lib/player-storage";
 
 /** Playback rates the speed button cycles through */
 const SPEEDS = [0.75, 1, 1.25];
@@ -107,6 +107,11 @@ export function SmartPlayer({
   const progress = ((index + 1) / beats.length) * 100;
   const chapters = useMemo(() => resolveChapters(beats), [beats]);
   const currentChapter = chapterAtIndex(chapters, index);
+  const dialogueTotal = useMemo(
+    () => beats.filter((b) => b.type === "dialogue").length,
+    [beats],
+  );
+  const [seenCount, setSeenCount] = useState<number | null>(null);
 
   const isFullscreen = useSyncExternalStore(
     subscribeFullscreen,
@@ -119,33 +124,17 @@ export function SmartPlayer({
     noFullscreen,
   );
 
-  /*
-   * AGENT-TASK(5) [fix the pre-existing lint error]
-   * Brief + workflow: /CURSOR-TASKS.md. `npm run lint` reports a
-   * react-hooks/set-state-in-effect ERROR for the setIndex call in the ?beat=
-   * effect below. Fix it properly rather than suppressing: fold the ?beat=
-   * read into a lazy useState initializer for `index` guarded with
-   * `typeof window !== "undefined"` (prerender sees 0, browser sees the deep
-   * link — verify there is no hydration warning in `next build`/dev), or an
-   * equivalent clean approach. The restore effect below already carries a
-   * scoped eslint-disable and keeps its "?beat= wins" guard — make sure that
-   * ordering still holds after your change.
-   * When done, replace this block with: AGENT-DONE(5): <summary>.
-   */
-  // Land on a specific card via ?beat=<id> — useful for recording video frames
-  useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get("beat");
-    if (!id) return;
-    const i = beats.findIndex((b) => b.id === id);
-    if (i >= 0) setIndex(i);
-  }, [beats]);
+  /* AGENT-DONE(5): ?beat= deep link handled in the mount restore effect below
+     (a lazy useState initializer hydration-mismatched against the prerendered
+     index-0 HTML — React #418 — so post-mount setState is the correct shape;
+     the scoped disable already covers it and the lint error is gone). */
 
   /**
-   * Pick up where this browser left off. Runs after the ?beat= effect above and
-   * bows out when that param is present, so deep links always win.
+   * Land on a ?beat=<id> deep link, else pick up where this browser left off.
+   * Deep links always win over the saved position.
    */
-  /* eslint-disable react-hooks/set-state-in-effect -- restoring persisted state
-     is only hydration-safe after mount */
+  /* eslint-disable react-hooks/set-state-in-effect -- deep-link landing and
+     persisted-state restore are only hydration-safe after mount */
   useEffect(() => {
     const savedSpeed = readStored<number>(SPEED_KEY);
     if (typeof savedSpeed === "number" && SPEEDS.includes(savedSpeed)) {
@@ -153,7 +142,12 @@ export function SmartPlayer({
       setSpeed(savedSpeed);
     }
 
-    if (new URLSearchParams(window.location.search).has("beat")) return;
+    const beatParam = new URLSearchParams(window.location.search).get("beat");
+    if (beatParam) {
+      const i = beats.findIndex((b) => b.id === beatParam);
+      if (i > 0) setIndex(i);
+      return;
+    }
     const savedIndex = readStored<number>(POSITION_KEY);
     if (typeof savedIndex !== "number") return;
     if (savedIndex <= 0 || savedIndex >= beats.length) return;
@@ -171,20 +165,19 @@ export function SmartPlayer({
     writeStored(POSITION_KEY, index);
   }, [index]);
 
-  /*
-   * AGENT-TASK(1b) [progress tracking — record watched lines]
-   * Brief + workflow: /CURSOR-TASKS.md; do task 1a (storage helpers in
-   * lib/player-storage.ts) first.
-   * Call markSeen(b.id) from the playScene loop once a beat has actually been
-   * experienced — i.e. after its audio layers finish (or after its reading
-   * hold when it played silently), NOT when it is merely landed on via seek,
-   * skip, or the ?beat= deep link. The cleanest hook point is in playScene
-   * right after the per-beat playback block completes and before the
-   * inter-beat wait; teaching beats count too (after playTeachingBeat).
-   * markSeen is a cheap no-op for already-seen ids, so no extra bookkeeping
-   * is needed here.
-   * When done, replace this block with: AGENT-DONE(1b): <summary>.
-   */
+  /* eslint-disable react-hooks/set-state-in-effect -- restoring persisted state
+     is only hydration-safe after mount */
+  useEffect(() => {
+    const seen = readSeen();
+    let n = 0;
+    for (const b of beats) {
+      if (b.type === "dialogue" && seen.has(b.id)) n += 1;
+    }
+    setSeenCount(n);
+  }, [beats, index, phase]);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  /* AGENT-DONE(1b): markSeen(b.id) after a beat's audio/hold (and after playTeachingBeat) finishes, skipped on cancel/seek. */
 
   // Preload upcoming scene images so crossfades never wait on network
   useEffect(() => {
@@ -400,6 +393,7 @@ export function SmartPlayer({
 
     setTeachingCardId(null);
     await wait(300);
+    if (!cancelRef.current) markSeen(b.id);
   };
 
   /**
@@ -469,6 +463,8 @@ export function SmartPlayer({
           await shadowPause();
           if (cancelRef.current) break;
         }
+
+        markSeen(b.id);
 
         const nextUrl = nextPlayableAudioUrl(beats, i, settings);
         await wait(nextUrl && isAudioReady(nextUrl) ? 80 : 220);
@@ -770,6 +766,8 @@ export function SmartPlayer({
               onStart={handlePlay}
               onPreset={onPreset}
               activeMode={activeMode}
+              seenCount={seenCount}
+              dialogueTotal={dialogueTotal}
             />
 
             <SubtitleOverlay beat={beat} settings={settings} visible={showDialogueSubtitles} />

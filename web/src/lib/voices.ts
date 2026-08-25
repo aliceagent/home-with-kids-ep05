@@ -1,5 +1,6 @@
 import type { Beat, DisplaySettings } from "@/types/lesson";
 import { isTeachingBeat } from "@/lib/teaching";
+import { DEFAULT_EPISODE_ID } from "@/lib/episode-meta";
 
 export type CharacterId = "夏雪" | "刘梅" | "夏东海" | "夏雨" | "narrator";
 
@@ -102,8 +103,12 @@ export function voiceForBeat(beat: Beat): CharacterVoice {
   return CHARACTER_VOICES.narrator;
 }
 
-export function audioPath(beatId: string, layer: AudioLayer): string {
-  return `/lessons/ep05/audio/${beatId}-${layer}.mp3`;
+export function audioPath(
+  beatId: string,
+  layer: AudioLayer,
+  episodeId = DEFAULT_EPISODE_ID,
+): string {
+  return `/lessons/${episodeId}/audio/${beatId}-${layer}.mp3`;
 }
 
 /** Which clips the player will actually request for this beat. */

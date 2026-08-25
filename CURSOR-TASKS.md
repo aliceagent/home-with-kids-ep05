@@ -65,11 +65,24 @@ review the branch you push and merge it if it meets the bar below.
 
 ## Status checklist (update as you go)
 
-- [ ] 5 — lint error fixed, baseline now 2
-- [ ] 1a — progress storage helpers
-- [ ] 1b — seen-line recording
-- [ ] 1c — cover progress line
-- [ ] 2 — CSV export + studied badges
-- [ ] 3a — generated question bank
-- [ ] 3b — sampled quiz + score history
-- [ ] 4 (optional) — episode meta registry
+- [x] 5 — lint error fixed, baseline now 2
+  - Replaced the `?beat=` `useEffect`/`setIndex` with a `typeof window`-guarded lazy `useState` initializer so prerender stays at 0 and the browser lands on the deep-linked beat.
+  - Left the restore effect's `has("beat")` early-return in place so deep links still win over saved position.
+- [x] 1a — progress storage helpers
+  - Added `SEEN_KEY` / `QUIZ_HISTORY_KEY` and `readSeen`, `markSeen` (skips write when already present), `readQuizHistory`, `pushQuizResult` (keeps the 50 most recent) using the existing try/catch storage pattern.
+- [x] 1b — seen-line recording
+  - `markSeen(b.id)` runs after a dialogue beat's audio/hold (and after shadowing if on), and at the end of `playTeachingBeat` once the card has actually been shown. Cancel/seek/deep-link landing does not record.
+- [x] 1c — cover progress line
+  - Cover takes `seenCount` / `dialogueTotal` from smart-player (dialogue ids only). Renders nothing until storage is read and N > 0: "You've studied N of 173 lines" with an amber N.
+- [x] 2 — CSV export + studied badges
+  - Export CSV sits next to search on Vocabulary/Idioms tabs only; downloads the filtered rows as UTF-8 CSV with BOM (`chinese,pinyin,english,note,heardAt`). Idiom `note` is the trap text when present.
+  - Emerald "studied" badge after the English gloss when every `heardAt` / `anchors` beat is in `readSeen()`. Hidden when the set is empty so layout does not jump.
+- [x] 3a — generated question bank
+  - Kept the 5 handwritten questions and generated 28 more at module scope from curriculum + ep05-beats (idiom gloss vs trap/literal, Beijing → standard, vocab Chinese → English with same-deck distractors, grammar cloze from worked examples). Bank total 33, all with `why` and a `beatId`.
+  - `pickQuiz(n=5)` shuffles client-side and always includes at least 2 handwritten questions.
+- [x] 3b — sampled quiz + score history
+  - Questions come from `pickQuiz(5)` after mount (brief empty shell first) so prerender stays stable; Try again draws a fresh sample.
+  - Finishing an attempt appends `{ts, score, total}` and the score card shows "Best so far: X/5" plus attempt count, including the first run.
+- [x] 4 (optional) — episode meta registry
+  - Added `EpisodeMeta`, `DEFAULT_EPISODE_ID`, and `EPISODES` keyed by `"ep05"`. Kept the `EP05_META` named export (now includes `id`).
+  - `audioPath`, ghibli/frames bases, and storage keys derive from an episode id defaulting to `ep05`, so existing URLs and `hwk-ep05:*` keys are unchanged. No UI or route changes.

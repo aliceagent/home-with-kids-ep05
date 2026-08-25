@@ -1,3 +1,11 @@
+import beatsData from "@/data/ep05-beats.json";
+import {
+  BEIJING_NOTES,
+  GRAMMAR_STEPS,
+  IDIOMS,
+  VOCAB_DECKS,
+} from "@/data/curriculum";
+
 export interface QuizChoice {
   id: string;
   label: string;
@@ -14,29 +22,63 @@ export interface QuizQuestion {
   beatId?: string;
 }
 
-/*
- * AGENT-TASK(3a) [generated quiz bank]
- * Brief + workflow: /CURSOR-TASKS.md.
- * Grow this fixed 5-question list into a bank of 20+ questions and export a
- * sampler:
- *   - Keep the 5 hand-written questions below (they're good) and generate the
- *     rest at module scope from src/data/ep05-beats.json and
- *     src/data/curriculum.ts (static imports — no fetch, no randomness at
- *     module scope so the build stays deterministic):
- *       · idiom meaning questions (correct gloss vs. the literal-reading trap
- *         and one distractor from another idiom),
- *       · Beijing-dialect word → standard-Mandarin equivalent,
- *       · vocab-deck translation questions (Chinese → English, distractors
- *         drawn from the same deck),
- *       · grammar-ladder cloze questions from the worked examples.
- *   - Every generated question keeps the QuizQuestion shape, including a
- *     `beatId` anchor when a source line exists and a `why` explanation.
- *   - export function pickQuiz(n = 5): QuizQuestion[] — sample n distinct
- *     questions (Math.random is fine INSIDE this function; callers invoke it
- *     client-side), always including at least 2 of the hand-written ones.
- * When done, replace this block with: AGENT-DONE(3a): <summary>.
- */
-export const EP05_QUIZ: QuizQuestion[] = [
+const CHOICE_IDS = ["a", "b", "c", "d"] as const;
+
+const BEAT_IDS = new Set(
+  (beatsData as { id: string }[]).map((b) => b.id),
+);
+
+function firstBeat(ids: string[]): string | undefined {
+  return ids.find((id) => BEAT_IDS.has(id));
+}
+
+function packChoices(
+  correct: string,
+  distractors: string[],
+  salt: number,
+): { choices: QuizChoice[]; correctId: string } {
+  const unique = distractors.filter(
+    (d, i, arr) => d !== correct && d.length > 0 && arr.indexOf(d) === i,
+  );
+  const extras = [
+    "None of these — the word is being used as a proper name",
+    "The literal reading is the whole meaning",
+    "A different line from later in the episode",
+    "This is a particle with no standard equivalent",
+  ];
+  const pool = [...unique];
+  for (const extra of extras) {
+    if (pool.length >= 3) break;
+    if (extra !== correct && !pool.includes(extra)) pool.push(extra);
+  }
+  const pos = Math.abs(salt) % 4;
+  const labels: string[] = [];
+  let di = 0;
+  for (let i = 0; i < 4; i++) {
+    labels[i] = i === pos ? correct : pool[di++] ?? extras[i] ?? "—";
+  }
+  return {
+    choices: CHOICE_IDS.map((id, i) => ({ id, label: labels[i] })),
+    correctId: CHOICE_IDS[pos],
+  };
+}
+
+function hashSalt(s: string): number {
+  let n = 0;
+  for (let i = 0; i < s.length; i++) n = (n * 31 + s.charCodeAt(i)) | 0;
+  return Math.abs(n);
+}
+
+function shuffle<T>(items: T[]): T[] {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+const HANDWRITTEN_QUIZ: QuizQuestion[] = [
   {
     id: "q-haozi",
     prompt: "When Liu Mei is frightened she says 耗子. What is the textbook word, and why does she switch later?",
@@ -108,3 +150,116 @@ export const EP05_QUIZ: QuizQuestion[] = [
     beatId: "085",
   },
 ];
+
+export const HANDWRITTEN_QUIZ_IDS = new Set(HANDWRITTEN_QUIZ.map((q) => q.id));
+
+function generateIdiomQuestions(): QuizQuestion[] {
+  return IDIOMS.map((idiom, index) => {
+    const others = IDIOMS.filter((o) => o.id !== idiom.id);
+    const distractors = [
+      idiom.trap ?? `Literal reading: ${idiom.literal}`,
+      idiom.literal,
+      ...others.map((o) => o.english),
+    ];
+    const packed = packChoices(idiom.english, distractors, hashSalt(idiom.id) + index);
+    return {
+      id: `gen-idiom-${idiom.id}`,
+      prompt: `What does ${idiom.chinese} mean as used in this episode?`,
+      promptZh: idiom.chinese,
+      ...packed,
+      why: idiom.trap
+        ? `${idiom.english}. Trap: ${idiom.trap}`
+        : `${idiom.english}. Literally: ${idiom.literal}.`,
+      beatId: firstBeat(idiom.anchors),
+    };
+  });
+}
+
+function generateBeijingQuestions(): QuizQuestion[] {
+  return BEIJING_NOTES.map((note, index) => {
+    const others = BEIJING_NOTES.filter((o) => o.id !== note.id).map((o) => o.standard);
+    const packed = packChoices(note.standard, others, hashSalt(note.id) + index);
+    return {
+      id: `gen-bj-${note.id}`,
+      prompt: `What is the standard Mandarin equivalent of ${note.feature}?`,
+      promptZh: note.feature,
+      ...packed,
+      why: `${note.feature} (${note.featurePinyin}) is ${note.english}. Standard: ${note.standard}. ${note.explanation}`,
+      beatId: firstBeat(note.anchors),
+    };
+  });
+}
+
+function generateVocabQuestions(): QuizQuestion[] {
+  const questions: QuizQuestion[] = [];
+  for (const deck of VOCAB_DECKS) {
+    for (const [index, item] of deck.items.slice(0, 2).entries()) {
+      const distractors = deck.items
+        .filter((o) => o.chinese !== item.chinese)
+        .map((o) => o.english);
+      const packed = packChoices(
+        item.english,
+        distractors,
+        hashSalt(item.chinese) + index,
+      );
+      questions.push({
+        id: `gen-vocab-${deck.id}-${item.chinese}`,
+        prompt: `What does ${item.chinese} mean?`,
+        promptZh: item.chinese,
+        ...packed,
+        why: item.note
+          ? `${item.chinese} (${item.pinyin}) — ${item.english}. ${item.note}`
+          : `${item.chinese} (${item.pinyin}) — ${item.english}.`,
+        beatId: firstBeat(item.heardAt),
+      });
+    }
+  }
+  return questions;
+}
+
+function generateGrammarQuestions(): QuizQuestion[] {
+  return GRAMMAR_STEPS.map((step, index) => {
+    const blanked = step.example.replace(step.pattern.split(" ")[0] ?? "", "______");
+    const distractors = GRAMMAR_STEPS.filter((o) => o.id !== step.id).map(
+      (o) => `${o.pattern} — ${o.english}`,
+    );
+    const packed = packChoices(
+      `${step.pattern} — ${step.english}`,
+      distractors,
+      hashSalt(step.id) + index,
+    );
+    return {
+      id: `gen-gr-${step.id}`,
+      prompt: `Cloze from the episode: which pattern fills 「${blanked}」?`,
+      promptZh: step.example,
+      ...packed,
+      why: `${step.english} Worked example: ${step.example} (${step.exampleEnglish})`,
+      beatId: firstBeat(step.anchors),
+    };
+  });
+}
+
+const GENERATED_QUIZ: QuizQuestion[] = [
+  ...generateIdiomQuestions(),
+  ...generateBeijingQuestions(),
+  ...generateVocabQuestions(),
+  ...generateGrammarQuestions(),
+];
+
+/** AGENT-DONE(3a): bank is the 5 handwritten questions plus 28 generated from curriculum/beats (idiom, Beijing, vocab, grammar cloze); pickQuiz(n) samples client-side and always includes ≥2 handwritten. */
+
+export const EP05_QUIZ: QuizQuestion[] = [...HANDWRITTEN_QUIZ, ...GENERATED_QUIZ];
+
+export function pickQuiz(n = 5): QuizQuestion[] {
+  const handwritten = EP05_QUIZ.filter((q) => HANDWRITTEN_QUIZ_IDS.has(q.id));
+  const generated = EP05_QUIZ.filter((q) => !HANDWRITTEN_QUIZ_IDS.has(q.id));
+  const hwTake = Math.min(2, n, handwritten.length);
+  const pickedHw = shuffle(handwritten).slice(0, hwTake);
+  const pickedGen = shuffle(generated).slice(0, Math.max(0, n - pickedHw.length));
+  const combined = [...pickedHw, ...pickedGen];
+  if (combined.length < n) {
+    const leftover = handwritten.filter((q) => !pickedHw.includes(q));
+    combined.push(...leftover.slice(0, n - combined.length));
+  }
+  return shuffle(combined).slice(0, n);
+}
