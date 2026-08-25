@@ -119,6 +119,19 @@ export function SmartPlayer({
     noFullscreen,
   );
 
+  /*
+   * AGENT-TASK(5) [fix the pre-existing lint error]
+   * Brief + workflow: /CURSOR-TASKS.md. `npm run lint` reports a
+   * react-hooks/set-state-in-effect ERROR for the setIndex call in the ?beat=
+   * effect below. Fix it properly rather than suppressing: fold the ?beat=
+   * read into a lazy useState initializer for `index` guarded with
+   * `typeof window !== "undefined"` (prerender sees 0, browser sees the deep
+   * link — verify there is no hydration warning in `next build`/dev), or an
+   * equivalent clean approach. The restore effect below already carries a
+   * scoped eslint-disable and keeps its "?beat= wins" guard — make sure that
+   * ordering still holds after your change.
+   * When done, replace this block with: AGENT-DONE(5): <summary>.
+   */
   // Land on a specific card via ?beat=<id> — useful for recording video frames
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get("beat");
@@ -157,6 +170,21 @@ export function SmartPlayer({
     }
     writeStored(POSITION_KEY, index);
   }, [index]);
+
+  /*
+   * AGENT-TASK(1b) [progress tracking — record watched lines]
+   * Brief + workflow: /CURSOR-TASKS.md; do task 1a (storage helpers in
+   * lib/player-storage.ts) first.
+   * Call markSeen(b.id) from the playScene loop once a beat has actually been
+   * experienced — i.e. after its audio layers finish (or after its reading
+   * hold when it played silently), NOT when it is merely landed on via seek,
+   * skip, or the ?beat= deep link. The cleanest hook point is in playScene
+   * right after the per-beat playback block completes and before the
+   * inter-beat wait; teaching beats count too (after playTeachingBeat).
+   * markSeen is a cheap no-op for already-seen ids, so no extra bookkeeping
+   * is needed here.
+   * When done, replace this block with: AGENT-DONE(1b): <summary>.
+   */
 
   // Preload upcoming scene images so crossfades never wait on network
   useEffect(() => {
