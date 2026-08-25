@@ -154,7 +154,9 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
   - `/train/listening`: 8 questions after mount from dialogue beats with ≥6 Han characters. Large tap-to-play chinese clip, 4 English choices from similar-length lines, reveal Chinese + pinyin (toggle) and jump link. History `mode: "listening"`.
 - [x] Q2 — match the audio
   - `/train/match-audio`: 8 rounds. Written English + Chinese (pinyin if on), three tap-to-play clips (one match, two similar-length decoys), lock in A/B/C. Reveal labels the match and prints all three Chinese lines. History `mode: "match-audio"`.
-- [ ] Q3 — flashcards + SRS
+- [x] Q3 — flashcards + SRS
+  - Deck is every vocab item plus every idiom. Session: due (shuffled) then new, 15 max. Again = due now; Good/Easy seed 1d/3d then double interval, cap 30d, stored at `hwk-ep05:srs:v1`.
+  - Front is Chinese + "hear it in the show"; back shows English/note and pinyin (toggle, or a second "show pinyin" tap). Hub due count includes unseen cards.
 - [ ] Q4 — who said it?
 - [ ] Q5 — tone drill
 - [ ] B1 (optional) — written bank v2

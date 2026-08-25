@@ -5,7 +5,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { readQuizHistory } from "@/lib/player-storage";
-import { readSrsMap } from "@/lib/train-storage";
+import { countFlashcardsDue } from "@/lib/flashcards";
 import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -76,12 +76,10 @@ export function TrainHub() {
     const next: Record<string, ModeStats> = {};
     for (const mode of MODES) {
       if (mode.id === "flashcards") {
-        const srs = readSrsMap();
-        const now = Date.now();
         next[mode.id] = {
           best: 0,
           attempts: 0,
-          due: Object.values(srs).filter((c) => c.due <= now).length,
+          due: countFlashcardsDue(),
         };
         continue;
       }
