@@ -157,7 +157,8 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
 - [x] Q3 — flashcards + SRS
   - Deck is every vocab item plus every idiom. Session: due (shuffled) then new, 15 max. Again = due now; Good/Easy seed 1d/3d then double interval, cap 30d, stored at `hwk-ep05:srs:v1`.
   - Front is Chinese + "hear it in the show"; back shows English/note and pinyin (toggle, or a second "show pinyin" tap). Hub due count includes unseen cards.
-- [ ] Q4 — who said it?
+- [x] Q4 — who said it?
+  - `/train/who-said-it`: 8 rounds from `spokenByCast()` (夏雪 / 刘梅 / 夏东海 / 夏雨). Large tap-to-play chinese clip, four character chips with `EP05_META` colors, reveal scene still + Chinese/pinyin/English + speaker. History `mode: "who-said-it"`.
 - [ ] Q5 — tone drill
 - [ ] B1 (optional) — written bank v2
 
