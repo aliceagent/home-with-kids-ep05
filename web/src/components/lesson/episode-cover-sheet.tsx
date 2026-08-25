@@ -36,6 +36,10 @@ const MODE_CHIPS: { id: PresetMode; label: string }[] = [
 const NAV_CARDS = [
   { href: "/quiz", label: "Exit quiz", description: "Five questions on what you just watched" },
   { href: "/study", label: "Study guide", description: "Vocab, idioms, grammar & culture notes" },
+  /* AGENT-TASK(R1+T3) [cover nav cards] — per /CURSOR-TASKS.md: remove the
+     audition card (task R1) and make the cards: Training (/train), Exit
+     quiz (/quiz), Study guide (/study) once /train exists (task T3).
+     Replace with AGENT-DONE(R1+T3). */
   { href: "/audition", label: "Voice audition", description: "Hear each character's voice" },
 ];
 

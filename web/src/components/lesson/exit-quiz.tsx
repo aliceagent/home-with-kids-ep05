@@ -46,6 +46,11 @@ function ChoiceButton({
   );
 }
 
+/* AGENT-TASK(T2) [pinyin toggle on /quiz] — per /CURSOR-TASKS.md task T2:
+   render <PinyinToggle /> from components/train/quiz-kit in this page's
+   header; when off, hide promptZh pinyin renderings and pinyin lines in
+   explanations (Chinese characters stay). Record history with mode
+   "quiz". Replace with AGENT-DONE(T2). */
 /* AGENT-DONE(3b): pickQuiz(5) after mount (empty shell first); Try again resamples; finish pushes quiz history and shows best/attempt count, including first run. */
 export function ExitQuiz() {
   const [questions, setQuestions] = useState<QuizQuestion[] | null>(null);

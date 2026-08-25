@@ -13,6 +13,11 @@ export interface CharacterVoice {
   voiceId: string;
   role: string;
   description: string;
+  /* AGENT-TASK(R1) [remove audition] — see /CURSOR-TASKS.md task R1:
+     delete this `audition` field and every `audition:` entry below, the
+     /audition route + voice-audition component, the cover/header links,
+     and web/public/lessons/ep05/auditions/. Replace this comment with
+     AGENT-DONE(R1). */
   audition: string;
   accentColor: string;
 }

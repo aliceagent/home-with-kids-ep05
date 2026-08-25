@@ -163,6 +163,8 @@ export function LessonViewer() {
               >
                 Study guide
               </a>
+              {/* AGENT-TASK(R1) — remove this audition link; per task T3 a
+                  /train link may take its place. AGENT-DONE(R1) when done. */}
               <a
                 href="/audition"
                 className="text-xs text-amber-400/80 transition hover:text-amber-300"
