@@ -10,6 +10,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from "react";
 import type { Beat, DisplaySettings } from "@/types/lesson";
+import type { PresetMode } from "@/components/lesson/lesson-viewer";
 import { getSceneImageCandidates } from "@/lib/lesson-utils";
 import { audioPath, activeLayers, type AudioLayer, voiceForBeat } from "@/lib/voices";
 import { isTeachingBeat, shouldPlayTeachingBeat } from "@/lib/teaching";
@@ -55,7 +56,9 @@ interface SmartPlayerProps {
   beats: Beat[];
   settings: DisplaySettings;
   onSettingsChange: (key: keyof DisplaySettings, value: boolean) => void;
-  onPreset: (preset: "full" | "immersion" | "reading" | "minimal") => void;
+  onPreset: (preset: PresetMode) => void;
+  /** Which preset the current settings match, if any — for highlighting the active mode */
+  activeMode: PresetMode | "custom";
 }
 
 export function SmartPlayer({
@@ -63,6 +66,7 @@ export function SmartPlayer({
   settings,
   onSettingsChange,
   onPreset,
+  activeMode,
 }: SmartPlayerProps) {
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<PlaybackPhase>("idle");
@@ -735,6 +739,9 @@ export function SmartPlayer({
               settings={settings}
               active={showCover}
               playing={playing && showCover}
+              onStart={handlePlay}
+              onPreset={onPreset}
+              activeMode={activeMode}
             />
 
             <SubtitleOverlay beat={beat} settings={settings} visible={showDialogueSubtitles} />
@@ -762,6 +769,7 @@ export function SmartPlayer({
               settings={settings}
               onSettingChange={onSettingsChange}
               onPreset={onPreset}
+              activeMode={activeMode}
               onClose={() => setShowSettings(false)}
             />
 

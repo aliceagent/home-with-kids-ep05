@@ -1,24 +1,47 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import type { Beat, DisplaySettings } from "@/types/lesson";
+import type { PresetMode } from "@/components/lesson/lesson-viewer";
 import { EP05_META } from "@/lib/episode-meta";
 import { getSceneImageCandidates } from "@/lib/lesson-utils";
 import { cn } from "@/lib/utils";
+import { Play } from "lucide-react";
 
 interface EpisodeCoverSheetProps {
   beat: Beat;
   settings: DisplaySettings;
   active: boolean;
   playing?: boolean;
+  /** Starts playback from the top — omitted keeps the old passive hint */
+  onStart?: () => void;
+  onPreset?: (preset: PresetMode) => void;
+  activeMode?: PresetMode | "custom";
 }
+
+const MODE_CHIPS: { id: PresetMode; label: string }[] = [
+  { id: "immersion", label: "Story only" },
+  { id: "full", label: "Full teaching" },
+  { id: "reading", label: "Reading" },
+  { id: "minimal", label: "Chinese only" },
+];
+
+const NAV_CARDS = [
+  { href: "/quiz", label: "Exit quiz", description: "Five questions on what you just watched" },
+  { href: "/study", label: "Study guide", description: "Vocab, idioms, grammar & culture notes" },
+  { href: "/audition", label: "Voice audition", description: "Hear each character's voice" },
+];
 
 export function EpisodeCoverSheet({
   beat,
   settings,
   active,
   playing = false,
+  onStart,
+  onPreset,
+  activeMode,
 }: EpisodeCoverSheetProps) {
   const [urlIndex, setUrlIndex] = useState(0);
 
@@ -123,7 +146,18 @@ export function EpisodeCoverSheet({
           ))}
         </div>
 
-        {!playing && (
+        {!playing && onStart && (
+          <button
+            type="button"
+            onClick={onStart}
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-amber-600 px-5 py-2 text-sm font-semibold text-white shadow-lg shadow-amber-950/40 transition hover:bg-amber-500 md:mt-7 md:px-6 md:py-2.5 md:text-base"
+          >
+            <Play className="size-4 fill-current md:size-5" />
+            Start episode
+          </button>
+        )}
+
+        {!playing && !onStart && (
           <p className="mt-6 text-xs text-white/40 motion-safe:animate-pulse md:mt-10">
             Press Play scene to begin
           </p>
@@ -135,6 +169,45 @@ export function EpisodeCoverSheet({
             <span className="text-[10px] uppercase tracking-widest text-amber-400/80">
               Starting episode
             </span>
+          </div>
+        )}
+
+        {!playing && onPreset && (
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-1.5 md:mt-6">
+            {MODE_CHIPS.map((mode) => (
+              <button
+                key={mode.id}
+                type="button"
+                onClick={() => onPreset(mode.id)}
+                className={cn(
+                  "rounded-full border px-2.5 py-1 text-[10px] font-medium transition md:text-xs",
+                  mode.id === activeMode
+                    ? "border-amber-400/70 bg-amber-500/25 text-amber-50"
+                    : "border-white/15 bg-black/25 text-white/60 hover:bg-white/10 hover:text-white",
+                )}
+              >
+                {mode.label}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {!playing && (
+          <div className="mt-5 grid w-full max-w-md grid-cols-1 gap-1.5 sm:grid-cols-3 md:mt-7 md:gap-2">
+            {NAV_CARDS.map((card) => (
+              <Link
+                key={card.href}
+                href={card.href}
+                className="group rounded-lg border border-white/15 bg-black/25 px-2.5 py-2 text-left backdrop-blur-sm transition hover:border-amber-400/40 hover:bg-black/40"
+              >
+                <p className="text-[11px] font-semibold text-amber-200/90 group-hover:text-amber-100">
+                  {card.label}
+                </p>
+                <p className="mt-0.5 text-[10px] leading-snug text-white/45">
+                  {card.description}
+                </p>
+              </Link>
+            ))}
           </div>
         )}
       </div>

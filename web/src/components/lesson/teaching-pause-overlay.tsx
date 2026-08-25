@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Beat, DisplaySettings } from "@/types/lesson";
 import { teachingKindLabel } from "@/lib/teaching";
 import { cn } from "@/lib/utils";
@@ -68,6 +69,30 @@ function LadderPips({
         {step}/{of}
       </span>
     </span>
+  );
+}
+
+/**
+ * Hides the answer behind a tap. Keyed on beat.id by the caller so a fresh
+ * card always starts collapsed.
+ */
+function DrillAnswer({ answer }: { answer: string }) {
+  const [revealed, setRevealed] = useState(false);
+
+  if (!revealed) {
+    return (
+      <button
+        type="button"
+        onClick={() => setRevealed(true)}
+        className="mt-1 rounded-full border border-sky-400/40 bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sky-200 transition hover:bg-sky-500/20"
+      >
+        Show answer
+      </button>
+    );
+  }
+
+  return (
+    <p className="mt-0.5 font-serif text-[15px] leading-snug text-sky-200">{answer}</p>
   );
 }
 
@@ -231,11 +256,7 @@ export function TeachingPauseOverlay({
                 Your turn
               </p>
               <p className="mt-0.5 text-[13px] leading-snug text-white/85">{beat.drill}</p>
-              {beat.drillAnswer && (
-                <p className="mt-0.5 font-serif text-[15px] leading-snug text-sky-200">
-                  {beat.drillAnswer}
-                </p>
-              )}
+              {beat.drillAnswer && <DrillAnswer key={beat.id} answer={beat.drillAnswer} />}
             </div>
           )}
 

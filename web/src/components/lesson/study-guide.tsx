@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import beatsData from "@/data/ep05-beats.json";
 import {
   BEIJING_NOTES,
   CULTURE_CARDS,
@@ -9,6 +10,7 @@ import {
   IDIOMS,
   VOCAB_DECKS,
 } from "@/data/curriculum";
+import type { Beat } from "@/types/lesson";
 import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
@@ -54,6 +56,31 @@ const TABS: { id: TabId; label: string; icon: React.ReactNode; count: number }[]
     count: CULTURE_CARDS.length,
   },
 ];
+
+/** Beat ids that actually exist in the playable timeline — `heardAt` and
+ *  `anchors` values are beat ids directly, so a link only needs a lookup. */
+const BEAT_IDS = new Set((beatsData as Beat[]).map((b) => b.id));
+
+function HeardAtLinks({ ids, className }: { ids: string[]; className?: string }) {
+  return (
+    <p className={cn("flex flex-wrap items-center gap-1.5 font-mono text-[10px] text-white/30", className)}>
+      heard at line
+      {ids.map((id, i) =>
+        BEAT_IDS.has(id) ? (
+          <Link
+            key={`${id}-${i}`}
+            href={`/?beat=${id}`}
+            className="rounded border border-amber-400/25 bg-amber-500/10 px-1.5 py-0.5 text-amber-300/85 transition hover:border-amber-400/50 hover:bg-amber-500/20 hover:text-amber-200"
+          >
+            {id}
+          </Link>
+        ) : (
+          <span key={`${id}-${i}`}>{id}</span>
+        ),
+      )}
+    </p>
+  );
+}
 
 function Section({
   children,
@@ -111,9 +138,7 @@ function DecksTab({ query }: { query: string }) {
                       {item.note}
                     </p>
                   )}
-                  <p className="mt-1 font-mono text-[10px] text-white/30">
-                    heard at line {item.heardAt.join(", ")}
-                  </p>
+                  <HeardAtLinks ids={item.heardAt} className="mt-1" />
                 </li>
               ))}
             </ul>
@@ -158,9 +183,7 @@ function IdiomsTab({ query }: { query: string }) {
             </p>
           )}
 
-          <p className="mt-3 font-mono text-[10px] text-white/30">
-            heard at line {idiom.anchors.join(", ")}
-          </p>
+          <HeardAtLinks ids={idiom.anchors} className="mt-3" />
         </Section>
       ))}
     </div>

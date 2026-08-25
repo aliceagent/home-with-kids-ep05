@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { DISPLAY_LABELS, type DisplaySettings } from "@/types/lesson";
+import type { PresetMode } from "@/components/lesson/lesson-viewer";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -11,7 +12,9 @@ interface PlayerSettingsDrawerProps {
   open: boolean;
   settings: DisplaySettings;
   onSettingChange: (key: keyof DisplaySettings, value: boolean) => void;
-  onPreset: (preset: "full" | "immersion" | "reading" | "minimal") => void;
+  onPreset: (preset: PresetMode) => void;
+  /** Which preset the current settings match, if any */
+  activeMode: PresetMode | "custom";
   onClose: () => void;
 }
 
@@ -119,6 +122,7 @@ export function PlayerSettingsDrawer({
   settings,
   onSettingChange,
   onPreset,
+  activeMode,
   onClose,
 }: PlayerSettingsDrawerProps) {
   if (!open) return null;
@@ -176,7 +180,7 @@ export function PlayerSettingsDrawer({
                 onClick={() => onPreset(p.id)}
                 className={cn(
                   "rounded-full border px-3 py-1 text-xs font-medium transition",
-                  p.id === "immersion"
+                  p.id === activeMode
                     ? "border-amber-400/70 bg-amber-500/25 text-amber-50 hover:bg-amber-500/35"
                     : "border-white/20 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white",
                 )}

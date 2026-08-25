@@ -9,7 +9,9 @@ import { SETTINGS_KEY, readStored, writeStored } from "@/lib/player-storage";
 
 const beats = beatsData as Beat[];
 
-const PRESETS: Record<string, DisplaySettings> = {
+export type PresetMode = "full" | "immersion" | "reading" | "minimal";
+
+const PRESETS: Record<PresetMode, DisplaySettings> = {
   full: { ...DEFAULT_DISPLAY },
   immersion: {
     ...DEFAULT_DISPLAY,
@@ -74,6 +76,18 @@ const PRESETS: Record<string, DisplaySettings> = {
 const dialogueCount = beats.filter((b) => b.type === "dialogue").length;
 const lastBeat = beats[beats.length - 1];
 
+/**
+ * Which preset (if any) the current settings match exactly — every key equal
+ * to that preset's value. "custom" once the learner has hand-tweaked a toggle.
+ */
+export function detectActiveMode(settings: DisplaySettings): PresetMode | "custom" {
+  for (const [id, preset] of Object.entries(PRESETS) as [PresetMode, DisplaySettings][]) {
+    const keys = Object.keys(preset) as (keyof DisplaySettings)[];
+    if (keys.every((key) => settings[key] === preset[key])) return id;
+  }
+  return "custom";
+}
+
 export function LessonViewer() {
   const [settings, setSettings] = useState<DisplaySettings>(DEFAULT_DISPLAY);
   /** Skips the first write so a fresh mount cannot clobber the saved settings */
@@ -104,9 +118,11 @@ export function LessonViewer() {
     setSettings((s) => ({ ...s, [key]: value }));
   };
 
-  const applyPreset = (preset: keyof typeof PRESETS) => {
+  const applyPreset = (preset: PresetMode) => {
     setSettings(PRESETS[preset]);
   };
+
+  const activeMode = detectActiveMode(settings);
 
   return (
     <div className="flex h-full min-h-0 flex-col overflow-hidden bg-stone-950 text-white">
@@ -116,24 +132,26 @@ export function LessonViewer() {
             <span lang="zh-CN">{EP05_META.series}</span> · EP{EP05_META.episode}
           </p>
           <div className="flex items-center gap-4">
-            <a
-              href="/quiz"
-              className="text-xs text-amber-400/80 transition hover:text-amber-300"
-            >
-              Exit quiz
-            </a>
-            <a
-              href="/study"
-              className="text-xs text-amber-400/80 transition hover:text-amber-300"
-            >
-              Study guide
-            </a>
-            <a
-              href="/audition"
-              className="text-xs text-amber-400/80 transition hover:text-amber-300"
-            >
-              Voice audition
-            </a>
+            <div className="hidden items-center gap-4 sm:flex">
+              <a
+                href="/quiz"
+                className="text-xs text-amber-400/80 transition hover:text-amber-300"
+              >
+                Exit quiz
+              </a>
+              <a
+                href="/study"
+                className="text-xs text-amber-400/80 transition hover:text-amber-300"
+              >
+                Study guide
+              </a>
+              <a
+                href="/audition"
+                className="text-xs text-amber-400/80 transition hover:text-amber-300"
+              >
+                Voice audition
+              </a>
+            </div>
             <p className="hidden text-xs text-white/30 sm:block">
               {dialogueCount} lines · 0:02–{lastBeat?.timestamp ?? "13:12"}
             </p>
@@ -146,6 +164,7 @@ export function LessonViewer() {
         settings={settings}
         onSettingsChange={updateSetting}
         onPreset={applyPreset}
+        activeMode={activeMode}
       />
     </div>
   );
