@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Beat, DisplaySettings } from "@/types/lesson";
+import type { TextSize } from "@/lib/player-storage";
 import { teachingKindLabel } from "@/lib/teaching";
 import { cn } from "@/lib/utils";
 import { FitScale } from "@/components/lesson/fit-scale";
@@ -20,7 +21,27 @@ interface TeachingPauseOverlayProps {
   beat: Beat;
   settings: DisplaySettings;
   active: boolean;
+  textSize?: TextSize;
 }
+
+/** "small" is the original sizing; FitScale still shrinks oversized cards */
+const CARD_SIZE = {
+  small: {
+    chinese: "text-xl md:text-[1.35rem]",
+    pinyin: "text-sm",
+    english: "text-[13px]",
+  },
+  medium: {
+    chinese: "text-2xl md:text-[1.6rem]",
+    pinyin: "text-base",
+    english: "text-[15px]",
+  },
+  large: {
+    chinese: "text-3xl md:text-[1.9rem]",
+    pinyin: "text-lg",
+    english: "text-[17px]",
+  },
+} satisfies Record<TextSize, Record<string, string>>;
 
 const TONE: Record<string, string> = {
   idiom: "border-rose-400/60 bg-rose-950/95",
@@ -133,14 +154,18 @@ export function TeachingPauseOverlay({
   beat,
   settings,
   active,
+  textSize = "small",
 }: TeachingPauseOverlayProps) {
   if (!active) return null;
+
+  const size = CARD_SIZE[textSize];
 
   const tone = TONE[beat.type] ?? TONE.note;
   const icon = ICON[beat.type] ?? ICON.note;
   const isDeck = beat.type === "deck";
   const contentKey = [
     beat.id,
+    textSize,
     settings.chinese,
     settings.pinyin,
     settings.english,
@@ -191,16 +216,16 @@ export function TeachingPauseOverlay({
               {settings.chinese && beat.chinese && (
                 <p
                   lang="zh-CN"
-                  className="font-serif text-xl leading-snug text-white md:text-[1.35rem]"
+                  className={cn("font-serif leading-snug text-white", size.chinese)}
                 >
                   {beat.chinese}
                 </p>
               )}
               {settings.pinyin && beat.pinyin && (
-                <p className="text-sm leading-snug text-teal-200">{beat.pinyin}</p>
+                <p className={cn("leading-snug text-teal-200", size.pinyin)}>{beat.pinyin}</p>
               )}
               {settings.english && beat.english && (
-                <p className="text-[13px] leading-snug text-white/80">{beat.english}</p>
+                <p className={cn("leading-snug text-white/80", size.english)}>{beat.english}</p>
               )}
             </div>
           )}

@@ -17,6 +17,11 @@ export function storageKey(kind: string, episodeId = DEFAULT_EPISODE_ID): string
 export const SETTINGS_KEY = storageKey("settings");
 export const POSITION_KEY = storageKey("position");
 export const SPEED_KEY = storageKey("speed");
+export const TEXT_SIZE_KEY = storageKey("text-size");
+
+/** Subtitle/teaching-card text scale. "small" is the original sizing. */
+export type TextSize = "small" | "medium" | "large";
+export const TEXT_SIZES: TextSize[] = ["small", "medium", "large"];
 export const SEEN_KEY = storageKey("seen");
 export const QUIZ_HISTORY_KEY = storageKey("quiz");
 
