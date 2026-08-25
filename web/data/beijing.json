@@ -1,0 +1,73 @@
+[
+  {
+    "id": "bj-haozi",
+    "anchors": [
+      "041",
+      "042",
+      "050",
+      "051",
+      "068",
+      "069",
+      "070",
+      "071",
+      "072",
+      "073",
+      "074",
+      "078",
+      "079",
+      "080",
+      "082",
+      "177",
+      "178",
+      "180"
+    ],
+    "teachAfter": "042",
+    "feature": "耗子",
+    "featurePinyin": "hàozi",
+    "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+    "standard": "老鼠 lǎoshǔ",
+    "english": "mouse / rat — casual northern word",
+    "explanation": "耗子 is what Beijing speakers actually say at home. 老鼠 is the neutral, written, or 'expert' word. Watch Liu Mei switch: she screams 耗子 when she is scared, then says 老鼠 the moment she pretends to be a mouse specialist.",
+    "narratorScript": "Beijing speech note. 耗子 — hàozi — is the everyday northern word for a mouse. The textbook word is 老鼠, lǎoshǔ. Listen for the switch: when Liu Mei is frightened she says 耗子, but when she is showing off her supposed expertise, she says 老鼠. Same animal, completely different register."
+  },
+  {
+    "id": "bj-zan",
+    "anchors": [
+      "025",
+      "036",
+      "047"
+    ],
+    "teachAfter": "047",
+    "feature": "咱 / 咱俩",
+    "featurePinyin": "zán / zán liǎ",
+    "badge": "咱 = we, including you (northern)",
+    "standard": "我们 wǒmen",
+    "english": "we — but always including the listener",
+    "explanation": "咱 is inclusive we: you are part of it. 我们 can exclude the person you are talking to. Northern speakers reach for 咱 and 咱俩 constantly — 咱俩 means 'the two of us'. Saying 咱 instead of 我们 is a small move that sounds instantly warmer.",
+    "narratorScript": "Beijing speech note. 咱 — zán — means we, and it always includes the person you are speaking to. 我们 might leave them out. So when Liu Mei says 咱俩的兴趣爱好多相投, zán liǎ — the two of us — she is pulling Xiaoxue onto her team. Northern speakers use 咱 far more than textbooks suggest."
+  },
+  {
+    "id": "bj-softeners",
+    "anchors": [
+      "023",
+      "025",
+      "032",
+      "050",
+      "052",
+      "061",
+      "069",
+      "107",
+      "129",
+      "158",
+      "181"
+    ],
+    "teachAfter": "061",
+    "feature": "呀 / 呢 / 啊",
+    "featurePinyin": "ya / ne / a",
+    "badge": "Sentence-final 呀 softens complaint into a whine",
+    "standard": "(no particle)",
+    "english": "final particles that carry attitude, not meaning",
+    "explanation": "These particles change tone, not content. 呀 turns a flat statement into a complaint, plea, or whine. 呢 adds 'and what about…' or gentle insistence. 啊 softens a command into a nudge. Strip them out and the same line sounds cold and abrupt.",
+    "narratorScript": "Beijing speech note. Listen to the last sound of these lines. 我是说 我害怕呀 — that 呀 turns 'I'm scared' into a whine, almost a plea. Without it, the line is flat and cold. 呢 adds gentle insistence, 啊 softens an order into a nudge. These particles carry no dictionary meaning at all — they carry attitude."
+  }
+]

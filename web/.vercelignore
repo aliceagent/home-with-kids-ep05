@@ -1,0 +1,4 @@
+# Downloaded media and local Next.js artifacts
+node_modules
+.next
+out

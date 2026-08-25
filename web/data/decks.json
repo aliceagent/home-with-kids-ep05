@@ -1,0 +1,376 @@
+[
+  {
+    "id": "deck-music",
+    "title": "追星 · 音乐",
+    "titleEn": "Pop music & fandom",
+    "theme": "The F4 conversation that opens the episode",
+    "teachAfter": "019",
+    "narratorScript": "Vocabulary review — pop music and fandom, from the opening scene. 乐队, a band. 追星族, a star chaser, a fan. 流行音乐, pop music. 首, the measure word for songs. And 帅, handsome.",
+    "items": [
+      {
+        "chinese": "乐队",
+        "pinyin": "yuèduì",
+        "english": "band (music group)",
+        "breakdown": [
+          "乐 yuè = music",
+          "队 duì = team"
+        ],
+        "heardAt": [
+          "006",
+          "007"
+        ]
+      },
+      {
+        "chinese": "追星族",
+        "pinyin": "zhuīxīngzú",
+        "english": "fan, groupie — literally 'star-chasing tribe'",
+        "breakdown": [
+          "追 zhuī = chase",
+          "星 xīng = star",
+          "族 zú = tribe"
+        ],
+        "heardAt": [
+          "009"
+        ],
+        "note": "刘梅 calls herself a 老追星族 — a fan since way back."
+      },
+      {
+        "chinese": "流行音乐",
+        "pinyin": "liúxíng yīnyuè",
+        "english": "pop music",
+        "breakdown": [
+          "流行 liúxíng = popular",
+          "音乐 yīnyuè = music"
+        ],
+        "heardAt": [
+          "008"
+        ]
+      },
+      {
+        "chinese": "帅",
+        "pinyin": "shuài",
+        "english": "handsome, sharp-looking",
+        "heardAt": [
+          "004",
+          "005"
+        ]
+      },
+      {
+        "chinese": "首",
+        "pinyin": "shǒu",
+        "english": "measure word for songs and poems",
+        "heardAt": [
+          "010",
+          "012"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deck-sports",
+    "title": "球类运动",
+    "titleEn": "Ball sports",
+    "theme": "Donghai cramming the list of sports Xiaoxue likes",
+    "teachAfter": "029",
+    "narratorScript": "Vocabulary review — ball sports. Notice the pattern: almost every one ends in 球, ball. 篮球 basketball, 排球 volleyball, 网球 tennis, 足球 football, 乒乓球 ping pong. And the odd one out — 铅球, the shot put, which is why the joke lands.",
+    "items": [
+      {
+        "chinese": "篮球",
+        "pinyin": "lánqiú",
+        "english": "basketball",
+        "heardAt": [
+          "024",
+          "027"
+        ]
+      },
+      {
+        "chinese": "排球",
+        "pinyin": "páiqiú",
+        "english": "volleyball",
+        "heardAt": [
+          "021",
+          "024",
+          "027"
+        ]
+      },
+      {
+        "chinese": "网球",
+        "pinyin": "wǎngqiú",
+        "english": "tennis",
+        "heardAt": [
+          "021",
+          "027"
+        ]
+      },
+      {
+        "chinese": "足球",
+        "pinyin": "zúqiú",
+        "english": "football / soccer",
+        "heardAt": [
+          "028"
+        ]
+      },
+      {
+        "chinese": "乒乓球",
+        "pinyin": "pīngpāngqiú",
+        "english": "ping pong, table tennis",
+        "heardAt": [
+          "021",
+          "028"
+        ]
+      },
+      {
+        "chinese": "铅球",
+        "pinyin": "qiānqiú",
+        "english": "shot put",
+        "heardAt": [
+          "021",
+          "026"
+        ],
+        "note": "The punchline — Donghai asks how anyone could chew a shot put."
+      }
+    ]
+  },
+  {
+    "id": "deck-mouse",
+    "title": "耗子 · 老鼠",
+    "titleEn": "Mice, pets & fear",
+    "theme": "The central conflict — Liu Mei versus the mouse",
+    "teachAfter": "080",
+    "narratorScript": "Vocabulary review — the heart of this episode. 耗子 and 老鼠, both mouse: one casual, one neutral. 怕 to fear, 害怕 to be afraid. 公 male and 母 female for animals. 喂养 to raise or feed. And 争宠 — to compete for someone's affection.",
+    "items": [
+      {
+        "chinese": "耗子",
+        "pinyin": "hàozi",
+        "english": "mouse (Beijing colloquial)",
+        "heardAt": [
+          "041",
+          "042",
+          "050"
+        ],
+        "note": "What people actually say at home in Beijing."
+      },
+      {
+        "chinese": "老鼠",
+        "pinyin": "lǎoshǔ",
+        "english": "mouse, rat (neutral / written)",
+        "heardAt": [
+          "056",
+          "105",
+          "145"
+        ]
+      },
+      {
+        "chinese": "害怕",
+        "pinyin": "hàipà",
+        "english": "to be afraid",
+        "heardAt": [
+          "059",
+          "061"
+        ]
+      },
+      {
+        "chinese": "公 / 母",
+        "pinyin": "gōng / mǔ",
+        "english": "male / female (for animals)",
+        "heardAt": [
+          "145",
+          "148",
+          "155"
+        ]
+      },
+      {
+        "chinese": "喂养",
+        "pinyin": "wèiyǎng",
+        "english": "to feed, to raise (an animal)",
+        "heardAt": [
+          "157",
+          "159"
+        ]
+      },
+      {
+        "chinese": "争宠",
+        "pinyin": "zhēngchǒng",
+        "english": "to compete for someone's favour",
+        "breakdown": [
+          "争 zhēng = compete",
+          "宠 chǒng = dote on"
+        ],
+        "heardAt": [
+          "082"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deck-family",
+    "title": "家人 · 称呼",
+    "titleEn": "Family & how you address people",
+    "theme": "阿姨, 娘俩, and the emotional core of a blended family",
+    "teachAfter": "085",
+    "narratorScript": "Vocabulary review — family and address terms. 阿姨, auntie, which is what Xiaoxue calls her stepmother instead of mum. 娘俩, mother and child as a pair. 感情, feelings or bond. And 礼物, a gift.",
+    "items": [
+      {
+        "chinese": "阿姨",
+        "pinyin": "āyí",
+        "english": "auntie — also how a child addresses a non-parent adult woman",
+        "heardAt": [
+          "002",
+          "008",
+          "009",
+          "010"
+        ],
+        "note": "Xiaoxue uses 阿姨, not 妈. That single word carries the whole show."
+      },
+      {
+        "chinese": "娘俩",
+        "pinyin": "niángliǎ",
+        "english": "mother and child (as a pair)",
+        "heardAt": [
+          "075"
+        ]
+      },
+      {
+        "chinese": "感情",
+        "pinyin": "gǎnqíng",
+        "english": "feelings, emotional bond",
+        "heardAt": [
+          "073",
+          "076"
+        ]
+      },
+      {
+        "chinese": "礼物",
+        "pinyin": "lǐwù",
+        "english": "gift, present",
+        "heardAt": [
+          "114",
+          "127"
+        ]
+      },
+      {
+        "chinese": "桥梁",
+        "pinyin": "qiáoliáng",
+        "english": "bridge (often figurative)",
+        "heardAt": [
+          "076"
+        ],
+        "note": "感情桥梁 — an emotional bridge between them."
+      }
+    ]
+  },
+  {
+    "id": "deck-colloquial",
+    "title": "口语 · 地道说法",
+    "titleEn": "Colloquial expressions",
+    "theme": "The everyday phrases that make this dialogue sound real",
+    "teachAfter": "139",
+    "narratorScript": "Vocabulary review — colloquial expressions. These are the phrases that make the dialogue sound like real speech. 一家伙, all at once. 趁早, better do it now. 干脆, might as well just. 多亏, thanks to. And 争宠, competing for affection.",
+    "items": [
+      {
+        "chinese": "一家伙",
+        "pinyin": "yī jiāhuo",
+        "english": "all at once, just like that (northern colloquial)",
+        "heardAt": [
+          "085"
+        ],
+        "note": "一下子就从「哎」变成「阿姨」了 — she went from 'hey' to 'Auntie' overnight."
+      },
+      {
+        "chinese": "趁早",
+        "pinyin": "chènzǎo",
+        "english": "better do it now, while there's still time",
+        "heardAt": [
+          "072"
+        ]
+      },
+      {
+        "chinese": "干脆",
+        "pinyin": "gāncuì",
+        "english": "might as well just… / simply",
+        "heardAt": [
+          "063"
+        ]
+      },
+      {
+        "chinese": "多亏",
+        "pinyin": "duōkuī",
+        "english": "thanks to, fortunately because of",
+        "heardAt": [
+          "139"
+        ],
+        "note": "多亏您的指点 — thanks to your guidance. Said with total sincerity, which is what makes it funny."
+      },
+      {
+        "chinese": "拉近距离",
+        "pinyin": "lājìn jùlí",
+        "english": "to close the distance, get closer to someone",
+        "heardAt": [
+          "031"
+        ]
+      },
+      {
+        "chinese": "吓死我了",
+        "pinyin": "xià sǐ wǒ le",
+        "english": "You scared me to death!",
+        "heardAt": [
+          "066",
+          "121"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "deck-school",
+    "title": "作文 · 观察",
+    "titleEn": "Homework & observation",
+    "theme": "The composition assignment that starts the whole mess",
+    "teachAfter": "101",
+    "narratorScript": "Vocabulary review — school and observation. 作文, a composition. 描写, to describe in writing. 观察, to observe. 仔细, careful or attentive. And 想象力, imagination.",
+    "items": [
+      {
+        "chinese": "作文",
+        "pinyin": "zuòwén",
+        "english": "composition, school essay",
+        "heardAt": [
+          "142"
+        ]
+      },
+      {
+        "chinese": "描写",
+        "pinyin": "miáoxiě",
+        "english": "to describe (in writing)",
+        "heardAt": [
+          "053",
+          "055"
+        ]
+      },
+      {
+        "chinese": "观察",
+        "pinyin": "guānchá",
+        "english": "to observe",
+        "heardAt": [
+          "099",
+          "101",
+          "141"
+        ]
+      },
+      {
+        "chinese": "仔细",
+        "pinyin": "zǐxì",
+        "english": "careful, meticulous",
+        "heardAt": [
+          "099"
+        ]
+      },
+      {
+        "chinese": "想象力",
+        "pinyin": "xiǎngxiànglì",
+        "english": "imagination",
+        "heardAt": [
+          "107"
+        ]
+      }
+    ]
+  }
+]

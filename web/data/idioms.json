@@ -1,0 +1,89 @@
+[
+  {
+    "id": "idiom-chouwei",
+    "anchors": [
+      "013"
+    ],
+    "teachAfter": "013",
+    "chinese": "臭味相投",
+    "pinyin": "chòu wèi xiāng tóu",
+    "english": "Birds of a feather flock together",
+    "literal": "Same foul smell, same direction",
+    "narratorScript": "Idiom break. 臭味相投 — chòu wèi xiāng tóu. Literally: the same bad smell, drawn together. It means people with the same quirky tastes stick together. Dad says it teasingly about Liu Mei and Xiaoxue bonding over F4 — it's an insult on paper, affectionate in practice."
+  },
+  {
+    "id": "idiom-yijiaren",
+    "anchors": [
+      "015"
+    ],
+    "teachAfter": "015",
+    "chinese": "不是一家人，不进一家门",
+    "pinyin": "bù shì yī jiā rén, bù jìn yī jiā mén",
+    "english": "Like attracts like — same kind ends up under one roof",
+    "literal": "If you're not one family, you don't walk through one door",
+    "narratorScript": "Another set phrase. 不是一家人，不进一家门 — if you're not one family, you don't enter through one door. It means people of the same kind end up together. Liu Mei twists it: she says 不像 instead of 不是, which is the joke — and for a blended family, the line lands with real weight."
+  },
+  {
+    "id": "idiom-haoburongyi",
+    "anchors": [
+      "030",
+      "035"
+    ],
+    "teachAfter": "030",
+    "chinese": "好不容易",
+    "pinyin": "hǎo bù róng yì",
+    "english": "finally / with great difficulty",
+    "literal": "very not easy",
+    "trap": "It looks like 'not easy' — but 好不 here is an intensifier, so it means 'only after great effort'. It marks success, not failure.",
+    "narratorScript": "Careful with this one. 好不容易 — hǎo bù róng yì. It looks like it should mean 'not easy', but 好不 is an intensifier, and the phrase means 'finally, after great effort'. So 我好不容易快背下来了 means 'I've finally almost got it memorized' — she succeeded. Read it literally and you get the meaning backwards."
+  },
+  {
+    "id": "idiom-yufangzhen",
+    "anchors": [
+      "037"
+    ],
+    "teachAfter": "037",
+    "chinese": "打个预防针",
+    "pinyin": "dǎ ge yùfángzhēn",
+    "english": "to give someone a heads-up, to pre-warn them",
+    "literal": "To give someone a vaccination shot",
+    "trap": "Nothing medical is happening. 打预防针 is figurative: you warn someone early so the bad news doesn't hit as hard.",
+    "narratorScript": "Great colloquial phrase. 打个预防针 — dǎ ge yùfángzhēn. Literally, to give someone a vaccination. Figuratively, to warn someone in advance so bad news won't hit so hard. Donghai is pre-warning Liu Mei that kids' enthusiasms change fast — and he turns out to be right."
+  },
+  {
+    "id": "idiom-xingzailehuo",
+    "anchors": [
+      "179"
+    ],
+    "teachAfter": "179",
+    "chinese": "幸灾乐祸",
+    "pinyin": "xìng zāi lè huò",
+    "english": "to gloat over someone else's misfortune",
+    "literal": "Delight in disaster, take joy in calamity",
+    "narratorScript": "Idiom. 幸灾乐祸 — xìng zāi lè huò. To take pleasure in someone else's trouble — the German word is schadenfreude. 幸 and 乐 both mean to delight, 灾 and 祸 both mean disaster. Liu Mei accuses Donghai of exactly this while she's stuck feeding the mouse."
+  },
+  {
+    "id": "idiom-zitaokuchi",
+    "anchors": [
+      "122"
+    ],
+    "teachAfter": "122",
+    "chinese": "自讨苦吃",
+    "pinyin": "zì tǎo kǔ chī",
+    "english": "to bring trouble on yourself",
+    "literal": "To ask for bitterness and eat it",
+    "narratorScript": "Idiom. 自讨苦吃 — zì tǎo kǔ chī. Literally: you asked for the bitter food, now eat it. You brought this on yourself. Donghai uses it about Liu Mei hanging a mouse photo in her own bedroom to impress her stepdaughter."
+  },
+  {
+    "id": "idiom-yanbujian",
+    "anchors": [
+      "131"
+    ],
+    "teachAfter": "131",
+    "chinese": "眼不见，心不烦",
+    "pinyin": "yǎn bù jiàn, xīn bù fán",
+    "english": "Out of sight, out of mind",
+    "literal": "Eyes don't see it, heart isn't troubled",
+    "narratorScript": "A very common saying. 眼不见，心不烦 — yǎn bù jiàn, xīn bù fán. What the eyes don't see, the heart doesn't fret over. Out of sight, out of mind. He offers to turn off the light so she can't see the photo."
+  }
+]

@@ -1,0 +1,2735 @@
+[
+  {
+    "id": "ep-intro",
+    "type": "title",
+    "timestamp": "0:00",
+    "durationSec": 6,
+    "chinese": "猫鼠之争",
+    "pinyin": "Māo shǔ zhī zhēng",
+    "english": "Cat vs. Mouse",
+    "speaker": null,
+    "source": "00m02s_001_来 宝贝 喝点牛奶.jpg",
+    "narratorScript": "Welcome to Home With Kids — 家有儿女 — Episode 5: Cat vs. Mouse. 猫鼠之争. Press play and follow every line with Chinese subtitles, pinyin, and character voices."
+  },
+  {
+    "id": "001",
+    "type": "dialogue",
+    "timestamp": "0:02",
+    "durationSec": 4,
+    "chinese": "来，宝贝，喝点牛奶。",
+    "pinyin": "Lái, bǎobèi, hē diǎn niúnǎi.",
+    "english": "Come on, sweetie, drink some milk.",
+    "speaker": "夏雨",
+    "source": "00m02s_001_来 宝贝 喝点牛奶.jpg",
+    "notes": "来 softens commands; 宝贝 is affectionate"
+  },
+  {
+    "id": "002",
+    "type": "dialogue",
+    "timestamp": "0:06",
+    "durationSec": 5,
+    "chinese": "阿姨，你喜欢 F4 吗？",
+    "pinyin": "Āyí, nǐ xǐhuān F4 ma?",
+    "english": "Auntie, do you like F4?",
+    "speaker": "夏雪",
+    "source": "00m02s_001_来 宝贝 喝点牛奶.jpg",
+    "notes": "F4 = Taiwanese boy band from Meteor Garden"
+  },
+  {
+    "id": "003",
+    "type": "dialogue",
+    "timestamp": "0:08",
+    "durationSec": 4,
+    "chinese": "喜欢呢，真的。",
+    "pinyin": "Xǐhuān ne, zhēn de.",
+    "english": "I do like them, really.",
+    "speaker": "刘梅",
+    "source": "00m08s_003_喜欢呢 真的.jpg",
+    "notes": "呢 adds a casual, affirming tone"
+  },
+  {
+    "id": "004",
+    "type": "dialogue",
+    "timestamp": "0:10",
+    "durationSec": 5,
+    "chinese": "那您觉得 F4 帅吗？",
+    "pinyin": "Nà nín juéde F4 shuài ma?",
+    "english": "Do you think F4 are handsome?",
+    "speaker": "夏雪",
+    "source": "00m08s_003_喜欢呢 真的.jpg",
+    "notes": "您 = polite you; 帅 = handsome/cool"
+  },
+  {
+    "id": "005",
+    "type": "dialogue",
+    "timestamp": "0:14",
+    "durationSec": 8,
+    "chinese": "我觉得吧，他们比 F1、F2、F3 都帅。",
+    "pinyin": "Wǒ juéde ba, tāmen bǐ F1, F2, F3 dōu shuài.",
+    "english": "I think they're even handsomer than F1, F2, and F3.",
+    "speaker": "刘梅",
+    "source": "00m16s_006_我觉得他们的直忆2的都帅.jpg",
+    "grammar": "A 比 B 都 + Adj",
+    "notes": "The joke: Liu Mei treats F4 like a numbered series (F1–F4) and doesn't realize F4 is the band's name — comedy gold"
+  },
+  {
+    "id": "005-t-gr-bi-1",
+    "type": "grammar",
+    "timestamp": "0:14",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "00m16s_006_我觉得他们的直忆2的都帅.jpg",
+    "chinese": "A 比 B 都 + 形容词",
+    "pinyin": "A bǐ B dōu + adj",
+    "english": "A is even more [adj] than B",
+    "grammar": "A 比 B 都 + 形容词",
+    "ladder": {
+      "family": "比",
+      "step": 1,
+      "of": 3
+    },
+    "example": "他们比 F1、F2、F3 都帅。",
+    "examplePinyin": "Tāmen bǐ F1, F2, F3 dōu shuài.",
+    "exampleEnglish": "They're even better looking than F1, F2, and F3.",
+    "drill": "Say: This one is even prettier than that one. (用 比…都)",
+    "drillAnswer": "这个比那个都好看。",
+    "narratorScript": "Grammar, step one of three on 比. The pattern is A 比 B 都 plus an adjective. 比 marks the comparison; 都 pushes it further — even more than. And the joke: Liu Mei thinks F4 is a numbered series, so she rates them above F1, F2, and F3."
+  },
+  {
+    "id": "005-t-cul-f4",
+    "type": "culture",
+    "timestamp": "0:14",
+    "durationSec": 10,
+    "speaker": null,
+    "source": "00m16s_006_我觉得他们的直忆2的都帅.jpg",
+    "chinese": "F4",
+    "pinyin": "F4",
+    "english": "The boy band every 2004 teenager was obsessed with",
+    "cultureBody": "F4 were a Taiwanese boy band formed from the cast of the 2001 hit drama 流星花园 (Meteor Garden). By 2004 they were inescapable across Chinese-speaking Asia — the exact thing a teenage girl would idolise and a stepmother would pretend to know about. Liu Mei's mistake is treating F4 like a model number, so she rates them above 'F1, F2, F3'.",
+    "narratorScript": "Culture note. F4 were a Taiwanese boy band from the 2001 drama Meteor Garden, and by 2004 every teenager in Chinese-speaking Asia knew them. That's what makes Liu Mei's line funny — she treats F4 like a product number and says they're better looking than F1, F2, and F3. She's bluffing, and Xiaoxue can tell."
+  },
+  {
+    "id": "006",
+    "type": "dialogue",
+    "timestamp": "0:22",
+    "durationSec": 5,
+    "chinese": "那是什么乐队呀？",
+    "pinyin": "Nà shì shénme yuèduì ya?",
+    "english": "What band is that?",
+    "speaker": "夏雪",
+    "source": "00m22s_009_F1 F2 BS.jpg",
+    "notes": "呀 = casual question particle"
+  },
+  {
+    "id": "007",
+    "type": "dialogue",
+    "timestamp": "0:30",
+    "durationSec": 5,
+    "chinese": "那都是些老乐队。",
+    "pinyin": "Nà dōu shì xiē lǎo yuèduì.",
+    "english": "Those are all old bands.",
+    "speaker": "刘梅",
+    "source": "00m30s_012_那都是些老乐队.jpg",
+    "vocab": "乐队 yuèduì = band"
+  },
+  {
+    "id": "008",
+    "type": "dialogue",
+    "timestamp": "0:34",
+    "durationSec": 6,
+    "chinese": "阿姨，您对流行音乐的历史还真有研究。",
+    "pinyin": "Āyí, nín duì liúxíng yīnyuè de lìshǐ hái zhēn yǒu yánjiū.",
+    "english": "Auntie, you really know your pop music history!",
+    "speaker": "夏雪",
+    "source": "00m34s_013_阿姨 您对流行音乐的历史.jpg",
+    "notes": "有研究 = colloquial praise: you really know about this"
+  },
+  {
+    "id": "009",
+    "type": "dialogue",
+    "timestamp": "0:38",
+    "durationSec": 6,
+    "chinese": "那当然了，阿姨是老追星族。",
+    "pinyin": "Nà dāngrán le, āyí shì lǎo zhuīxīngzú.",
+    "english": "Of course! Auntie is an old-school fan.",
+    "speaker": "刘梅",
+    "source": "00m38s_015_邦当然六9 阿姨是老追垕族.jpg",
+    "vocab": "追星族 zhuīxīngzú = fan/groupie"
+  },
+  {
+    "id": "010",
+    "type": "dialogue",
+    "timestamp": "0:46",
+    "durationSec": 5,
+    "chinese": "阿姨，那您喜欢哪首歌呀？",
+    "pinyin": "Āyí, nà nín xǐhuān nǎ shǒu gē ya?",
+    "english": "Auntie, which song do you like?",
+    "speaker": "夏雪",
+    "source": "00m48s_018_你喜欢哪首歌呀.jpg",
+    "notes": "首 shǒu = measure word for songs"
+  },
+  {
+    "id": "011",
+    "type": "dialogue",
+    "timestamp": "0:48",
+    "durationSec": 5,
+    "chinese": "我喜欢那首《要定你》。",
+    "pinyin": "Wǒ xǐhuān nà shǒu «Yào Dìng Nǐ».",
+    "english": "I like that song \"Want You for Sure.\"",
+    "speaker": "夏雪",
+    "source": "00m48s_018_你喜欢哪首歌呀.jpg",
+    "notes": "F4 song reference; 《》 marks song titles"
+  },
+  {
+    "id": "012",
+    "type": "dialogue",
+    "timestamp": "0:52",
+    "durationSec": 4,
+    "chinese": "我也喜欢这首。",
+    "pinyin": "Wǒ yě xǐhuān zhè shǒu.",
+    "english": "I like this one too.",
+    "speaker": "刘梅",
+    "source": "00m50s_019_我喜软那萓要定你.jpg"
+  },
+  {
+    "id": "013",
+    "type": "dialogue",
+    "timestamp": "0:54",
+    "durationSec": 6,
+    "chinese": "你们俩还有点臭味相投啊。",
+    "pinyin": "Nǐmen liǎ hái yǒudiǎn chòuwèixiāngtóu a.",
+    "english": "You two really are birds of a feather!",
+    "speaker": "夏东海",
+    "source": "00m54s_021_你们俩还有点臭味相投啊.jpg",
+    "idiom": "臭味相投"
+  },
+  {
+    "id": "013-t-idiom-chouwei",
+    "type": "idiom",
+    "timestamp": "0:54",
+    "durationSec": 8,
+    "speaker": null,
+    "source": "00m54s_021_你们俩还有点臭味相投啊.jpg",
+    "chinese": "臭味相投",
+    "pinyin": "chòu wèi xiāng tóu",
+    "english": "Birds of a feather flock together",
+    "literal": "Same foul smell, same direction",
+    "idiom": "臭味相投",
+    "narratorScript": "Idiom break. 臭味相投 — chòu wèi xiāng tóu. Literally: the same bad smell, drawn together. It means people with the same quirky tastes stick together. Dad says it teasingly about Liu Mei and Xiaoxue bonding over F4 — it's an insult on paper, affectionate in practice."
+  },
+  {
+    "id": "014",
+    "type": "dialogue",
+    "timestamp": "0:56",
+    "durationSec": 3,
+    "chinese": "那当然了。",
+    "pinyin": "Nà dāngrán le.",
+    "english": "Of course!",
+    "speaker": "刘梅",
+    "source": "00m54s_021_你们俩还有点臭味相投啊.jpg"
+  },
+  {
+    "id": "015",
+    "type": "dialogue",
+    "timestamp": "0:58",
+    "durationSec": 7,
+    "chinese": "这叫不像一家人，不进一家门。",
+    "pinyin": "Zhè jiào bù xiàng yī jiā rén, bù jìn yī jiā mén.",
+    "english": "That's \"like attracts like\"!",
+    "speaker": "刘梅",
+    "source": "00m58s_023_这叫不像一家人不进一家门.jpg",
+    "idiom": "不是一家人，不进一家门",
+    "notes": "Liu Mei playfully twists the classic idiom (不像 vs 不是)"
+  },
+  {
+    "id": "015-t-idiom-yijiaren",
+    "type": "idiom",
+    "timestamp": "0:58",
+    "durationSec": 8,
+    "speaker": null,
+    "source": "00m58s_023_这叫不像一家人不进一家门.jpg",
+    "chinese": "不是一家人，不进一家门",
+    "pinyin": "bù shì yī jiā rén, bù jìn yī jiā mén",
+    "english": "Like attracts like — same kind ends up under one roof",
+    "literal": "If you're not one family, you don't walk through one door",
+    "idiom": "不是一家人，不进一家门",
+    "narratorScript": "Another set phrase. 不是一家人，不进一家门 — if you're not one family, you don't enter through one door. It means people of the same kind end up together. Liu Mei twists it: she says 不像 instead of 不是, which is the joke — and for a blended family, the line lands with real weight."
+  },
+  {
+    "id": "016",
+    "type": "dialogue",
+    "timestamp": "1:02",
+    "durationSec": 5,
+    "chinese": "阿姨，那您唱两句。",
+    "pinyin": "Āyí, nà nín chàng liǎng jù.",
+    "english": "Auntie, sing a couple lines for us!",
+    "speaker": "夏雪",
+    "source": "01m02s_024_匢姨 那您帽两句.jpg"
+  },
+  {
+    "id": "017",
+    "type": "dialogue",
+    "timestamp": "1:08",
+    "durationSec": 5,
+    "chinese": "那第一句词是什么来着？",
+    "pinyin": "Nà dì yī jù cí shì shénme láizhe?",
+    "english": "What were the first lyrics again?",
+    "speaker": "刘梅",
+    "source": "01m10s_025_那第亠 句词是什么来着.jpg",
+    "notes": "来着 = as I recall (casual past)"
+  },
+  {
+    "id": "018",
+    "type": "dialogue",
+    "timestamp": "1:10",
+    "durationSec": 7,
+    "chinese": "我是骚动，我是爱情的暴风。",
+    "pinyin": "Wǒ shì sāodòng, wǒ shì àiqíng de bàofēng.",
+    "english": "I am the commotion, I am the storm of love!",
+    "speaker": "刘梅",
+    "source": "01m10s_025_那第亠 句词是什么来着.jpg",
+    "notes": "Botched F4 lyrics — she's pretending to be a superfan"
+  },
+  {
+    "id": "019",
+    "type": "dialogue",
+    "timestamp": "1:20",
+    "durationSec": 6,
+    "chinese": "爱主攻，不喜欢被动。",
+    "pinyin": "Ài zhǔgōng, bù xǐhuān bèidòng.",
+    "english": "Love taking the lead, don't like being passive!",
+    "speaker": "刘梅",
+    "source": "01m22s_029_爱主攻不喜欢被动.jpg",
+    "notes": "Second botched lyric line — more comedy"
+  },
+  {
+    "id": "019-t-deck-music",
+    "type": "deck",
+    "timestamp": "1:20",
+    "durationSec": 12,
+    "speaker": null,
+    "source": "01m22s_029_爱主攻不喜欢被动.jpg",
+    "chinese": "追星 · 音乐",
+    "pinyin": "",
+    "english": "Pop music & fandom",
+    "deckTitle": "追星 · 音乐",
+    "deckTitleEn": "Pop music & fandom",
+    "deckTheme": "The F4 conversation that opens the episode",
+    "deckItems": [
+      {
+        "chinese": "乐队",
+        "pinyin": "yuèduì",
+        "english": "band (music group)",
+        "breakdown": [
+          "乐 yuè = music",
+          "队 duì = team"
+        ]
+      },
+      {
+        "chinese": "追星族",
+        "pinyin": "zhuīxīngzú",
+        "english": "fan, groupie — literally 'star-chasing tribe'",
+        "breakdown": [
+          "追 zhuī = chase",
+          "星 xīng = star",
+          "族 zú = tribe"
+        ],
+        "note": "刘梅 calls herself a 老追星族 — a fan since way back."
+      },
+      {
+        "chinese": "流行音乐",
+        "pinyin": "liúxíng yīnyuè",
+        "english": "pop music",
+        "breakdown": [
+          "流行 liúxíng = popular",
+          "音乐 yīnyuè = music"
+        ]
+      },
+      {
+        "chinese": "帅",
+        "pinyin": "shuài",
+        "english": "handsome, sharp-looking"
+      },
+      {
+        "chinese": "首",
+        "pinyin": "shǒu",
+        "english": "measure word for songs and poems"
+      }
+    ],
+    "narratorScript": "Vocabulary review — pop music and fandom, from the opening scene. 乐队, a band. 追星族, a star chaser, a fan. 流行音乐, pop music. 首, the measure word for songs. And 帅, handsome."
+  },
+  {
+    "id": "021",
+    "type": "dialogue",
+    "timestamp": "3:12",
+    "durationSec": 3,
+    "chinese": "排球 网球 乒乓球 还有铅球。",
+    "pinyin": "pái qiú   wǎng qiú   pīng pāng qiú   hái yǒu qiān qiú 。",
+    "english": "Volleyball, tennis, ping pong, and shot put.",
+    "speaker": "夏东海",
+    "source": "03m12s_054_排球 网球 乒兵球 还有铅球.jpg"
+  },
+  {
+    "id": "022",
+    "type": "dialogue",
+    "timestamp": "3:14",
+    "durationSec": 3,
+    "chinese": "你说你喜欢这么多干什么。",
+    "pinyin": "nǐ shuō nǐ xǐ huan zhè me duō gàn shén me 。",
+    "english": "Why list so many sports you like?",
+    "speaker": "夏东海",
+    "source": "03m14s_055_你说你喜欢这么多干什么.jpg"
+  },
+  {
+    "id": "023",
+    "type": "dialogue",
+    "timestamp": "3:16",
+    "durationSec": 3,
+    "chinese": "谁背得下来呀。",
+    "pinyin": "shuí bèi dé xià lái ya 。",
+    "english": "Who could memorize all that?",
+    "speaker": "夏东海",
+    "source": "03m16s_056_谁質得下来呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "024",
+    "type": "dialogue",
+    "timestamp": "3:18",
+    "durationSec": 3,
+    "chinese": "最喜欢的运动是篮球 排球。",
+    "pinyin": "zuì xǐ huan de yùn dòng shì lán qiú   pái qiú 。",
+    "english": "My favorite sports are basketball and volleyball.",
+    "speaker": "夏东海",
+    "source": "03m18s_057_最喜欢的运动是篮球 排球.jpg"
+  },
+  {
+    "id": "025",
+    "type": "dialogue",
+    "timestamp": "3:20",
+    "durationSec": 3,
+    "chinese": "晚上咱吃什么呀。",
+    "pinyin": "wǎn shàng zán chī shén me ya 。",
+    "english": "What are we eating tonight?",
+    "speaker": "夏东海",
+    "source": "03m20s_058_晚上咱吃什么呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "咱 = we, including you (northern)",
+        "standard": "我们 wǒmen"
+      },
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "026",
+    "type": "dialogue",
+    "timestamp": "3:22",
+    "durationSec": 3,
+    "chinese": "还有铅球。",
+    "pinyin": "hái yǒu qiān qiú 。",
+    "english": "And shot put.",
+    "speaker": "夏东海",
+    "source": "03m22s_059_还有铅球.jpg"
+  },
+  {
+    "id": "027",
+    "type": "dialogue",
+    "timestamp": "3:24",
+    "durationSec": 3,
+    "chinese": "篮球 排球 网球。",
+    "pinyin": "lán qiú   pái qiú   wǎng qiú 。",
+    "english": "Basketball, volleyball, tennis.",
+    "speaker": "夏东海",
+    "source": "03m24s_060_篮球 排球 网球.jpg"
+  },
+  {
+    "id": "028",
+    "type": "dialogue",
+    "timestamp": "3:26",
+    "durationSec": 3,
+    "chinese": "足球 乒乓球。",
+    "pinyin": "zú qiú   pīng pāng qiú 。",
+    "english": "Soccer, table tennis.",
+    "speaker": "夏东海",
+    "source": "03m26s_061_足球 乒乓球.jpg"
+  },
+  {
+    "id": "029",
+    "type": "dialogue",
+    "timestamp": "3:28",
+    "durationSec": 3,
+    "chinese": "这些铅球什么的能嚼得动啊。",
+    "pinyin": "zhè xiē qiān qiú shén me de néng jiáo dé dòng a 。",
+    "english": "How do you chew shot put and stuff?",
+    "speaker": "夏东海",
+    "source": "03m28s_062_这些铅球什么的能嚼得动啊.jpg"
+  },
+  {
+    "id": "029-t-deck-sports",
+    "type": "deck",
+    "timestamp": "3:28",
+    "durationSec": 12,
+    "speaker": null,
+    "source": "03m28s_062_这些铅球什么的能嚼得动啊.jpg",
+    "chinese": "球类运动",
+    "pinyin": "",
+    "english": "Ball sports",
+    "deckTitle": "球类运动",
+    "deckTitleEn": "Ball sports",
+    "deckTheme": "Donghai cramming the list of sports Xiaoxue likes",
+    "deckItems": [
+      {
+        "chinese": "篮球",
+        "pinyin": "lánqiú",
+        "english": "basketball"
+      },
+      {
+        "chinese": "排球",
+        "pinyin": "páiqiú",
+        "english": "volleyball"
+      },
+      {
+        "chinese": "网球",
+        "pinyin": "wǎngqiú",
+        "english": "tennis"
+      },
+      {
+        "chinese": "足球",
+        "pinyin": "zúqiú",
+        "english": "football / soccer"
+      },
+      {
+        "chinese": "乒乓球",
+        "pinyin": "pīngpāngqiú",
+        "english": "ping pong, table tennis"
+      },
+      {
+        "chinese": "铅球",
+        "pinyin": "qiānqiú",
+        "english": "shot put",
+        "note": "The punchline — Donghai asks how anyone could chew a shot put."
+      }
+    ],
+    "narratorScript": "Vocabulary review — ball sports. Notice the pattern: almost every one ends in 球, ball. 篮球 basketball, 排球 volleyball, 网球 tennis, 足球 football, 乒乓球 ping pong. And the odd one out — 铅球, the shot put, which is why the joke lands."
+  },
+  {
+    "id": "030",
+    "type": "dialogue",
+    "timestamp": "3:30",
+    "durationSec": 3,
+    "chinese": "别讨厌 我好不容易快背下来了。",
+    "pinyin": "bié tǎo yàn   wǒ hǎo bù róng yì kuài bèi xià lái le 。",
+    "english": "Don't hate, I almost memorized it.",
+    "speaker": "刘梅",
+    "source": "03m30s_063_别讨厌 我好不容易快背下来了.jpg"
+  },
+  {
+    "id": "030-t-idiom-haoburongyi",
+    "type": "idiom",
+    "timestamp": "3:30",
+    "durationSec": 8,
+    "speaker": null,
+    "source": "03m30s_063_别讨厌 我好不容易快背下来了.jpg",
+    "chinese": "好不容易",
+    "pinyin": "hǎo bù róng yì",
+    "english": "finally / with great difficulty",
+    "literal": "very not easy",
+    "trap": "It looks like 'not easy' — but 好不 here is an intensifier, so it means 'only after great effort'. It marks success, not failure.",
+    "idiom": "好不容易",
+    "narratorScript": "Careful with this one. 好不容易 — hǎo bù róng yì. It looks like it should mean 'not easy', but 好不 is an intensifier, and the phrase means 'finally, after great effort'. So 我好不容易快背下来了 means 'I've finally almost got it memorized' — she succeeded. Read it literally and you get the meaning backwards."
+  },
+  {
+    "id": "031",
+    "type": "dialogue",
+    "timestamp": "3:36",
+    "durationSec": 3,
+    "chinese": "这不是为了跟孩子拉近距离吗。",
+    "pinyin": "zhè bú shì wèi le gēn hái zi lā jìn jù lí ma 。",
+    "english": "Isn't this to bond with the kids?",
+    "speaker": "刘梅",
+    "source": "03m36s_065_这不是为了跟孩子拉近距爱吗.jpg"
+  },
+  {
+    "id": "032",
+    "type": "dialogue",
+    "timestamp": "3:40",
+    "durationSec": 3,
+    "chinese": "那她喜欢什么 你就爱好什么呀。",
+    "pinyin": "nà tā xǐ huan shén me   nǐ jiù ài hào shén me ya 。",
+    "english": "So whatever she likes, you like too.",
+    "speaker": "刘梅",
+    "source": "03m40s_066_那她喜欢什么 你就爱好什么呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "033",
+    "type": "dialogue",
+    "timestamp": "3:44",
+    "durationSec": 3,
+    "chinese": "你没发现最近小雪。",
+    "pinyin": "nǐ méi fā xiàn zuì jìn xiǎo xuě 。",
+    "english": "Haven't you noticed Xiaoxue lately?",
+    "speaker": "夏东海",
+    "source": "03m44s_067_你没发现最近小會.jpg"
+  },
+  {
+    "id": "034",
+    "type": "dialogue",
+    "timestamp": "3:50",
+    "durationSec": 3,
+    "chinese": "共同的爱好。",
+    "pinyin": "gòng tóng de ài hào 。",
+    "english": "Shared interests.",
+    "speaker": "夏东海",
+    "source": "03m50s_069_共同的爱好.jpg"
+  },
+  {
+    "id": "035",
+    "type": "dialogue",
+    "timestamp": "3:56",
+    "durationSec": 3,
+    "chinese": "我说 我觉得你也挺不容易的。",
+    "pinyin": "wǒ shuō   wǒ jué de nǐ yě tǐng bù róng yì de 。",
+    "english": "I mean, it's not easy for you either.",
+    "speaker": "夏东海",
+    "source": "03m56s_071_我说 我觉得你也挺不容易的.jpg"
+  },
+  {
+    "id": "036",
+    "type": "dialogue",
+    "timestamp": "4:00",
+    "durationSec": 3,
+    "chinese": "咱都已经四十了。",
+    "pinyin": "zán dōu yǐ jīng sì shí le 。",
+    "english": "We're already forty.",
+    "speaker": "夏东海",
+    "source": "04m00s_072_咱都已经F40.jpg",
+    "beijingTags": [
+      {
+        "badge": "咱 = we, including you (northern)",
+        "standard": "我们 wǒmen"
+      }
+    ]
+  },
+  {
+    "id": "037",
+    "type": "dialogue",
+    "timestamp": "4:04",
+    "durationSec": 3,
+    "chinese": "不过我可得给你打个预防针啊。",
+    "pinyin": "bú guò wǒ kě dé gěi nǐ dǎ gè yù fáng zhēn a 。",
+    "english": "But I gotta warn you first.",
+    "speaker": "刘梅",
+    "source": "04m04s_073_不过我可得给你打个预防针啊.jpg"
+  },
+  {
+    "id": "037-t-idiom-yufangzhen",
+    "type": "idiom",
+    "timestamp": "4:04",
+    "durationSec": 8,
+    "speaker": null,
+    "source": "04m04s_073_不过我可得给你打个预防针啊.jpg",
+    "chinese": "打个预防针",
+    "pinyin": "dǎ ge yùfángzhēn",
+    "english": "to give someone a heads-up, to pre-warn them",
+    "literal": "To give someone a vaccination shot",
+    "trap": "Nothing medical is happening. 打预防针 is figurative: you warn someone early so the bad news doesn't hit as hard.",
+    "idiom": "打个预防针",
+    "narratorScript": "Great colloquial phrase. 打个预防针 — dǎ ge yùfángzhēn. Literally, to give someone a vaccination. Figuratively, to warn someone in advance so bad news won't hit so hard. Donghai is pre-warning Liu Mei that kids' enthusiasms change fast — and he turns out to be right."
+  },
+  {
+    "id": "038",
+    "type": "dialogue",
+    "timestamp": "4:06",
+    "durationSec": 3,
+    "chinese": "这小孩的事可没准。",
+    "pinyin": "zhè xiǎo hái de shì kě méi zhǔn 。",
+    "english": "You never know with kids.",
+    "speaker": "夏东海",
+    "source": "04m06s_074_这小孩的事可没准.jpg"
+  },
+  {
+    "id": "039",
+    "type": "dialogue",
+    "timestamp": "4:12",
+    "durationSec": 3,
+    "chinese": "只要有改垫底。",
+    "pinyin": "zhǐ yào yǒu gǎi diàn dǐ 。",
+    "english": "As long as there's a fallback.",
+    "speaker": "夏东海",
+    "source": "04m12s_076_只要有改垫底.jpg"
+  },
+  {
+    "id": "040",
+    "type": "dialogue",
+    "timestamp": "4:18",
+    "durationSec": 3,
+    "chinese": "嗯 只要不是我害怕的东西。",
+    "pinyin": "ǹg   zhǐ yào bú shì wǒ hài pà de dōng xī 。",
+    "english": "Yeah, as long as it's not something I'm afraid of.",
+    "speaker": "刘梅",
+    "source": "04m18s_078_嗯 只要不是我害怕的东西.jpg"
+  },
+  {
+    "id": "041",
+    "type": "dialogue",
+    "timestamp": "4:22",
+    "durationSec": 3,
+    "chinese": "这是耗子吗。",
+    "pinyin": "zhè shì hào zǐ ma 。",
+    "english": "Is this a mouse?",
+    "speaker": "刘梅",
+    "source": "04m22s_079_这是耗子吗.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "042",
+    "type": "dialogue",
+    "timestamp": "4:26",
+    "durationSec": 3,
+    "chinese": "你知道我最怕耗子了。",
+    "pinyin": "nǐ zhī dào wǒ zuì pà hào zǐ le 。",
+    "english": "You know I'm terrified of mice.",
+    "speaker": "刘梅",
+    "source": "04m26s_081_你知道我最怕耗子了.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "042-t-bj-haozi",
+    "type": "beijing",
+    "timestamp": "4:26",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "04m26s_081_你知道我最怕耗子了.jpg",
+    "chinese": "耗子",
+    "pinyin": "hàozi",
+    "english": "mouse / rat — casual northern word",
+    "standard": "老鼠 lǎoshǔ",
+    "notes": "耗子 is what Beijing speakers actually say at home. 老鼠 is the neutral, written, or 'expert' word. Watch Liu Mei switch: she screams 耗子 when she is scared, then says 老鼠 the moment she pretends to be a mouse specialist.",
+    "narratorScript": "Beijing speech note. 耗子 — hàozi — is the everyday northern word for a mouse. The textbook word is 老鼠, lǎoshǔ. Listen for the switch: when Liu Mei is frightened she says 耗子, but when she is showing off her supposed expertise, she says 老鼠. Same animal, completely different register."
+  },
+  {
+    "id": "043",
+    "type": "dialogue",
+    "timestamp": "4:30",
+    "durationSec": 3,
+    "chinese": "阿姨我回来了。",
+    "pinyin": "ā yí wǒ huí lái le 。",
+    "english": "Auntie, I'm back.",
+    "speaker": "刘梅",
+    "source": "04m30s_083_阿姨我回来了.jpg"
+  },
+  {
+    "id": "044",
+    "type": "dialogue",
+    "timestamp": "4:32",
+    "durationSec": 3,
+    "chinese": "阿姨 我买了一个大片。",
+    "pinyin": "ā yí   wǒ mǎi le yí gè dà piàn 。",
+    "english": "Auntie, I bought a blockbuster.",
+    "speaker": "刘梅",
+    "source": "04m32s_084_阿姨 我买了一个大片.jpg"
+  },
+  {
+    "id": "045",
+    "type": "dialogue",
+    "timestamp": "4:34",
+    "durationSec": 3,
+    "chinese": "您一定会喜欢的。",
+    "pinyin": "nín yí dìng huì xǐ huan de 。",
+    "english": "You'll definitely like it.",
+    "speaker": "刘梅",
+    "source": "04m34s_085_您一定会喜欢的.jpg"
+  },
+  {
+    "id": "046",
+    "type": "dialogue",
+    "timestamp": "4:36",
+    "durationSec": 3,
+    "chinese": "肯定的 我就喜欢大片。",
+    "pinyin": "kěn dìng de   wǒ jiù xǐ huan dà piàn 。",
+    "english": "Definitely. I love blockbusters.",
+    "speaker": "刘梅",
+    "source": "04m36s_086_肯定的 我就喜欢大片.jpg"
+  },
+  {
+    "id": "046-t-cul-dapian",
+    "type": "culture",
+    "timestamp": "4:36",
+    "durationSec": 10,
+    "speaker": null,
+    "source": "04m36s_086_肯定的 我就喜欢大片.jpg",
+    "chinese": "大片",
+    "pinyin": "dàpiàn",
+    "english": "'Blockbuster' — and the 2004 VCD era",
+    "cultureBody": "大片 means a big-budget blockbuster. In 2004 a family watched one by buying a VCD or DVD and crowding onto the sofa — which is exactly why the mouse scene works: everyone is squeezed together in the dark in front of one screen, with nowhere to escape.",
+    "narratorScript": "Culture note. 大片 — dàpiàn — a blockbuster. In 2004 that meant buying a disc and crowding the whole family onto one sofa. That setup is the joke engine here: everyone squeezed together in the dark, and Liu Mei with no way to escape the mouse on screen."
+  },
+  {
+    "id": "047",
+    "type": "dialogue",
+    "timestamp": "4:38",
+    "durationSec": 3,
+    "chinese": "我发现咱俩的兴趣爱好多相投啊。",
+    "pinyin": "wǒ fā xiàn zán liǎ de xìng qù ài hào duō xiàng tóu a 。",
+    "english": "I see we have a lot in common.",
+    "speaker": "刘梅",
+    "source": "04m38s_087_我发现咱俩的兴趣爱好多相投啊.jpg",
+    "beijingTags": [
+      {
+        "badge": "咱 = we, including you (northern)",
+        "standard": "我们 wǒmen"
+      }
+    ]
+  },
+  {
+    "id": "047-t-bj-zan",
+    "type": "beijing",
+    "timestamp": "4:38",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "04m38s_087_我发现咱俩的兴趣爱好多相投啊.jpg",
+    "chinese": "咱 / 咱俩",
+    "pinyin": "zán / zán liǎ",
+    "english": "we — but always including the listener",
+    "standard": "我们 wǒmen",
+    "notes": "咱 is inclusive we: you are part of it. 我们 can exclude the person you are talking to. Northern speakers reach for 咱 and 咱俩 constantly — 咱俩 means 'the two of us'. Saying 咱 instead of 我们 is a small move that sounds instantly warmer.",
+    "narratorScript": "Beijing speech note. 咱 — zán — means we, and it always includes the person you are speaking to. 我们 might leave them out. So when Liu Mei says 咱俩的兴趣爱好多相投, zán liǎ — the two of us — she is pulling Xiaoxue onto her team. Northern speakers use 咱 far more than textbooks suggest."
+  },
+  {
+    "id": "048",
+    "type": "dialogue",
+    "timestamp": "4:54",
+    "durationSec": 3,
+    "chinese": "太好玩了 太可爱了。",
+    "pinyin": "tài hǎo wán le   tài kě ài le 。",
+    "english": "So much fun! So cute!",
+    "speaker": "夏雨",
+    "source": "04m54s_088_太好玩了 太可爱了.jpg"
+  },
+  {
+    "id": "050",
+    "type": "dialogue",
+    "timestamp": "5:04",
+    "durationSec": 3,
+    "chinese": "你说你怎么会那么喜欢耗子呀。",
+    "pinyin": "nǐ shuō nǐ zěn me huì nà me xǐ huan hào zǐ ya 。",
+    "english": "Why do you like mice so much?",
+    "speaker": "夏雨",
+    "source": "05m04s_091_你说你怎么会那么喜欢耗子呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      },
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "051",
+    "type": "dialogue",
+    "timestamp": "5:08",
+    "durationSec": 3,
+    "chinese": "F4都喜欢耗子吗。",
+    "pinyin": "F 4 dōu xǐ huan hào zǐ ma 。",
+    "english": "Does F4 all like mice?",
+    "speaker": "夏雨",
+    "source": "05m08s_092_F4都喜欢耗子吗.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "052",
+    "type": "dialogue",
+    "timestamp": "5:10",
+    "durationSec": 3,
+    "chinese": "不是 是我们语文老师呀。",
+    "pinyin": "bú shì   shì wǒ men yǔ wén lǎo shī ya 。",
+    "english": "No, it's our Chinese teacher.",
+    "speaker": "夏雪",
+    "source": "05m10s_093_不是 是我们语文老师呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "053",
+    "type": "dialogue",
+    "timestamp": "5:12",
+    "durationSec": 3,
+    "chinese": "要求我们描写一种小动物。",
+    "pinyin": "yāo qiú wǒ men miáo xiě yì zhǒng xiǎo dòng wù 。",
+    "english": "She asked us to describe a small animal.",
+    "speaker": "夏雪",
+    "source": "05m12s_094_要求我们描写一种小动物.jpg"
+  },
+  {
+    "id": "053-t-cul-zuowen",
+    "type": "culture",
+    "timestamp": "5:12",
+    "durationSec": 10,
+    "speaker": null,
+    "source": "05m12s_094_要求我们描写一种小动物.jpg",
+    "chinese": "语文作文",
+    "pinyin": "yǔwén zuòwén",
+    "english": "The Chinese-class composition, and 观察 culture",
+    "cultureBody": "语文 is Chinese language class. A classic primary-school assignment is 描写一种小动物 — describe a small animal — and teachers stress 仔细观察, careful first-hand observation. Xiaoxue is following the instruction to the letter, which is how a live mouse ends up in the living room.",
+    "narratorScript": "Culture note. 语文 is Chinese language class, and describing a small animal is a classic composition assignment. Teachers push 仔细观察 — observe carefully, first-hand. Xiaoxue is being an excellent student, which is precisely why there is now a live mouse in the living room."
+  },
+  {
+    "id": "054",
+    "type": "dialogue",
+    "timestamp": "5:14",
+    "durationSec": 3,
+    "chinese": "我想我们班同学。",
+    "pinyin": "wǒ xiǎng wǒ men bān tóng xué 。",
+    "english": "I bet our classmates...",
+    "speaker": "夏雪",
+    "source": "05m14s_095_我想我们班同学.jpg"
+  },
+  {
+    "id": "055",
+    "type": "dialogue",
+    "timestamp": "5:16",
+    "durationSec": 3,
+    "chinese": "肯定都描写什么猫呀狗呀的。",
+    "pinyin": "kěn dìng dū miáo xiě shén me māo ya gǒu ya de 。",
+    "english": "They must all be about cats and dogs.",
+    "speaker": "夏雪",
+    "source": "05m16s_096_肯定都描写什么貓呀狗呀的.jpg"
+  },
+  {
+    "id": "056",
+    "type": "dialogue",
+    "timestamp": "5:20",
+    "durationSec": 3,
+    "chinese": "我呢 就写小老鼠。",
+    "pinyin": "wǒ ne   jiù xiě xiǎo lǎo shǔ 。",
+    "english": "As for me, I'll draw a little mouse.",
+    "speaker": "夏雪",
+    "source": "05m20s_098_我呢 就写小老鼠.jpg"
+  },
+  {
+    "id": "057",
+    "type": "dialogue",
+    "timestamp": "5:38",
+    "durationSec": 3,
+    "chinese": "太好笑了 阿姨。",
+    "pinyin": "tài hǎo xiào le   ā yí 。",
+    "english": "That's hilarious, Auntie.",
+    "speaker": "夏雪",
+    "source": "05m38s_100_大好笑了 阿姨.jpg"
+  },
+  {
+    "id": "058",
+    "type": "dialogue",
+    "timestamp": "5:40",
+    "durationSec": 3,
+    "chinese": "您怎么了 你不喜欢小老鼠啊。",
+    "pinyin": "nín zěn me le   nǐ bù xǐ huan xiǎo lǎo shǔ a 。",
+    "english": "What's wrong? Don't you like little mice?",
+    "speaker": "夏雪",
+    "source": "05m40s_101_您怎么了 你不喜欢小老鼠啊.jpg"
+  },
+  {
+    "id": "059",
+    "type": "dialogue",
+    "timestamp": "5:46",
+    "durationSec": 3,
+    "chinese": "我 我害怕。",
+    "pinyin": "wǒ   wǒ hài pà 。",
+    "english": "I... I'm scared.",
+    "speaker": "刘梅",
+    "source": "05m46s_102_我'我害怕.jpg"
+  },
+  {
+    "id": "060",
+    "type": "dialogue",
+    "timestamp": "5:50",
+    "durationSec": 3,
+    "chinese": "不会吧 我还以为。",
+    "pinyin": "bú huì ba   wǒ hái yǐ wéi 。",
+    "english": "No way, I thought...",
+    "speaker": "刘梅",
+    "source": "05m50s_103_不会吧 我还以为.jpg"
+  },
+  {
+    "id": "061",
+    "type": "dialogue",
+    "timestamp": "5:56",
+    "durationSec": 3,
+    "chinese": "我是说 我害怕呀。",
+    "pinyin": "wǒ shì shuō   wǒ hài pà ya 。",
+    "english": "I mean, I'm scared.",
+    "speaker": "刘梅",
+    "source": "05m56s_105_我是说 我害怕呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "061-t-bj-softeners",
+    "type": "beijing",
+    "timestamp": "5:56",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "05m56s_105_我是说 我害怕呀.jpg",
+    "chinese": "呀 / 呢 / 啊",
+    "pinyin": "ya / ne / a",
+    "english": "final particles that carry attitude, not meaning",
+    "standard": "(no particle)",
+    "notes": "These particles change tone, not content. 呀 turns a flat statement into a complaint, plea, or whine. 呢 adds 'and what about…' or gentle insistence. 啊 softens a command into a nudge. Strip them out and the same line sounds cold and abrupt.",
+    "narratorScript": "Beijing speech note. Listen to the last sound of these lines. 我是说 我害怕呀 — that 呀 turns 'I'm scared' into a whine, almost a plea. Without it, the line is flat and cold. 呢 adds gentle insistence, 啊 softens an order into a nudge. These particles carry no dictionary meaning at all — they carry attitude."
+  },
+  {
+    "id": "062",
+    "type": "dialogue",
+    "timestamp": "5:58",
+    "durationSec": 3,
+    "chinese": "我坐这么远我还真有点看不清。",
+    "pinyin": "wǒ zuò zhè me yuǎn wǒ hái zhēn yǒu diǎn kàn bù qīng 。",
+    "english": "I'm sitting so far, I can't see clearly.",
+    "speaker": "刘梅",
+    "source": "05m58s_106_我坐这么远我还真有点看不清.jpg"
+  },
+  {
+    "id": "063",
+    "type": "dialogue",
+    "timestamp": "6:02",
+    "durationSec": 3,
+    "chinese": "要不然我干脆我不看了。",
+    "pinyin": "yào bù rán wǒ gān cuì wǒ bú kàn le 。",
+    "english": "Otherwise, I might as well not watch.",
+    "speaker": "刘梅",
+    "source": "06m02s_107_要不然我干脆我不看了.jpg"
+  },
+  {
+    "id": "064",
+    "type": "dialogue",
+    "timestamp": "6:04",
+    "durationSec": 3,
+    "chinese": "小雨 快起来 让阿姨坐中间。",
+    "pinyin": "xiǎo yǔ   kuài qǐ lái   ràng ā yí zuò zhōng jiān 。",
+    "english": "Xiaoyu, get up, let Auntie sit in the middle.",
+    "speaker": "刘梅",
+    "source": "06m04s_108_小雨 快起来 让阿姨坐中间.jpg"
+  },
+  {
+    "id": "065",
+    "type": "dialogue",
+    "timestamp": "6:06",
+    "durationSec": 3,
+    "chinese": "OK 没问题。",
+    "pinyin": "O K   méi wèn tí 。",
+    "english": "OK, no problem.",
+    "speaker": "夏雨",
+    "source": "06m06s_109_OK 没问题.jpg"
+  },
+  {
+    "id": "066",
+    "type": "dialogue",
+    "timestamp": "6:16",
+    "durationSec": 3,
+    "chinese": "你吓死我了你。",
+    "pinyin": "nǐ xià sǐ wǒ le nǐ 。",
+    "english": "You scared me to death!",
+    "speaker": "夏雨",
+    "source": "06m16s_111_你吓死我了你.jpg"
+  },
+  {
+    "id": "067",
+    "type": "dialogue",
+    "timestamp": "6:18",
+    "durationSec": 3,
+    "chinese": "怎么了。",
+    "pinyin": "zěn me le 。",
+    "english": "What's wrong?",
+    "speaker": "夏雨",
+    "source": "06m18s_112_怎么了.jpg"
+  },
+  {
+    "id": "068",
+    "type": "dialogue",
+    "timestamp": "6:20",
+    "durationSec": 3,
+    "chinese": "你那胳膊毛绒绒的特别像耗子。",
+    "pinyin": "nǐ nà gē bo máo róng róng de tè bié xiàng hào zǐ 。",
+    "english": "Your arm's all furry, looks just like a mouse.",
+    "speaker": "夏雨",
+    "source": "06m20s_113_你那胳膊毛绒绒的特别像耗子.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "069",
+    "type": "dialogue",
+    "timestamp": "6:24",
+    "durationSec": 3,
+    "chinese": "别胡说了 有这么粗的耗子腿呀。",
+    "pinyin": "bié hú shuō le   yǒu zhè me cū de hào zǐ tuǐ ya 。",
+    "english": "Don't be ridiculous, no mouse has legs that thick.",
+    "speaker": "夏雨",
+    "source": "06m24s_114_别胡说了 有这么粗的耗子腿呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      },
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "070",
+    "type": "dialogue",
+    "timestamp": "6:28",
+    "durationSec": 3,
+    "chinese": "过来 讨厌。",
+    "pinyin": "guò lái   tǎo yàn 。",
+    "english": "Come here, you pest.",
+    "speaker": "夏雨",
+    "source": "06m28s_115_过来 讨厌.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "071",
+    "type": "dialogue",
+    "timestamp": "6:32",
+    "durationSec": 3,
+    "chinese": "怕耗子的这毛病我算是落下了。",
+    "pinyin": "pà hào zǐ de zhè máo bìng wǒ suàn shì luò xià le 。",
+    "english": "I've picked up this fear of mice.",
+    "speaker": "刘梅",
+    "source": "06m32s_116_怕耗千的这毛病我算是溶下来了.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "072",
+    "type": "dialogue",
+    "timestamp": "6:40",
+    "durationSec": 3,
+    "chinese": "趁早我现在就跟小雪去说去得了。",
+    "pinyin": "chèn zǎo wǒ xiàn zài jiù gēn xiǎo xuě qù shuō qù dé le 。",
+    "english": "I might as well tell Xiao Xue right now.",
+    "speaker": "刘梅",
+    "source": "06m40s_118_趁早我现在就跟小雪去说去得了.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "073",
+    "type": "dialogue",
+    "timestamp": "6:46",
+    "durationSec": 3,
+    "chinese": "对耗子的感情比对我还深呢。",
+    "pinyin": "duì hào zǐ de gǎn qíng bǐ duì wǒ hái shēn ne 。",
+    "english": "You care more about the mouse than me.",
+    "speaker": "刘梅",
+    "source": "06m46s_120_”对耗子的感情比对我还深呢.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "073-t-gr-bi-2",
+    "type": "grammar",
+    "timestamp": "6:46",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "06m46s_120_”对耗子的感情比对我还深呢.jpg",
+    "chinese": "对 A 的感情比对 B 还深",
+    "pinyin": "duì A de gǎnqíng bǐ duì B hái shēn",
+    "english": "feels more strongly about A than about B",
+    "grammar": "对 A 的感情比对 B 还深",
+    "ladder": {
+      "family": "比",
+      "step": 2,
+      "of": 3
+    },
+    "example": "对耗子的感情比对我还深呢。",
+    "examplePinyin": "Duì hàozi de gǎnqíng bǐ duì wǒ hái shēn ne.",
+    "exampleEnglish": "She cares more about that mouse than about me.",
+    "drill": "Say: He likes dogs more than he likes me. (用 比…还)",
+    "drillAnswer": "他对狗的感情比对我还深。",
+    "narratorScript": "Step two on 比. Here 还 replaces 都 — 比…还 means 'even more than', with a note of complaint. 对…的感情 means 'feelings toward'. So: her feelings for the mouse run deeper than her feelings for me. Same comparison frame, wounded tone."
+  },
+  {
+    "id": "074",
+    "type": "dialogue",
+    "timestamp": "6:50",
+    "durationSec": 3,
+    "chinese": "你要告诉她我讨厌耗子。",
+    "pinyin": "nǐ yào gào sù tā wǒ tǎo yàn hào zǐ 。",
+    "english": "You have to tell her I hate mice.",
+    "speaker": "刘梅",
+    "source": "06m50s_121_你要告诉她我讨厌耗子.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "075",
+    "type": "dialogue",
+    "timestamp": "6:52",
+    "durationSec": 3,
+    "chinese": "我们娘俩之间建立起来的。",
+    "pinyin": "wǒ men niáng liǎ zhī jiān jiàn lì qǐ lái de 。",
+    "english": "Built between us mother and daughter.",
+    "speaker": "刘梅",
+    "source": "06m52s_122_我们娘俩之间建立起来的.jpg"
+  },
+  {
+    "id": "076",
+    "type": "dialogue",
+    "timestamp": "6:54",
+    "durationSec": 3,
+    "chinese": "那个感情桥梁。",
+    "pinyin": "nà ge gǎn qíng qiáo liáng 。",
+    "english": "That emotional bridge.",
+    "speaker": "刘梅",
+    "source": "06m54s_123_那个感情桥梁.jpg"
+  },
+  {
+    "id": "077",
+    "type": "dialogue",
+    "timestamp": "7:00",
+    "durationSec": 3,
+    "chinese": "那你打算怎么办呀。",
+    "pinyin": "nà nǐ dǎ suàn zěn me bàn ya 。",
+    "english": "So what are you gonna do?",
+    "speaker": "刘梅",
+    "source": "07m00s_125_那你打算怎么办呀.jpg"
+  },
+  {
+    "id": "078",
+    "type": "dialogue",
+    "timestamp": "7:02",
+    "durationSec": 3,
+    "chinese": "我不但不能让她知道我怕耗子。",
+    "pinyin": "wǒ bú dàn bù néng ràng tā zhī dào wǒ pà hào zǐ 。",
+    "english": "Not only can I not let her know I'm scared of mice.",
+    "speaker": "刘梅",
+    "source": "07m02s_126_我不但不能让她知道我怕耗子.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "078-t-gr-buzhi-erqie",
+    "type": "grammar",
+    "timestamp": "7:02",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "07m02s_126_我不但不能让她知道我怕耗子.jpg",
+    "chinese": "不但不…，反而…",
+    "pinyin": "bùdàn bù…, fǎn'ér…",
+    "english": "not only not… but on the contrary…",
+    "grammar": "不但不…，反而…",
+    "example": "我不但不能让她知道我怕耗子。",
+    "examplePinyin": "Wǒ bùdàn bù néng ràng tā zhīdào wǒ pà hàozi.",
+    "exampleEnglish": "Not only can I not let her know I'm scared of mice…",
+    "drill": "Say: Not only did he not get angry, he laughed. (用 不但不…反而)",
+    "drillAnswer": "他不但不生气，反而笑了。",
+    "narratorScript": "Grammar note. 不但不…反而… — not only did X not happen, the opposite happened instead. 反而 is the pivot word: 'on the contrary'. Liu Mei is planning the exact reverse of her instinct — hide the fear, and use the mouse to win the girl over."
+  },
+  {
+    "id": "079",
+    "type": "dialogue",
+    "timestamp": "7:06",
+    "durationSec": 3,
+    "chinese": "我们俩人都喜欢耗子的这个机会。",
+    "pinyin": "wǒ men liǎ rén dōu xǐ huan hào zǐ de zhè ge jī huì 。",
+    "english": "This chance for both of us to like mice.",
+    "speaker": "刘梅",
+    "source": "07m06s_128_我们俩人都喜欢耗子的这个机会.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "080",
+    "type": "dialogue",
+    "timestamp": "7:10",
+    "durationSec": 3,
+    "chinese": "让她由喜欢耗子到喜欢我。",
+    "pinyin": "ràng tā yóu xǐ huan hào zǐ dào xǐ huan wǒ 。",
+    "english": "Let her go from liking Haozi to liking me.",
+    "speaker": "刘梅",
+    "source": "07m10s_129_让她由喜欢耗子到喜欢我.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "080-t-deck-mouse",
+    "type": "deck",
+    "timestamp": "7:10",
+    "durationSec": 12,
+    "speaker": null,
+    "source": "07m10s_129_让她由喜欢耗子到喜欢我.jpg",
+    "chinese": "耗子 · 老鼠",
+    "pinyin": "",
+    "english": "Mice, pets & fear",
+    "deckTitle": "耗子 · 老鼠",
+    "deckTitleEn": "Mice, pets & fear",
+    "deckTheme": "The central conflict — Liu Mei versus the mouse",
+    "deckItems": [
+      {
+        "chinese": "耗子",
+        "pinyin": "hàozi",
+        "english": "mouse (Beijing colloquial)",
+        "note": "What people actually say at home in Beijing."
+      },
+      {
+        "chinese": "老鼠",
+        "pinyin": "lǎoshǔ",
+        "english": "mouse, rat (neutral / written)"
+      },
+      {
+        "chinese": "害怕",
+        "pinyin": "hàipà",
+        "english": "to be afraid"
+      },
+      {
+        "chinese": "公 / 母",
+        "pinyin": "gōng / mǔ",
+        "english": "male / female (for animals)"
+      },
+      {
+        "chinese": "喂养",
+        "pinyin": "wèiyǎng",
+        "english": "to feed, to raise (an animal)"
+      },
+      {
+        "chinese": "争宠",
+        "pinyin": "zhēngchǒng",
+        "english": "to compete for someone's favour",
+        "breakdown": [
+          "争 zhēng = compete",
+          "宠 chǒng = dote on"
+        ]
+      }
+    ],
+    "narratorScript": "Vocabulary review — the heart of this episode. 耗子 and 老鼠, both mouse: one casual, one neutral. 怕 to fear, 害怕 to be afraid. 公 male and 母 female for animals. 喂养 to raise or feed. And 争宠 — to compete for someone's affection."
+  },
+  {
+    "id": "082",
+    "type": "dialogue",
+    "timestamp": "7:18",
+    "durationSec": 3,
+    "chinese": "你是下定决心要跟耗子争宠啊。",
+    "pinyin": "nǐ shì xià dìng jué xīn yào gēn hào zǐ zhēng chǒng a 。",
+    "english": "So you've decided to compete with Haozi for her affection.",
+    "speaker": "刘梅",
+    "source": "07m18s_132_你是下定决心要跟耗子争宠啊.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "083",
+    "type": "dialogue",
+    "timestamp": "7:24",
+    "durationSec": 3,
+    "chinese": "自从她发现我们俩有共同的。",
+    "pinyin": "zì cóng tā fā xiàn wǒ men liǎ yǒu gòng tóng de 。",
+    "english": "Ever since she found out we have something in common.",
+    "speaker": "刘梅",
+    "source": "07m24s_134_自从她发现我们俩有共同的.jpg"
+  },
+  {
+    "id": "084",
+    "type": "dialogue",
+    "timestamp": "7:26",
+    "durationSec": 3,
+    "chinese": "爱好之后。",
+    "pinyin": "ài hào zhī hòu 。",
+    "english": "After sharing that hobby.",
+    "speaker": "刘梅",
+    "source": "07m26s_135_爱好之后.jpg"
+  },
+  {
+    "id": "085",
+    "type": "dialogue",
+    "timestamp": "7:28",
+    "durationSec": 3,
+    "chinese": "一家伙就从哎变成阿姨了。",
+    "pinyin": "yì jiā huo jiù cóng āi biàn chéng ā yí le 。",
+    "english": "She suddenly switched from calling me \"hey\" to \"auntie.\"",
+    "speaker": "刘梅",
+    "source": "07m28s_136_一家伙就从哎变成阿姨了.jpg"
+  },
+  {
+    "id": "085-t-cul-ayi",
+    "type": "culture",
+    "timestamp": "7:28",
+    "durationSec": 10,
+    "speaker": null,
+    "source": "07m28s_136_一家伙就从哎变成阿姨了.jpg",
+    "chinese": "阿姨",
+    "pinyin": "āyí",
+    "english": "Why she says 'auntie', not 'mum'",
+    "cultureBody": "阿姨 literally means auntie, and Chinese children use it for any adult woman who isn't their mother. Xiaoxue calling her stepmother 阿姨 is the quiet engine of the whole series — it marks polite distance. Donghai notices the shift in this episode: 一下子就从「哎」变成「阿姨」了 — she went from 'hey' to 'Auntie'. That's a promotion, not a demotion.",
+    "narratorScript": "Culture note. 阿姨 means auntie, and Chinese kids use it for any adult woman who isn't their mum. So when Xiaoxue calls her stepmother 阿姨 instead of 妈, that one word carries the entire show — it's polite, and it's distance. Watch how much Liu Mei works for a small upgrade in what the kids call her."
+  },
+  {
+    "id": "085-t-deck-family",
+    "type": "deck",
+    "timestamp": "7:28",
+    "durationSec": 12,
+    "speaker": null,
+    "source": "07m28s_136_一家伙就从哎变成阿姨了.jpg",
+    "chinese": "家人 · 称呼",
+    "pinyin": "",
+    "english": "Family & how you address people",
+    "deckTitle": "家人 · 称呼",
+    "deckTitleEn": "Family & how you address people",
+    "deckTheme": "阿姨, 娘俩, and the emotional core of a blended family",
+    "deckItems": [
+      {
+        "chinese": "阿姨",
+        "pinyin": "āyí",
+        "english": "auntie — also how a child addresses a non-parent adult woman",
+        "note": "Xiaoxue uses 阿姨, not 妈. That single word carries the whole show."
+      },
+      {
+        "chinese": "娘俩",
+        "pinyin": "niángliǎ",
+        "english": "mother and child (as a pair)"
+      },
+      {
+        "chinese": "感情",
+        "pinyin": "gǎnqíng",
+        "english": "feelings, emotional bond"
+      },
+      {
+        "chinese": "礼物",
+        "pinyin": "lǐwù",
+        "english": "gift, present"
+      },
+      {
+        "chinese": "桥梁",
+        "pinyin": "qiáoliáng",
+        "english": "bridge (often figurative)",
+        "note": "感情桥梁 — an emotional bridge between them."
+      }
+    ],
+    "narratorScript": "Vocabulary review — family and address terms. 阿姨, auntie, which is what Xiaoxue calls her stepmother instead of mum. 娘俩, mother and child as a pair. 感情, feelings or bond. And 礼物, a gift."
+  },
+  {
+    "id": "086",
+    "type": "dialogue",
+    "timestamp": "7:34",
+    "durationSec": 3,
+    "chinese": "就是不知道你能坚持多长时间。",
+    "pinyin": "jiù shì bù zhī dào nǐ néng jiān chí duō cháng shí jiān 。",
+    "english": "Just don't know how long you'll last.",
+    "speaker": "刘梅",
+    "source": "07m34s_137_就是不知道你能坚持多长时间.jpg"
+  },
+  {
+    "id": "087",
+    "type": "dialogue",
+    "timestamp": "7:38",
+    "durationSec": 3,
+    "chinese": "你不是说了吗。",
+    "pinyin": "nǐ bú shì shuō le ma 。",
+    "english": "Didn't you say it yourself?",
+    "speaker": "刘梅",
+    "source": "07m38s_138_你不是说了吗.jpg"
+  },
+  {
+    "id": "088",
+    "type": "dialogue",
+    "timestamp": "7:40",
+    "durationSec": 3,
+    "chinese": "小孩的兴趣一会就变。",
+    "pinyin": "xiǎo hái de xìng qù yí huì jiù biàn 。",
+    "english": "Kids' interests change in a flash.",
+    "speaker": "刘梅",
+    "source": "07m40s_139_小孩的兴趣一会就变.jpg"
+  },
+  {
+    "id": "089",
+    "type": "dialogue",
+    "timestamp": "7:42",
+    "durationSec": 3,
+    "chinese": "你看 前天她还喜欢F4呢。",
+    "pinyin": "nǐ kàn   qián tiān tā hái xǐ huan F 4 ne 。",
+    "english": "Look, the day before yesterday she still liked F4.",
+    "speaker": "刘梅",
+    "source": "07m42s_140_你看 前天她还喜欢F4呢.jpg"
+  },
+  {
+    "id": "090",
+    "type": "dialogue",
+    "timestamp": "7:46",
+    "durationSec": 3,
+    "chinese": "今天已经变小耗子了。",
+    "pinyin": "jīn tiān yǐ jīng biàn xiǎo hào zǐ le 。",
+    "english": "Today it's turned into a little mouse.",
+    "speaker": "夏雪",
+    "source": "07m46s_141_今天已经变小耗子T.jpg"
+  },
+  {
+    "id": "091",
+    "type": "dialogue",
+    "timestamp": "7:54",
+    "durationSec": 3,
+    "chinese": "这个肯定是你的照片。",
+    "pinyin": "zhè ge kěn dìng shì nǐ de zhào piàn 。",
+    "english": "This must be your photo.",
+    "speaker": "夏雪",
+    "source": "07m54s_144_这个肯定是你的照片.jpg"
+  },
+  {
+    "id": "092",
+    "type": "dialogue",
+    "timestamp": "7:58",
+    "durationSec": 3,
+    "chinese": "你爸爸的照片。",
+    "pinyin": "nǐ bà ba de zhào piàn 。",
+    "english": "Your dad's photo.",
+    "speaker": "夏雪",
+    "source": "07m58s_145_你爸爸的照片.jpg"
+  },
+  {
+    "id": "093",
+    "type": "dialogue",
+    "timestamp": "8:02",
+    "durationSec": 3,
+    "chinese": "F4的照片。",
+    "pinyin": "F 4 de zhào piàn 。",
+    "english": "F4's photo.",
+    "speaker": "夏雪",
+    "source": "08m02s_147_F4的照片.jpg"
+  },
+  {
+    "id": "094",
+    "type": "dialogue",
+    "timestamp": "8:08",
+    "durationSec": 3,
+    "chinese": "阿姨 您怎么了。",
+    "pinyin": "ā yí   nín zěn me le 。",
+    "english": "Auntie, what's wrong?",
+    "speaker": "夏雪",
+    "source": "08m08s_149_阿姨 您怎么了.jpg"
+  },
+  {
+    "id": "095",
+    "type": "dialogue",
+    "timestamp": "8:16",
+    "durationSec": 3,
+    "chinese": "你爸爸一猜就猜对了。",
+    "pinyin": "nǐ bà ba yì cāi jiù cāi duì le 。",
+    "english": "Your dad guessed right away.",
+    "speaker": "夏雪",
+    "source": "08m16s_150_你爸爸一猜就猜对了.jpg"
+  },
+  {
+    "id": "096",
+    "type": "dialogue",
+    "timestamp": "8:18",
+    "durationSec": 3,
+    "chinese": "我也是蒙的。",
+    "pinyin": "wǒ yě shì méng de 。",
+    "english": "I was just guessing too.",
+    "speaker": "夏雪",
+    "source": "08m18s_151_我也是蒙的.jpg"
+  },
+  {
+    "id": "097",
+    "type": "dialogue",
+    "timestamp": "8:20",
+    "durationSec": 3,
+    "chinese": "我们语文老师说了。",
+    "pinyin": "wǒ men yǔ wén lǎo shī shuō le 。",
+    "english": "Our Chinese teacher said...",
+    "speaker": "夏雪",
+    "source": "08m20s_152_我们语文老师说了.jpg"
+  },
+  {
+    "id": "098",
+    "type": "dialogue",
+    "timestamp": "8:22",
+    "durationSec": 3,
+    "chinese": "如果要想写好一种小动物啊。",
+    "pinyin": "rú guǒ yào xiǎng xiě hǎo yì zhǒng xiǎo dòng wù a 。",
+    "english": "If you want to write well about a small animal...",
+    "speaker": "夏雪",
+    "source": "08m22s_153_如果要想写好一种小动物啊.jpg"
+  },
+  {
+    "id": "099",
+    "type": "dialogue",
+    "timestamp": "8:24",
+    "durationSec": 3,
+    "chinese": "必须要仔细地观察。",
+    "pinyin": "bì xū yào zǐ xì dì guān chá 。",
+    "english": "You must observe carefully.",
+    "speaker": "夏雪",
+    "source": "08m24s_154_必须要仔细地观察.jpg"
+  },
+  {
+    "id": "100",
+    "type": "dialogue",
+    "timestamp": "8:26",
+    "durationSec": 3,
+    "chinese": "我呢 就准备把它贴在我的卧室里。",
+    "pinyin": "wǒ ne   jiù zhǔn bèi bǎ tā tiē zài wǒ de wò shì lǐ 。",
+    "english": "I'm planning to put it up in my bedroom.",
+    "speaker": "夏雪",
+    "source": "08m26s_155_我呢 就准备把它贴在我的卧室里.jpg"
+  },
+  {
+    "id": "101",
+    "type": "dialogue",
+    "timestamp": "8:30",
+    "durationSec": 3,
+    "chinese": "要天天的观察。",
+    "pinyin": "yào tiān tiān de guān chá 。",
+    "english": "Observe it every day.",
+    "speaker": "夏雪",
+    "source": "08m30s_156_要天天的观察.jpg"
+  },
+  {
+    "id": "101-t-deck-school",
+    "type": "deck",
+    "timestamp": "8:30",
+    "durationSec": 12,
+    "speaker": null,
+    "source": "08m30s_156_要天天的观察.jpg",
+    "chinese": "作文 · 观察",
+    "pinyin": "",
+    "english": "Homework & observation",
+    "deckTitle": "作文 · 观察",
+    "deckTitleEn": "Homework & observation",
+    "deckTheme": "The composition assignment that starts the whole mess",
+    "deckItems": [
+      {
+        "chinese": "作文",
+        "pinyin": "zuòwén",
+        "english": "composition, school essay"
+      },
+      {
+        "chinese": "描写",
+        "pinyin": "miáoxiě",
+        "english": "to describe (in writing)"
+      },
+      {
+        "chinese": "观察",
+        "pinyin": "guānchá",
+        "english": "to observe"
+      },
+      {
+        "chinese": "仔细",
+        "pinyin": "zǐxì",
+        "english": "careful, meticulous"
+      },
+      {
+        "chinese": "想象力",
+        "pinyin": "xiǎngxiànglì",
+        "english": "imagination"
+      }
+    ],
+    "narratorScript": "Vocabulary review — school and observation. 作文, a composition. 描写, to describe in writing. 观察, to observe. 仔细, careful or attentive. And 想象力, imagination."
+  },
+  {
+    "id": "102",
+    "type": "dialogue",
+    "timestamp": "8:36",
+    "durationSec": 3,
+    "chinese": "小雪 我觉得你实在没有必要。",
+    "pinyin": "xiǎo xuě   wǒ jué de nǐ shí zài méi yǒu bì yào 。",
+    "english": "Xiaoxue, I really don't think it's necessary.",
+    "speaker": "刘梅",
+    "source": "08m36s_158_小雪 我觉得你实在没有必要.jpg"
+  },
+  {
+    "id": "103",
+    "type": "dialogue",
+    "timestamp": "8:40",
+    "durationSec": 3,
+    "chinese": "因为它只不过是张照片。",
+    "pinyin": "yīn wèi tā zhī bú guò shì zhāng zhào piàn 。",
+    "english": "Because it's just a photo.",
+    "speaker": "刘梅",
+    "source": "08m40s_159_因为它只不过是张照片.jpg"
+  },
+  {
+    "id": "104",
+    "type": "dialogue",
+    "timestamp": "8:42",
+    "durationSec": 3,
+    "chinese": "你又不是不知道。",
+    "pinyin": "nǐ yòu bú shì bù zhī dào 。",
+    "english": "It's not like you don't know.",
+    "speaker": "刘梅",
+    "source": "08m42s_160_你又不是不知道.jpg"
+  },
+  {
+    "id": "105",
+    "type": "dialogue",
+    "timestamp": "8:44",
+    "durationSec": 3,
+    "chinese": "老鼠长什么样 是不是。",
+    "pinyin": "lǎo shǔ cháng shén me yàng   shì bu shì 。",
+    "english": "What a mouse looks like, right?",
+    "speaker": "刘梅",
+    "source": "08m44s_161_老鼠长什公样 是不是.jpg"
+  },
+  {
+    "id": "106",
+    "type": "dialogue",
+    "timestamp": "8:46",
+    "durationSec": 3,
+    "chinese": "你把它贴在墙上天天看照片。",
+    "pinyin": "nǐ bǎ tā tiē zài qiáng shàng tiān tiān kàn zhào piàn 。",
+    "english": "You stick it on the wall and stare at it every day.",
+    "speaker": "刘梅",
+    "source": "08m46s_162_你把它贴在墙上天天看照片.jpg"
+  },
+  {
+    "id": "107",
+    "type": "dialogue",
+    "timestamp": "8:48",
+    "durationSec": 3,
+    "chinese": "反而会禁锢了你的想象力呀。",
+    "pinyin": "fǎn ér huì jìn gù le nǐ de xiǎng xiàng lì ya 。",
+    "english": "It would only limit your imagination.",
+    "speaker": "刘梅",
+    "source": "08m48s_163_反而会禁锢了你的思想力呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "107-t-gr-fanerhui",
+    "type": "grammar",
+    "timestamp": "8:48",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "08m48s_163_反而会禁锢了你的思想力呀.jpg",
+    "chinese": "反而会 + 动词",
+    "pinyin": "fǎn'ér huì + verb",
+    "english": "would actually end up [verb]-ing — the opposite of intended",
+    "grammar": "反而会 + 动词",
+    "example": "反而会禁锢了你的想象力呀。",
+    "examplePinyin": "Fǎn'ér huì jìngù le nǐ de xiǎngxiànglì ya.",
+    "exampleEnglish": "It would actually end up limiting your imagination.",
+    "drill": "Say: Studying too much would actually hurt your health.",
+    "drillAnswer": "学得太多反而会影响你的健康。",
+    "narratorScript": "Grammar. 反而 — fǎn'ér — means 'on the contrary' or 'actually, the opposite'. You use it when a reasonable-sounding action backfires. Liu Mei argues that staring at a mouse photo every day would actually stunt the girl's imagination — a beautifully desperate argument."
+  },
+  {
+    "id": "108",
+    "type": "dialogue",
+    "timestamp": "8:50",
+    "durationSec": 3,
+    "chinese": "我觉得 实在没必要这样。",
+    "pinyin": "wǒ jué de   shí zài méi bì yào zhè yàng 。",
+    "english": "I don't think it's necessary.",
+    "speaker": "刘梅",
+    "source": "08m50s_164_我觉得 实在没必要这样.jpg"
+  },
+  {
+    "id": "109",
+    "type": "dialogue",
+    "timestamp": "8:52",
+    "durationSec": 3,
+    "chinese": "是不是啊 夏东海。",
+    "pinyin": "shì bu shì a   xià dōng hǎi 。",
+    "english": "Right, Xia Donghai?",
+    "speaker": "刘梅",
+    "source": "08m52s_165_是不是啊 夏东海.jpg"
+  },
+  {
+    "id": "110",
+    "type": "dialogue",
+    "timestamp": "8:54",
+    "durationSec": 3,
+    "chinese": "没必要贴在卧室里。",
+    "pinyin": "méi bì yào tiē zài wò shì lǐ 。",
+    "english": "No need to hang it in the bedroom.",
+    "speaker": "夏东海",
+    "source": "08m54s_166_没必要贴在卧室里.jpg"
+  },
+  {
+    "id": "111",
+    "type": "dialogue",
+    "timestamp": "8:56",
+    "durationSec": 3,
+    "chinese": "的确有些道理。",
+    "pinyin": "dí què yǒu xiē dào lǐ 。",
+    "english": "That makes sense.",
+    "speaker": "夏东海",
+    "source": "08m56s_167_的确有些道理.jpg"
+  },
+  {
+    "id": "112",
+    "type": "dialogue",
+    "timestamp": "9:02",
+    "durationSec": 3,
+    "chinese": "那我把它送给您吧。",
+    "pinyin": "nà wǒ bǎ tā sòng gěi nín ba 。",
+    "english": "Then I'll give it to you.",
+    "speaker": "夏东海",
+    "source": "09m02s_169_那我把官送给您吧.jpg"
+  },
+  {
+    "id": "113",
+    "type": "dialogue",
+    "timestamp": "9:04",
+    "durationSec": 3,
+    "chinese": "您就别客气了。",
+    "pinyin": "nín jiù bié kè qì le 。",
+    "english": "Don't be so polite.",
+    "speaker": "夏东海",
+    "source": "09m04s_170_您就别客气了.jpg"
+  },
+  {
+    "id": "114",
+    "type": "dialogue",
+    "timestamp": "9:06",
+    "durationSec": 3,
+    "chinese": "这可是我第一次送给您礼物。",
+    "pinyin": "zhè kě shì wǒ dì yī cì sòng gěi nín lǐ wù 。",
+    "english": "This is my first gift to you.",
+    "speaker": "夏雪",
+    "source": "09m06s_171_这可是我第一次送给您礼物.jpg"
+  },
+  {
+    "id": "115",
+    "type": "dialogue",
+    "timestamp": "9:08",
+    "durationSec": 3,
+    "chinese": "我不客气。",
+    "pinyin": "wǒ bú kè qì 。",
+    "english": "I won't be polite then.",
+    "speaker": "夏雪",
+    "source": "09m08s_172_我不客气.jpg"
+  },
+  {
+    "id": "116",
+    "type": "dialogue",
+    "timestamp": "9:10",
+    "durationSec": 3,
+    "chinese": "我哪能不收啊。",
+    "pinyin": "wǒ nǎ néng bù shōu a 。",
+    "english": "How could I not accept it?",
+    "speaker": "夏雪",
+    "source": "09m10s_173_我哪能不收啊.jpg"
+  },
+  {
+    "id": "117",
+    "type": "dialogue",
+    "timestamp": "9:12",
+    "durationSec": 3,
+    "chinese": "那我帮您挂起来吧。",
+    "pinyin": "nà wǒ bāng nín guà qǐ lái ba 。",
+    "english": "Then let me hang it up for you.",
+    "speaker": "夏雪",
+    "source": "09m12s_174_那我帮您挂起来吧.jpg"
+  },
+  {
+    "id": "118",
+    "type": "dialogue",
+    "timestamp": "9:20",
+    "durationSec": 3,
+    "chinese": "让您天天晚上都能看到它。",
+    "pinyin": "ràng nín tiān tiān wǎn shàng dōu néng kàn dào tā 。",
+    "english": "So you can see it every night.",
+    "speaker": "夏雪",
+    "source": "09m20s_176_让您天天晚上都能看到它.jpg"
+  },
+  {
+    "id": "119",
+    "type": "dialogue",
+    "timestamp": "9:22",
+    "durationSec": 3,
+    "chinese": "怎么样。",
+    "pinyin": "zěn me yàng 。",
+    "english": "How about that?",
+    "speaker": "夏雪",
+    "source": "09m22s_177_怎么样.jpg"
+  },
+  {
+    "id": "120",
+    "type": "dialogue",
+    "timestamp": "9:24",
+    "durationSec": 3,
+    "chinese": "那个地方选得真好。",
+    "pinyin": "nà ge dì fāng xuǎn dé zhēn hǎo 。",
+    "english": "You picked a great spot.",
+    "speaker": "夏雪",
+    "source": "09m24s_178_那个地方选得真好.jpg"
+  },
+  {
+    "id": "121",
+    "type": "dialogue",
+    "timestamp": "9:40",
+    "durationSec": 3,
+    "chinese": "你吓死我了你。",
+    "pinyin": "nǐ xià sǐ wǒ le nǐ 。",
+    "english": "You scared me to death!",
+    "speaker": "夏雨",
+    "source": "09m40s_180_你吓死我了你.jpg"
+  },
+  {
+    "id": "122",
+    "type": "dialogue",
+    "timestamp": "9:42",
+    "durationSec": 3,
+    "chinese": "你这不是典型自讨苦吃吗。",
+    "pinyin": "nǐ zhè bú shì diǎn xíng zì tǎo kǔ chī ma 。",
+    "english": "Aren't you just asking for trouble?",
+    "speaker": "夏雨",
+    "source": "09m42s_181_你这不是典型自讨苦吃吗.jpg"
+  },
+  {
+    "id": "122-t-idiom-zitaokuchi",
+    "type": "idiom",
+    "timestamp": "9:42",
+    "durationSec": 8,
+    "speaker": null,
+    "source": "09m42s_181_你这不是典型自讨苦吃吗.jpg",
+    "chinese": "自讨苦吃",
+    "pinyin": "zì tǎo kǔ chī",
+    "english": "to bring trouble on yourself",
+    "literal": "To ask for bitterness and eat it",
+    "idiom": "自讨苦吃",
+    "narratorScript": "Idiom. 自讨苦吃 — zì tǎo kǔ chī. Literally: you asked for the bitter food, now eat it. You brought this on yourself. Donghai uses it about Liu Mei hanging a mouse photo in her own bedroom to impress her stepdaughter."
+  },
+  {
+    "id": "124",
+    "type": "dialogue",
+    "timestamp": "9:46",
+    "durationSec": 3,
+    "chinese": "你去去换边 换边 你上那边去。",
+    "pinyin": "nǐ qù qù huàn biān   huàn biān   nǐ shàng nà biān qù 。",
+    "english": "Go, switch sides—up there.",
+    "speaker": "夏雨",
+    "source": "09m46s_183_你去去换边 换边 你上那边去.jpg"
+  },
+  {
+    "id": "126",
+    "type": "dialogue",
+    "timestamp": "9:50",
+    "durationSec": 3,
+    "chinese": "行行行 我去给你摘下来得了。",
+    "pinyin": "xíng xíng xíng   wǒ qù gěi nǐ zhāi xià lái de le 。",
+    "english": "Fine, I'll take it down for you.",
+    "speaker": "夏雨",
+    "source": "09m50s_185_行行行 我去给你摘下来得了.jpg"
+  },
+  {
+    "id": "127",
+    "type": "dialogue",
+    "timestamp": "9:52",
+    "durationSec": 3,
+    "chinese": "人孩子头一回送给我礼物。",
+    "pinyin": "rén hái zi tóu yì huí sòng gěi wǒ lǐ wù 。",
+    "english": "It's the kid's first time giving me a gift.",
+    "speaker": "夏雨",
+    "source": "09m52s_186_人孩子头一回送给我礼物.jpg"
+  },
+  {
+    "id": "128",
+    "type": "dialogue",
+    "timestamp": "9:54",
+    "durationSec": 3,
+    "chinese": "她送你一炸弹你也抱着。",
+    "pinyin": "tā sòng nǐ yí zhà dàn nǐ yě bào zhe 。",
+    "english": "She gives you a bomb and you're still hugging it.",
+    "speaker": "夏雨",
+    "source": "09m54s_187_她送你一炸弹你也抱着.jpg"
+  },
+  {
+    "id": "129",
+    "type": "dialogue",
+    "timestamp": "9:58",
+    "durationSec": 3,
+    "chinese": "那可不呢 那怎么办哪。",
+    "pinyin": "nà kě bù ne   nà zěn me bàn nǎ 。",
+    "english": "Exactly, what do we do then?",
+    "speaker": "夏雨",
+    "source": "09m58s_188_那可不呢 那怎么办哪.jpg",
+    "beijingTags": [
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "130",
+    "type": "dialogue",
+    "timestamp": "10:04",
+    "durationSec": 3,
+    "chinese": "得得得 我把灯给你关了。",
+    "pinyin": "dé dé dé   wǒ bǎ dēng gěi nǐ guān le 。",
+    "english": "Alright, I'll turn the light off for you.",
+    "speaker": "夏雨",
+    "source": "10m04s_190_得得得 我把灯给你关了.jpg"
+  },
+  {
+    "id": "131",
+    "type": "dialogue",
+    "timestamp": "10:06",
+    "durationSec": 3,
+    "chinese": "眼不见 心不烦。",
+    "pinyin": "yǎn bú jiàn   xīn bù fán 。",
+    "english": "Out of sight, out of mind.",
+    "speaker": "夏雨",
+    "source": "10m06s_191_眼不见 心不烦.jpg"
+  },
+  {
+    "id": "131-t-idiom-yanbujian",
+    "type": "idiom",
+    "timestamp": "10:06",
+    "durationSec": 8,
+    "speaker": null,
+    "source": "10m06s_191_眼不见 心不烦.jpg",
+    "chinese": "眼不见，心不烦",
+    "pinyin": "yǎn bù jiàn, xīn bù fán",
+    "english": "Out of sight, out of mind",
+    "literal": "Eyes don't see it, heart isn't troubled",
+    "idiom": "眼不见，心不烦",
+    "narratorScript": "A very common saying. 眼不见，心不烦 — yǎn bù jiàn, xīn bù fán. What the eyes don't see, the heart doesn't fret over. Out of sight, out of mind. He offers to turn off the light so she can't see the photo."
+  },
+  {
+    "id": "133",
+    "type": "dialogue",
+    "timestamp": "10:10",
+    "durationSec": 3,
+    "chinese": "真的别关 我害怕你关了灯。",
+    "pinyin": "zhēn de bié guān   wǒ hài pà nǐ guān le dēng 。",
+    "english": "Seriously, don't turn it off. I'm scared you'll turn off the light.",
+    "speaker": "刘梅",
+    "source": "10m10s_193_真的别关 我害怕你关了灯.jpg"
+  },
+  {
+    "id": "134",
+    "type": "dialogue",
+    "timestamp": "10:12",
+    "durationSec": 3,
+    "chinese": "你至于吗。",
+    "pinyin": "nǐ zhì yú ma 。",
+    "english": "Do you have to?",
+    "speaker": "刘梅",
+    "source": "10m12s_194_你至于吗.jpg"
+  },
+  {
+    "id": "134-t-gr-zhiyu",
+    "type": "grammar",
+    "timestamp": "10:12",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "10m12s_194_你至于吗.jpg",
+    "chinese": "你至于吗 / 至于…吗",
+    "pinyin": "nǐ zhìyú ma",
+    "english": "Is it really that serious? / Aren't you overreacting?",
+    "grammar": "你至于吗 / 至于…吗",
+    "example": "你至于吗。",
+    "examplePinyin": "Nǐ zhìyú ma.",
+    "exampleEnglish": "Are you serious? Isn't that a bit much?",
+    "drill": "Say: It's just a photo — aren't you overreacting?",
+    "drillAnswer": "就是一张照片，你至于吗？",
+    "narratorScript": "Very useful spoken pattern. 至于吗 — zhìyú ma. It means 'is it really worth that much fuss?' You use it when someone overreacts. 你至于吗 is dismissive and extremely common in real conversation, and you will almost never see it in a textbook dialogue."
+  },
+  {
+    "id": "135",
+    "type": "dialogue",
+    "timestamp": "10:14",
+    "durationSec": 3,
+    "chinese": "你还想活的 它要是活的。",
+    "pinyin": "nǐ hái xiǎng huó de   tā yào shi huó de 。",
+    "english": "You still want to live? What if it's alive?",
+    "speaker": "刘梅",
+    "source": "10m14s_195_你还想活的 它要是活的.jpg"
+  },
+  {
+    "id": "136",
+    "type": "dialogue",
+    "timestamp": "10:18",
+    "durationSec": 3,
+    "chinese": "我可就死定了。",
+    "pinyin": "wǒ kě jiù sǐ dìng le 。",
+    "english": "Then I'm done for.",
+    "speaker": "刘梅",
+    "source": "10m18s_196_我可就死定了.jpg"
+  },
+  {
+    "id": "137",
+    "type": "dialogue",
+    "timestamp": "10:26",
+    "durationSec": 3,
+    "chinese": "不是不观察了照。",
+    "pinyin": "bú shì bù guān chá le zhào 。",
+    "english": "Not observing? Let's check it.",
+    "speaker": "刘梅",
+    "source": "10m26s_197_不是不观察了照.jpg"
+  },
+  {
+    "id": "138",
+    "type": "dialogue",
+    "timestamp": "10:28",
+    "durationSec": 3,
+    "chinese": "怎么又弄一活的来。",
+    "pinyin": "zěn me yòu nòng yì huó de lái 。",
+    "english": "Why bring another live one?",
+    "speaker": "刘梅",
+    "source": "10m28s_198_怎么又改弄一活的来.jpg"
+  },
+  {
+    "id": "139",
+    "type": "dialogue",
+    "timestamp": "10:30",
+    "durationSec": 3,
+    "chinese": "是呀 多亏您的指点。",
+    "pinyin": "shì ya   duō kuī nín de zhǐ diǎn 。",
+    "english": "Yeah, thanks to your advice.",
+    "speaker": "刘梅",
+    "source": "10m30s_199_是呀 多亏您的指点.jpg"
+  },
+  {
+    "id": "139-t-deck-colloquial",
+    "type": "deck",
+    "timestamp": "10:30",
+    "durationSec": 12,
+    "speaker": null,
+    "source": "10m30s_199_是呀 多亏您的指点.jpg",
+    "chinese": "口语 · 地道说法",
+    "pinyin": "",
+    "english": "Colloquial expressions",
+    "deckTitle": "口语 · 地道说法",
+    "deckTitleEn": "Colloquial expressions",
+    "deckTheme": "The everyday phrases that make this dialogue sound real",
+    "deckItems": [
+      {
+        "chinese": "一家伙",
+        "pinyin": "yī jiāhuo",
+        "english": "all at once, just like that (northern colloquial)",
+        "note": "一下子就从「哎」变成「阿姨」了 — she went from 'hey' to 'Auntie' overnight."
+      },
+      {
+        "chinese": "趁早",
+        "pinyin": "chènzǎo",
+        "english": "better do it now, while there's still time"
+      },
+      {
+        "chinese": "干脆",
+        "pinyin": "gāncuì",
+        "english": "might as well just… / simply"
+      },
+      {
+        "chinese": "多亏",
+        "pinyin": "duōkuī",
+        "english": "thanks to, fortunately because of",
+        "note": "多亏您的指点 — thanks to your guidance. Said with total sincerity, which is what makes it funny."
+      },
+      {
+        "chinese": "拉近距离",
+        "pinyin": "lājìn jùlí",
+        "english": "to close the distance, get closer to someone"
+      },
+      {
+        "chinese": "吓死我了",
+        "pinyin": "xià sǐ wǒ le",
+        "english": "You scared me to death!"
+      }
+    ],
+    "narratorScript": "Vocabulary review — colloquial expressions. These are the phrases that make the dialogue sound like real speech. 一家伙, all at once. 趁早, better do it now. 干脆, might as well just. 多亏, thanks to. And 争宠, competing for affection."
+  },
+  {
+    "id": "140",
+    "type": "dialogue",
+    "timestamp": "10:32",
+    "durationSec": 3,
+    "chinese": "我不再观察图片和电影了。",
+    "pinyin": "wǒ bú zài guān chá tú piàn hé diàn yǐng le 。",
+    "english": "I no longer observe pictures and movies.",
+    "speaker": "刘梅",
+    "source": "10m32s_200_我不再观察图片和电影了.jpg"
+  },
+  {
+    "id": "141",
+    "type": "dialogue",
+    "timestamp": "10:34",
+    "durationSec": 3,
+    "chinese": "我现在呢 就观察真正的小老鼠。",
+    "pinyin": "wǒ xiàn zài ne   jiù guān chá zhēn zhèng de xiǎo lǎo shǔ 。",
+    "english": "Now I'm observing real little mice.",
+    "speaker": "夏雪",
+    "source": "10m34s_201_我现在呢 就观察真正的小老鼠.jpg"
+  },
+  {
+    "id": "142",
+    "type": "dialogue",
+    "timestamp": "10:38",
+    "durationSec": 3,
+    "chinese": "这样写出的作文。",
+    "pinyin": "zhè yàng xiě chū de zuò wén 。",
+    "english": "Essays written this way.",
+    "speaker": "夏雪",
+    "source": "10m38s_202_这样写出的作文.jpg"
+  },
+  {
+    "id": "143",
+    "type": "dialogue",
+    "timestamp": "10:42",
+    "durationSec": 3,
+    "chinese": "阿姨 你来逗逗它。",
+    "pinyin": "ā yí   nǐ lái dòu dòu tā 。",
+    "english": "Auntie, come tease it.",
+    "speaker": "夏雪",
+    "source": "10m42s_203_阿姨 你来逗逗它.jpg"
+  },
+  {
+    "id": "144",
+    "type": "dialogue",
+    "timestamp": "10:48",
+    "durationSec": 3,
+    "chinese": "阿姨 你不喜欢小老鼠啊。",
+    "pinyin": "ā yí   nǐ bù xǐ huan xiǎo lǎo shǔ a 。",
+    "english": "Auntie, you don't like little mice, huh?",
+    "speaker": "夏雪",
+    "source": "10m48s_205_阿姨 你不喜欢小老鼠啊.jpg"
+  },
+  {
+    "id": "145",
+    "type": "dialogue",
+    "timestamp": "10:54",
+    "durationSec": 3,
+    "chinese": "阿姨喜欢公老鼠 这只是母的。",
+    "pinyin": "ā yí xǐ huan gōng lǎo shǔ   zhè zhǐ shì mǔ de 。",
+    "english": "Auntie likes male mice. This one's just female.",
+    "speaker": "刘梅",
+    "source": "10m54s_206_阿姨喜欢公老鼠 这只是母的.jpg"
+  },
+  {
+    "id": "147",
+    "type": "dialogue",
+    "timestamp": "11:02",
+    "durationSec": 3,
+    "chinese": "那个公老鼠啊一般都块头比较大。",
+    "pinyin": "nà ge gōng lǎo shǔ a yì bān dōu kuài tóu bǐ jiào dà 。",
+    "english": "Male mice are generally bigger.",
+    "speaker": "刘梅",
+    "source": "11m02s_208_那个公老鼠啊一f 股都块比较大.jpg"
+  },
+  {
+    "id": "148",
+    "type": "dialogue",
+    "timestamp": "11:04",
+    "durationSec": 3,
+    "chinese": "母老鼠都长得比较瘦小。",
+    "pinyin": "mǔ lǎo shǔ dōu cháng dé bǐ jiào shòu xiǎo 。",
+    "english": "Female mice are all relatively small and thin.",
+    "speaker": "刘梅",
+    "source": "11m04s_209_母老鼠都长得比较瘦小.jpg"
+  },
+  {
+    "id": "148-t-gr-bi-3",
+    "type": "grammar",
+    "timestamp": "11:04",
+    "durationSec": 9,
+    "speaker": null,
+    "source": "11m04s_209_母老鼠都长得比较瘦小.jpg",
+    "chinese": "比较 + 形容词",
+    "pinyin": "bǐjiào + adj",
+    "english": "relatively / fairly [adj] — no second item compared",
+    "grammar": "比较 + 形容词",
+    "ladder": {
+      "family": "比",
+      "step": 3,
+      "of": 3
+    },
+    "example": "公老鼠一般都块头比较大。",
+    "examplePinyin": "Gōng lǎoshǔ yìbān dōu kuàitou bǐjiào dà.",
+    "exampleEnglish": "Male mice are generally on the larger side.",
+    "drill": "Say: This room is fairly small. (用 比较)",
+    "drillAnswer": "这个房间比较小。",
+    "narratorScript": "Step three, and the trap. 比较 looks like 比 but does something different — it means 'relatively' or 'fairly', and there is no second thing being compared. 块头比较大 just means 'on the big side'. So: 比 compares two things, 比较 softens one adjective. Don't mix them up."
+  },
+  {
+    "id": "149",
+    "type": "dialogue",
+    "timestamp": "11:06",
+    "durationSec": 3,
+    "chinese": "就是有一定的差别。",
+    "pinyin": "jiù shì yǒu yí dìng de chā bié 。",
+    "english": "There are some differences.",
+    "speaker": "刘梅",
+    "source": "11m06s_210_就是有一定的差别.jpg"
+  },
+  {
+    "id": "150",
+    "type": "dialogue",
+    "timestamp": "11:08",
+    "durationSec": 3,
+    "chinese": "阿姨 你懂得够多的呀。",
+    "pinyin": "ā yí   nǐ dǒng de gòu duō de ya 。",
+    "english": "Auntie, you know quite a lot!",
+    "speaker": "夏雪",
+    "source": "11m08s_211_阿姨 你懂得够多的呀.jpg"
+  },
+  {
+    "id": "152",
+    "type": "dialogue",
+    "timestamp": "11:12",
+    "durationSec": 3,
+    "chinese": "好 没问题。",
+    "pinyin": "hǎo   méi wèn tí 。",
+    "english": "Okay, no problem.",
+    "speaker": "夏雪",
+    "source": "11m12s_213_好没问题.jpg"
+  },
+  {
+    "id": "153",
+    "type": "dialogue",
+    "timestamp": "11:14",
+    "durationSec": 3,
+    "chinese": "我对老鼠的研究啊 那相当透彻。",
+    "pinyin": "wǒ duì lǎo shǔ de yán jiū a   nà xiāng dāng tòu chè 。",
+    "english": "My research on rats is quite thorough.",
+    "speaker": "刘梅",
+    "source": "11m14s_214_我对老鼠的研究啊 那相当透彻.jpg"
+  },
+  {
+    "id": "154",
+    "type": "dialogue",
+    "timestamp": "11:20",
+    "durationSec": 3,
+    "chinese": "那当然了。",
+    "pinyin": "nà dāng rán le 。",
+    "english": "Of course.",
+    "speaker": "刘梅",
+    "source": "11m20s_215_那当然了.jpg"
+  },
+  {
+    "id": "155",
+    "type": "dialogue",
+    "timestamp": "11:22",
+    "durationSec": 3,
+    "chinese": "我了解老鼠的公母。",
+    "pinyin": "wǒ liǎo jiě lǎo shǔ de gōng mǔ 。",
+    "english": "I know male and female rats.",
+    "speaker": "刘梅",
+    "source": "11m22s_216_我了解老鼠的公母.jpg"
+  },
+  {
+    "id": "156",
+    "type": "dialogue",
+    "timestamp": "11:24",
+    "durationSec": 3,
+    "chinese": "了解老鼠的习性。",
+    "pinyin": "liǎo jiě lǎo shǔ de xí xìng 。",
+    "english": "Their habits.",
+    "speaker": "刘梅",
+    "source": "11m24s_217_了解老鼠的习性.jpg"
+  },
+  {
+    "id": "157",
+    "type": "dialogue",
+    "timestamp": "11:26",
+    "durationSec": 3,
+    "chinese": "老鼠的喂养。",
+    "pinyin": "lǎo shǔ de wèi yǎng 。",
+    "english": "And how to feed them.",
+    "speaker": "刘梅",
+    "source": "11m26s_218_老鼠的喂养.jpg"
+  },
+  {
+    "id": "159",
+    "type": "dialogue",
+    "timestamp": "11:30",
+    "durationSec": 3,
+    "chinese": "阿姨 您还懂老鼠的喂养呢。",
+    "pinyin": "ā yí   nín hái dǒng lǎo shǔ de wèi yǎng ne 。",
+    "english": "Auntie, you even know how to feed rats.",
+    "speaker": "夏雪",
+    "source": "11m30s_220_阿姨 您还懂老鼠的喂养呢.jpg"
+  },
+  {
+    "id": "160",
+    "type": "dialogue",
+    "timestamp": "11:38",
+    "durationSec": 3,
+    "chinese": "阿姨 你不会不答应吧。",
+    "pinyin": "ā yí   nǐ bú huì bù dā ying ba 。",
+    "english": "Auntie, you won't refuse, right?",
+    "speaker": "夏雪",
+    "source": "11m38s_222_阿姨 你不会不答应吧.jpg"
+  },
+  {
+    "id": "161",
+    "type": "dialogue",
+    "timestamp": "11:42",
+    "durationSec": 3,
+    "chinese": "除了我妈 我很少这样求别人的。",
+    "pinyin": "chú le wǒ mā   wǒ hěn shǎo zhè yàng qiú bié rén de 。",
+    "english": "I rarely beg others like this, except my mom.",
+    "speaker": "夏雪",
+    "source": "11m42s_223_除了我妈 我很少这样求别人的.jpg"
+  },
+  {
+    "id": "162",
+    "type": "dialogue",
+    "timestamp": "11:46",
+    "durationSec": 3,
+    "chinese": "我就非常非常喜欢小动物。",
+    "pinyin": "wǒ jiù fēi cháng fēi cháng xǐ huan xiǎo dòng wù 。",
+    "english": "I really, really like small animals.",
+    "speaker": "夏雪",
+    "source": "11m46s_224_我就非常非常喜欢小动物.jpg"
+  },
+  {
+    "id": "163",
+    "type": "dialogue",
+    "timestamp": "11:50",
+    "durationSec": 3,
+    "chinese": "但是我自己不会养啊。",
+    "pinyin": "dàn shì wǒ zì jǐ bú huì yǎng a 。",
+    "english": "But I can't raise them myself.",
+    "speaker": "夏雪",
+    "source": "11m50s_225_但是我自己不会养啊.jpg"
+  },
+  {
+    "id": "164",
+    "type": "dialogue",
+    "timestamp": "11:58",
+    "durationSec": 3,
+    "chinese": "对了 好像也养过小老鼠。",
+    "pinyin": "duì le   hǎo xiàng yě yǎng guò xiǎo lǎo shǔ 。",
+    "english": "Right, seems like we raised a little mouse too.",
+    "speaker": "夏雪",
+    "source": "11m58s_227_对了 好像也养过小老鼠-.jpg"
+  },
+  {
+    "id": "165",
+    "type": "dialogue",
+    "timestamp": "12:00",
+    "durationSec": 3,
+    "chinese": "对吧爸爸。",
+    "pinyin": "duì ba bà ba 。",
+    "english": "Right, Dad?",
+    "speaker": "夏雪",
+    "source": "12m00s_228_对吧爸爸.jpg"
+  },
+  {
+    "id": "166",
+    "type": "dialogue",
+    "timestamp": "12:02",
+    "durationSec": 3,
+    "chinese": "对 好像是 好像是。",
+    "pinyin": "duì   hǎo xiàng shì   hǎo xiàng shì 。",
+    "english": "Yeah, I think so.",
+    "speaker": "夏雪",
+    "source": "12m02s_229_对 好像是 好像是.jpg"
+  },
+  {
+    "id": "167",
+    "type": "dialogue",
+    "timestamp": "12:08",
+    "durationSec": 3,
+    "chinese": "我 我怎么能不答应呢。",
+    "pinyin": "wǒ   wǒ zěn me néng bù dā ying ne 。",
+    "english": "How could I not agree?",
+    "speaker": "刘梅",
+    "source": "12m08s_231_我 我怎么能不答应呢.jpg"
+  },
+  {
+    "id": "168",
+    "type": "dialogue",
+    "timestamp": "12:14",
+    "durationSec": 3,
+    "chinese": "阿姨 那这个给你了。",
+    "pinyin": "ā yí   nà zhè ge gěi nǐ le 。",
+    "english": "Auntie, here, this is for you.",
+    "speaker": "刘梅",
+    "source": "12m14s_232_河姨 那这个给你了.jpg"
+  },
+  {
+    "id": "169",
+    "type": "dialogue",
+    "timestamp": "12:22",
+    "durationSec": 3,
+    "chinese": "夏东海 你快帮我拿一下。",
+    "pinyin": "xià dōng hǎi   nǐ kuài bāng wǒ ná yí xià 。",
+    "english": "Xia Donghai, come help me hold this.",
+    "speaker": "刘梅",
+    "source": "12m22s_234_夏东海 你快帮我拿一下.jpg"
+  },
+  {
+    "id": "170",
+    "type": "dialogue",
+    "timestamp": "12:26",
+    "durationSec": 3,
+    "chinese": "你这胆量增大了啊。",
+    "pinyin": "nǐ zhè dǎn liàng zēng dà le a 。",
+    "english": "Your courage has grown, huh?",
+    "speaker": "夏东海",
+    "source": "12m26s_235_你这胆量增大了啊.jpg"
+  },
+  {
+    "id": "171",
+    "type": "dialogue",
+    "timestamp": "12:28",
+    "durationSec": 3,
+    "chinese": "你快帮我拿一下 我不敢睁眼了。",
+    "pinyin": "nǐ kuài bāng wǒ ná yí xià   wǒ bù gǎn zhēng yǎn le 。",
+    "english": "Hurry and help me hold it, I don't dare open my eyes.",
+    "speaker": "夏东海",
+    "source": "12m28s_236_你快帮我拿一下 我不敢睁眼了.jpg"
+  },
+  {
+    "id": "172",
+    "type": "dialogue",
+    "timestamp": "12:44",
+    "durationSec": 3,
+    "chinese": "吃呀 吃呀 吃呀。",
+    "pinyin": "chī ya   chī ya   chī ya 。",
+    "english": "Eat, eat, eat.",
+    "speaker": "夏东海",
+    "source": "12m44s_237_吃呀 吃呀 吃呀.jpg"
+  },
+  {
+    "id": "173",
+    "type": "dialogue",
+    "timestamp": "12:46",
+    "durationSec": 3,
+    "chinese": "夏东海 给你茶。",
+    "pinyin": "xià dōng hǎi   gěi nǐ chá 。",
+    "english": "Xia Donghai, here's your tea.",
+    "speaker": "刘梅",
+    "source": "12m46s_238_夏东海 给你茶.jpg"
+  },
+  {
+    "id": "174",
+    "type": "dialogue",
+    "timestamp": "12:50",
+    "durationSec": 3,
+    "chinese": "你过来拿。",
+    "pinyin": "nǐ guò lái ná 。",
+    "english": "Come get it.",
+    "speaker": "夏东海",
+    "source": "12m50s_239_你过来拿.jpg"
+  },
+  {
+    "id": "175",
+    "type": "dialogue",
+    "timestamp": "12:54",
+    "durationSec": 3,
+    "chinese": "看把你给吓的 至于吗。",
+    "pinyin": "kàn bǎ nǐ gěi xià de   zhì yú ma 。",
+    "english": "Look how scared you are, is it that bad?",
+    "speaker": "夏东海",
+    "source": "12m54s_240_看把你给吓的 室于吗.jpg"
+  },
+  {
+    "id": "176",
+    "type": "dialogue",
+    "timestamp": "12:56",
+    "durationSec": 3,
+    "chinese": "来来来 喂喂 多好玩。",
+    "pinyin": "lái lái lái   wèi wèi   duō hǎo wán 。",
+    "english": "Come on, feed it, feed it. So much fun!",
+    "speaker": "夏东海",
+    "source": "12m56s_241_来来来 喂喂 多好玩.jpg"
+  },
+  {
+    "id": "177",
+    "type": "dialogue",
+    "timestamp": "12:58",
+    "durationSec": 3,
+    "chinese": "耗子专家同志。",
+    "pinyin": "hào zǐ zhuān jiā tóng zhì 。",
+    "english": "Comrade rat expert.",
+    "speaker": "夏东海",
+    "source": "12m58s_242_耗子专家同志.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "178",
+    "type": "dialogue",
+    "timestamp": "13:00",
+    "durationSec": 3,
+    "chinese": "快喂喂你的小耗子。",
+    "pinyin": "kuài wèi wèi nǐ de xiǎo hào zǐ 。",
+    "english": "Quick, feed your little rat.",
+    "speaker": "夏东海",
+    "source": "13m00s_243_快喂喂你的小耗子.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "179",
+    "type": "dialogue",
+    "timestamp": "13:02",
+    "durationSec": 3,
+    "chinese": "你幸灾乐祸是不是。",
+    "pinyin": "nǐ xìng zāi lè huò shì bu shì 。",
+    "english": "You're gloating, aren't you?",
+    "speaker": "夏东海",
+    "source": "13m02s_244_你幸灾乐祸是不是.jpg"
+  },
+  {
+    "id": "179-t-idiom-xingzailehuo",
+    "type": "idiom",
+    "timestamp": "13:02",
+    "durationSec": 8,
+    "speaker": null,
+    "source": "13m02s_244_你幸灾乐祸是不是.jpg",
+    "chinese": "幸灾乐祸",
+    "pinyin": "xìng zāi lè huò",
+    "english": "to gloat over someone else's misfortune",
+    "literal": "Delight in disaster, take joy in calamity",
+    "idiom": "幸灾乐祸",
+    "narratorScript": "Idiom. 幸灾乐祸 — xìng zāi lè huò. To take pleasure in someone else's trouble — the German word is schadenfreude. 幸 and 乐 both mean to delight, 灾 and 祸 both mean disaster. Liu Mei accuses Donghai of exactly this while she's stuck feeding the mouse."
+  },
+  {
+    "id": "180",
+    "type": "dialogue",
+    "timestamp": "13:04",
+    "durationSec": 3,
+    "chinese": "这养耗子的活可是你自己揽的。",
+    "pinyin": "zhè yǎng hào zǐ de huó kě shì nǐ zì jǐ lǎn de 。",
+    "english": "You took on this rat-keeping job yourself.",
+    "speaker": "夏东海",
+    "source": "13m04s_245_这养耗子的活可是你自己揽的.jpg",
+    "beijingTags": [
+      {
+        "badge": "耗子 = Beijing colloquial for 老鼠 (mouse)",
+        "standard": "老鼠 lǎoshǔ"
+      }
+    ]
+  },
+  {
+    "id": "181",
+    "type": "dialogue",
+    "timestamp": "13:06",
+    "durationSec": 3,
+    "chinese": "跟我有什么关系呀。",
+    "pinyin": "gēn wǒ yǒu shén me guān xì ya 。",
+    "english": "What's that got to do with me?",
+    "speaker": "夏东海",
+    "source": "13m06s_246_跟我看什么关系呀.jpg",
+    "beijingTags": [
+      {
+        "badge": "Sentence-final 呀 softens complaint into a whine",
+        "standard": "(no particle)"
+      }
+    ]
+  },
+  {
+    "id": "182",
+    "type": "dialogue",
+    "timestamp": "13:12",
+    "durationSec": 3,
+    "chinese": "我还治不了你吗我。",
+    "pinyin": "wǒ hái zhì bù liǎo nǐ ma wǒ 。",
+    "english": "Can't I handle you?",
+    "speaker": "夏东海",
+    "source": "13m12s_248_我还治不了你吗我.jpg"
+  },
+  {
+    "id": "ep-end",
+    "type": "outro",
+    "timestamp": "13:12",
+    "durationSec": 5,
+    "chinese": "（截图覆盖至 13:12 · 后半集待补充）",
+    "pinyin": "（ jié tú fù gài zhì   1 3 : 1 2   ·   hòu bàn jí dài bǔ chōng ）",
+    "english": "Screenshot coverage ends at 13:12 — second half needs source video",
+    "speaker": null,
+    "source": "13m12s_248_我还治不了你吗我.jpg",
+    "notes": "Full episode ~25 min; upload video for 13:12–25:00"
+  }
+]
