@@ -444,7 +444,7 @@ export function StudyGuide() {
                 type="button"
                 onClick={() => setTab(t.id)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition",
+                  "inline-flex min-h-11 items-center gap-1.5 rounded-full border px-3.5 py-2.5 text-xs font-medium transition",
                   tab === t.id
                     ? "border-amber-400/60 bg-amber-500/20 text-amber-100"
                     : "border-white/15 bg-white/5 text-white/60 hover:bg-white/10 hover:text-white",
@@ -463,13 +463,13 @@ export function StudyGuide() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search 中文, pinyin, or English…"
-              className="w-full rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/35 focus:border-amber-400/50 focus:outline-none"
+              className="min-h-11 min-w-0 flex-1 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-white/35 focus:border-amber-400/50 focus:outline-none"
             />
             {canExport && (
               <button
                 type="button"
                 onClick={handleExport}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
+                className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs font-medium text-white/80 transition hover:bg-white/10 hover:text-white"
               >
                 <Download className="size-3.5" />
                 Export CSV

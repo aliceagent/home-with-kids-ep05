@@ -141,7 +141,7 @@ export function ExitQuiz() {
             extra={
               <Link
                 href="/study"
-                className="inline-flex h-8 items-center rounded-lg bg-white/10 px-3 text-sm text-white transition hover:bg-white/20"
+                className="inline-flex min-h-11 items-center rounded-lg bg-white/10 px-3 text-sm text-white transition hover:bg-white/20"
               >
                 Open study guide
               </Link>
@@ -149,7 +149,7 @@ export function ExitQuiz() {
           />
         ) : question ? (
           <article className="rounded-2xl border border-white/10 bg-white/[0.04] p-5 md:p-7">
-            <div className="mb-4 flex items-center justify-between text-xs text-white/40">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-2 text-xs text-white/40">
               <span>
                 Question {index + 1} of {total}
               </span>
@@ -159,7 +159,7 @@ export function ExitQuiz() {
                     {question.promptZh}
                   </span>
                   {pinyinOn && promptPinyin && (
-                    <span className="mt-0.5 block text-[11px] text-teal-300/80">
+                    <span className="mt-0.5 block text-xs text-teal-300/80">
                       {promptPinyin}
                     </span>
                   )}
