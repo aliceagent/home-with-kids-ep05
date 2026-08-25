@@ -52,6 +52,7 @@ Generated lesson assets live under `public/lessons/ep05/`:
 - `/` — the player (`src/components/lesson/lesson-viewer.tsx` + `smart-player.tsx`), supports `?beat=<id>` deep links into a specific line.
 - `/study` — searchable study guide across vocab decks, idioms, grammar, Beijing dialect notes, and culture cards (`src/data/curriculum.ts`).
 - `/quiz` — the five-question exit quiz (`src/data/quiz.ts`).
+- `/train` — listening, matching, flashcards, speaker ID, and tone drills.
 
 Lesson content lives in `src/data/ep05-beats.json` (the playable
 timeline) and `src/data/curriculum.ts` (the teaching material that gets

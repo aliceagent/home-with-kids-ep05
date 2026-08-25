@@ -147,7 +147,9 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
 - [x] T2 — quiz kit + pinyin toggle (wired into /quiz)
   - New `quiz-kit.tsx` (`usePinyinPref`, `PinyinToggle`, choice/reveal/score-card, tap-to-play helper). Preference key `hwk-ep05:quiz-pinyin:v1`, default ON, read after mount.
   - History entries now include `mode`; missing mode counts as `"quiz"`. `/quiz` filters to that mode, shows the toggle, and hides beat-pinyin beside `promptZh` / in the reveal when off.
-- [ ] T3 — /train hub + cover cards
+- [x] T3 — /train hub + cover cards
+  - `/train` hub matches `/study` furniture: six mode cards with icon, blurb, and best/attempts (flashcards shows SRS due count, 0 until cards are graded).
+  - Cover and player header now point to Training / Exit quiz / Study guide.
 - [ ] Q1 — listening quiz
 - [ ] Q2 — match the audio
 - [ ] Q3 — flashcards + SRS
