@@ -13,12 +13,7 @@ export interface CharacterVoice {
   voiceId: string;
   role: string;
   description: string;
-  /* AGENT-TASK(R1) [remove audition] — see /CURSOR-TASKS.md task R1:
-     delete this `audition` field and every `audition:` entry below, the
-     /audition route + voice-audition component, the cover/header links,
-     and web/public/lessons/ep05/auditions/. Replace this comment with
-     AGENT-DONE(R1). */
-  audition: string;
+  /* AGENT-DONE(R1): dropped audition field, AUDITION_CAST, /audition route, cover/header links, and public audition clips. */
   accentColor: string;
 }
 
@@ -34,7 +29,6 @@ export const CHARACTER_VOICES: Record<CharacterId, CharacterVoice> = {
     role: "Teenage daughter",
     description:
       "Bright, quick teenage girl — curious about music and boys, a little sarcastic with her stepmom. xAI voice: eve.",
-    audition: "/lessons/ep05/auditions/xia-xue.mp3",
     accentColor: "border-red-400/50 bg-red-500/10",
   },
   刘梅: {
@@ -47,7 +41,6 @@ export const CHARACTER_VOICES: Record<CharacterId, CharacterVoice> = {
     role: "Stepmother",
     description:
       "Warm adult woman — tries hard to connect with the kids, jokes about being an old fangirl. xAI voice: ara.",
-    audition: "/lessons/ep05/auditions/liu-mei.mp3",
     accentColor: "border-pink-400/50 bg-pink-500/10",
   },
   夏东海: {
@@ -60,7 +53,6 @@ export const CHARACTER_VOICES: Record<CharacterId, CharacterVoice> = {
     role: "Father",
     description:
       "Steady adult man — dry humor, teases Liu Mei, tries to keep the household calm. xAI voice: rex.",
-    audition: "/lessons/ep05/auditions/xia-donghai.mp3",
     accentColor: "border-blue-400/50 bg-blue-500/10",
   },
   夏雨: {
@@ -73,7 +65,6 @@ export const CHARACTER_VOICES: Record<CharacterId, CharacterVoice> = {
     role: "Younger brother",
     description:
       "Boyish younger son — playful, soft-hearted about pets, often the comic relief. xAI voice: leo.",
-    audition: "/lessons/ep05/auditions/xia-yu.mp3",
     accentColor: "border-green-400/50 bg-green-500/10",
   },
   narrator: {
@@ -86,18 +77,9 @@ export const CHARACTER_VOICES: Record<CharacterId, CharacterVoice> = {
     role: "Lesson guide",
     description:
       "Clear teaching voice — explains idioms, grammar, and episode notes in English. xAI voice: aurora.",
-    audition: "/lessons/ep05/auditions/narrator.mp3",
     accentColor: "border-amber-400/50 bg-amber-500/10",
   },
 };
-
-export const AUDITION_CAST: CharacterVoice[] = [
-  CHARACTER_VOICES["夏雪"],
-  CHARACTER_VOICES["刘梅"],
-  CHARACTER_VOICES["夏东海"],
-  CHARACTER_VOICES["夏雨"],
-  CHARACTER_VOICES.narrator,
-];
 
 export type AudioLayer = "chinese" | "english" | "pinyin" | "narrator";
 

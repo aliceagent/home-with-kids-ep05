@@ -152,6 +152,12 @@ export function LessonViewer() {
           <div className="flex items-center gap-4">
             <div className="hidden items-center gap-4 sm:flex">
               <a
+                href="/train"
+                className="text-xs text-amber-400/80 transition hover:text-amber-300"
+              >
+                Training
+              </a>
+              <a
                 href="/quiz"
                 className="text-xs text-amber-400/80 transition hover:text-amber-300"
               >
@@ -162,14 +168,6 @@ export function LessonViewer() {
                 className="text-xs text-amber-400/80 transition hover:text-amber-300"
               >
                 Study guide
-              </a>
-              {/* AGENT-TASK(R1) — remove this audition link; per task T3 a
-                  /train link may take its place. AGENT-DONE(R1) when done. */}
-              <a
-                href="/audition"
-                className="text-xs text-amber-400/80 transition hover:text-amber-300"
-              >
-                Voice audition
               </a>
             </div>
             <p className="hidden text-xs text-white/30 sm:block">
