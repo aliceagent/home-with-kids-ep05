@@ -1,6 +1,14 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type MouseEvent as ReactMouseEvent,
+} from "react";
 import type { Beat, DisplaySettings } from "@/types/lesson";
 import { getSceneImageCandidates } from "@/lib/lesson-utils";
 import { audioPath, activeLayers, type AudioLayer, voiceForBeat } from "@/lib/voices";
@@ -27,6 +35,22 @@ import { POSITION_KEY, SPEED_KEY, readStored, writeStored } from "@/lib/player-s
 /** Playback rates the speed button cycles through */
 const SPEEDS = [0.75, 1, 1.25];
 
+/** Single source of truth for where playback stands */
+type PlaybackPhase = "idle" | "playing" | "paused" | "complete";
+
+/**
+ * Fullscreen lives in the DOM, not in React — read it straight from `document`
+ * so no effect has to mirror it into state. The server snapshot is `false`, so
+ * the prerender simply omits the button until the client knows better.
+ */
+const subscribeFullscreen = (onChange: () => void) => {
+  document.addEventListener("fullscreenchange", onChange);
+  return () => document.removeEventListener("fullscreenchange", onChange);
+};
+const readFullscreenActive = () => document.fullscreenElement !== null;
+const readFullscreenSupported = () => document.fullscreenEnabled === true;
+const noFullscreen = () => false;
+
 interface SmartPlayerProps {
   beats: Beat[];
   settings: DisplaySettings;
@@ -41,8 +65,8 @@ export function SmartPlayer({
   onPreset,
 }: SmartPlayerProps) {
   const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const [phase, setPhase] = useState<PlaybackPhase>("idle");
+  /** Display text only — never a state gate */
   const [status, setStatus] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
@@ -57,6 +81,9 @@ export function SmartPlayer({
     () => new Set(),
   );
 
+  const playing = phase === "playing";
+  const paused = phase === "paused";
+
   const playGenerationRef = useRef(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const cancelRef = useRef(false);
@@ -69,11 +96,24 @@ export function SmartPlayer({
   const idleReplayRef = useRef(0);
   /** Skips the first write so a fresh mount cannot clobber the saved position */
   const positionSavedRef = useRef(false);
+  /** The element handed to the Fullscreen API — the stage, not the controls */
+  const stageRef = useRef<HTMLDivElement | null>(null);
 
   const beat = beats[index];
   const progress = ((index + 1) / beats.length) * 100;
   const chapters = useMemo(() => resolveChapters(beats), [beats]);
   const currentChapter = chapterAtIndex(chapters, index);
+
+  const isFullscreen = useSyncExternalStore(
+    subscribeFullscreen,
+    readFullscreenActive,
+    noFullscreen,
+  );
+  const canFullscreen = useSyncExternalStore(
+    subscribeFullscreen,
+    readFullscreenSupported,
+    noFullscreen,
+  );
 
   // Land on a specific card via ?beat=<id> — useful for recording video frames
   useEffect(() => {
@@ -156,8 +196,7 @@ export function SmartPlayer({
       audioRef.current.onerror = null;
       audioRef.current = null;
     }
-    setPlaying(false);
-    setPaused(false);
+    setPhase("idle");
     setTeachingCardId(null);
     setStatus("");
   }, []);
@@ -331,6 +370,21 @@ export function SmartPlayer({
     await wait(300);
   };
 
+  /**
+   * Repeat-after-me hold. Reuses the normal pause so Play, Space, Pause and
+   * seeking all behave exactly as they do for a hand-made pause.
+   */
+  const shadowPause = async () => {
+    // The line's clip has already ended — drop it so resuming cannot replay it
+    audioRef.current = null;
+    pauseRef.current = true;
+    setPhase("paused");
+    setStatus("Your turn — say the line, then press Play");
+    while (pauseRef.current && !cancelRef.current) {
+      await wait(100);
+    }
+  };
+
   const playScene = async (startIndex = 0) => {
     const hasAnyAudio =
       settings.audioChinese ||
@@ -341,8 +395,7 @@ export function SmartPlayer({
     cancelRef.current = false;
     pauseRef.current = false;
     playingRef.current = true;
-    setPlaying(true);
-    setPaused(false);
+    setPhase("playing");
     warmAudioUrls(upcomingAudioUrls(beats, startIndex, settings, 12));
 
     try {
@@ -361,10 +414,12 @@ export function SmartPlayer({
 
         const readingMs = Math.max((b.durationSec ?? 4) * 1000, 1500);
         const layers = activeLayers(settings, b);
+        let spoke = false;
 
         if (hasAnyAudio && layers.length > 0) {
           const startedAt = Date.now();
           const played = await playBeatLayers(b, layers, i);
+          spoke = played;
           // Silent line (missing clip, blocked autoplay) — still hold the subtitle
           if (!played && !cancelRef.current) {
             await wait(readingMs - (Date.now() - startedAt));
@@ -375,6 +430,14 @@ export function SmartPlayer({
         }
 
         if (cancelRef.current) break;
+
+        // Shadowing hands the line back to the learner before moving on. Only
+        // after a spoken dialogue line — there is nothing to repeat otherwise.
+        if (settings.shadowing && spoke && b.type === "dialogue") {
+          await shadowPause();
+          if (cancelRef.current) break;
+        }
+
         const nextUrl = nextPlayableAudioUrl(beats, i, settings);
         await wait(nextUrl && isAudioReady(nextUrl) ? 80 : 220);
       }
@@ -394,39 +457,39 @@ export function SmartPlayer({
         return;
       }
 
-      setPlaying(false);
-      setPaused(false);
-      if (!cancelRef.current) setStatus("Scene complete");
+      if (cancelRef.current) {
+        setPhase("idle");
+      } else {
+        setPhase("complete");
+        setStatus("Scene complete");
+      }
     }
   };
 
   const handlePlay = () => {
-    if (paused) {
+    if (phase === "paused") {
       pauseRef.current = false;
-      setPlaying(true);
-      setPaused(false);
+      setPhase("playing");
       setStatus("");
       audioRef.current?.play().catch(() => setStatus("Tap Play to start audio"));
       return;
     }
-    const startAt = status === "Scene complete" ? 0 : index;
-    setPlaying(true);
+    const startAt = phase === "complete" ? 0 : index;
+    setPhase("playing");
     setStatus("Starting…");
     playScene(startAt).catch(() => setStatus("Playback failed — try again"));
   };
 
   const handlePause = () => {
-    if (playing) {
+    if (phase === "playing") {
       pauseRef.current = true;
       audioRef.current?.pause();
-      setPlaying(false);
-      setPaused(true);
+      setPhase("paused");
       setStatus("Paused");
-    } else if (paused) {
+    } else if (phase === "paused") {
       pauseRef.current = false;
       audioRef.current?.play();
-      setPlaying(true);
-      setPaused(false);
+      setPhase("playing");
       setStatus("");
     }
   };
@@ -467,8 +530,7 @@ export function SmartPlayer({
       if (sessionActive) {
         skipTargetRef.current = newIndex;
         pauseRef.current = false;
-        setPlaying(true);
-        setPaused(false);
+        setPhase("playing");
         setStatus("");
       }
     },
@@ -509,6 +571,34 @@ export function SmartPlayer({
     writeStored(SPEED_KEY, next);
   };
 
+  /** Blow the stage up to the whole screen — the browser owns the state */
+  const handleToggleFullscreen = () => {
+    const el = stageRef.current;
+    if (!el) return;
+    try {
+      const request = document.fullscreenElement
+        ? document.exitFullscreen()
+        : el.requestFullscreen();
+      void Promise.resolve(request).catch(() =>
+        setStatus("Fullscreen unavailable"),
+      );
+    } catch {
+      setStatus("Fullscreen unavailable");
+    }
+  };
+
+  /**
+   * Tapping the picture toggles playback, the way a video player does. Taps
+   * aimed at a control, or landing while a drawer is up, are left alone.
+   */
+  const handleStageClick = (e: ReactMouseEvent<HTMLDivElement>) => {
+    if (showSettings || showChapters) return;
+    const target = e.target as HTMLElement | null;
+    if (target?.closest("button,a,[role=slider]")) return;
+    if (phase === "playing" || phase === "paused") handlePause();
+    else handlePlay();
+  };
+
   const handleSelectChapter = (startIndex: number) => {
     setShowChapters(false);
     const sessionActive = playingRef.current || playing || paused;
@@ -518,13 +608,13 @@ export function SmartPlayer({
     }
     setIndex(startIndex);
     if (beats[startIndex]?.source) setDisplaySource(beats[startIndex].source);
-    setPlaying(true);
+    setPhase("playing");
     setStatus("Starting…");
     playScene(startIndex).catch(() => setStatus("Playback failed — try again"));
   };
 
   /**
-   * Window-level shortcuts: Space, ArrowLeft/Right, R, Escape. Re-subscribed
+   * Window-level shortcuts: Space, ArrowLeft/Right, R, F, Escape. Re-subscribed
    * every render (no dep array) so the handler always sees the current beat and
    * the current playback handlers — one listener swap per render is free.
    */
@@ -565,6 +655,12 @@ export function SmartPlayer({
           e.preventDefault();
           void handleReplay();
           break;
+        case "f":
+        case "F":
+          if (!canFullscreen) break;
+          e.preventDefault();
+          handleToggleFullscreen();
+          break;
         case "Escape":
           if (!showSettings && !showChapters) break;
           e.preventDefault();
@@ -595,10 +691,12 @@ export function SmartPlayer({
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-stone-950">
       <div
-        className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 py-2"
+        ref={stageRef}
+        className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden bg-stone-950 px-3 py-2"
         style={{ containerType: "size" }}
       >
         <div
+          onClick={handleStageClick}
           className="relative overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10"
           style={{
             aspectRatio: "4 / 3",
@@ -646,7 +744,7 @@ export function SmartPlayer({
               active={teachingCardVisible}
             />
 
-            {status === "Scene complete" && !playing && !paused && (
+            {phase === "complete" && (
               <div className="absolute inset-0 z-[35] flex items-end justify-center bg-gradient-to-t from-black/80 via-black/30 to-transparent p-6 pb-10">
                 <a
                   href="/quiz"
@@ -706,6 +804,9 @@ export function SmartPlayer({
         onSeek={(target) => jumpToBeat(target)}
         speed={speed}
         onCycleSpeed={handleCycleSpeed}
+        canFullscreen={canFullscreen}
+        isFullscreen={isFullscreen}
+        onToggleFullscreen={handleToggleFullscreen}
         canSkipBack={index > 0}
         canSkipForward={index < beats.length - 1}
       />

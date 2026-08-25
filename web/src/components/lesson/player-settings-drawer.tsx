@@ -50,7 +50,13 @@ const TOGGLE_GROUPS: { label: string; keys: (keyof DisplaySettings)[] }[] = [
   },
   {
     label: "Audio",
-    keys: ["audioChinese", "audioPinyin", "audioEnglish", "audioNarrator"],
+    keys: [
+      "audioChinese",
+      "audioPinyin",
+      "audioEnglish",
+      "audioNarrator",
+      "shadowing",
+    ],
   },
 ];
 

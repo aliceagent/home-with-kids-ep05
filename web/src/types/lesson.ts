@@ -96,6 +96,8 @@ export interface DisplaySettings {
   audioEnglish: boolean;
   audioPinyin: boolean;
   audioNarrator: boolean;
+  /** Pause after every spoken dialogue line so the learner can repeat it */
+  shadowing: boolean;
 }
 
 export const DEFAULT_DISPLAY: DisplaySettings = {
@@ -119,6 +121,7 @@ export const DEFAULT_DISPLAY: DisplaySettings = {
   audioEnglish: false,
   audioPinyin: false,
   audioNarrator: true,
+  shadowing: false,
 };
 
 export const DISPLAY_LABELS: Record<keyof DisplaySettings, string> = {
@@ -142,4 +145,5 @@ export const DISPLAY_LABELS: Record<keyof DisplaySettings, string> = {
   audioEnglish: "🔊 English audio",
   audioPinyin: "🔊 Slow Chinese (pinyin pace)",
   audioNarrator: "🔊 Narrator explains cards",
+  shadowing: "Shadowing — pause after each line",
 };

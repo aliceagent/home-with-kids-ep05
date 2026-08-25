@@ -6,6 +6,8 @@ import {
   ChevronDown,
   ChevronUp,
   ListVideo,
+  Maximize,
+  Minimize,
   Pause,
   Play,
   RotateCcw,
@@ -40,6 +42,10 @@ interface PlayerControlsProps {
   onSeek: (index: number) => void;
   speed: number;
   onCycleSpeed: () => void;
+  /** False when the browser has no Fullscreen API — the button is hidden */
+  canFullscreen: boolean;
+  isFullscreen: boolean;
+  onToggleFullscreen: () => void;
   canSkipBack: boolean;
   canSkipForward: boolean;
 }
@@ -67,6 +73,9 @@ export function PlayerControls({
   onSeek,
   speed,
   onCycleSpeed,
+  canFullscreen,
+  isFullscreen,
+  onToggleFullscreen,
   canSkipBack,
   canSkipForward,
 }: PlayerControlsProps) {
@@ -289,6 +298,23 @@ export function PlayerControls({
                 <ChevronUp className="size-3.5" />
               )}
             </Button>
+            {canFullscreen && (
+              <Button
+                type="button"
+                onClick={onToggleFullscreen}
+                size="icon"
+                variant="ghost"
+                className="relative z-10 text-white/70 hover:bg-white/10 hover:text-white"
+                title={isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}
+                aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+              >
+                {isFullscreen ? (
+                  <Minimize className="size-4" />
+                ) : (
+                  <Maximize className="size-4" />
+                )}
+              </Button>
+            )}
           </div>
         </div>
 
