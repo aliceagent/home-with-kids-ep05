@@ -161,7 +161,8 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
   - `/train/who-said-it`: 8 rounds from `spokenByCast()` (夏雪 / 刘梅 / 夏东海 / 夏雨). Large tap-to-play chinese clip, four character chips with `EP05_META` colors, reveal scene still + Chinese/pinyin/English + speaker. History `mode: "who-said-it"`.
 - [x] Q5 — tone drill
   - `/train/tones`: 8 vocab items whose pinyin has tone marks. Chinese + first `heardAt` chinese clip, four deterministic variants of the first toned vowel (e.g. hàozi / háozi / hǎozi / hāozi). Pinyin toggle hidden. Reveal English + jump. History `mode: "tones"`.
-- [ ] B1 (optional) — written bank v2
+- [x] B1 (optional) — written bank v2
+  - `generateSentenceQuestions()` adds one item per quizable dialogue line (Chinese prompt, English among 4, nearest-length distractors). `pickQuiz` still always includes ≥2 handwritten. Bank is 185 (was ~33).
 
 ---
 

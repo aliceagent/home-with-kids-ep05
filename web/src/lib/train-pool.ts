@@ -44,17 +44,23 @@ export function shuffle<T>(items: T[]): T[] {
   return copy;
 }
 
-/** Pick `n` other dialogue beats close in Chinese length. */
-export function similarBeats(pool: Beat[], target: Beat, n: number): Beat[] {
-  const scored = pool
+/** Closest `n` other dialogue beats by Chinese length (stable tie-break on id). */
+export function nearestBeats(pool: Beat[], target: Beat, n: number): Beat[] {
+  return pool
     .filter((b) => b.id !== target.id && b.english && b.english !== target.english)
     .map((b) => ({
       b,
       d: Math.abs(hanLength(b.chinese) - hanLength(target.chinese)),
     }))
-    .sort((a, c) => a.d - c.d);
-  const near = scored.slice(0, Math.max(n * 5, n));
-  return shuffle(near.map((x) => x.b)).slice(0, n);
+    .sort((a, c) => a.d - c.d || a.b.id.localeCompare(c.b.id))
+    .slice(0, n)
+    .map((x) => x.b);
+}
+
+/** Pick `n` other dialogue beats close in Chinese length. */
+export function similarBeats(pool: Beat[], target: Beat, n: number): Beat[] {
+  const near = nearestBeats(pool, target, Math.max(n * 5, n));
+  return shuffle(near).slice(0, n);
 }
 
 export function sampleBeats(pool: Beat[], n: number): Beat[] {
