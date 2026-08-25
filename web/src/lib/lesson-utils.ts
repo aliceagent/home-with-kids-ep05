@@ -1,16 +1,27 @@
 import type { Beat, BeatType } from "@/types/lesson";
+import { DEFAULT_EPISODE_ID } from "@/lib/episode-meta";
 
-const GHIBLI_BASE = "/lessons/ep05/ghibli-4x3";
-const FRAMES_BASE = "/lessons/ep05/frames";
+export function ghibliBase(episodeId = DEFAULT_EPISODE_ID): string {
+  return `/lessons/${episodeId}/ghibli-4x3`;
+}
+
+export function framesBase(episodeId = DEFAULT_EPISODE_ID): string {
+  return `/lessons/${episodeId}/frames`;
+}
 
 /** Ghibli stylized URLs to try in order (jpg from img2img, legacy png, raw frame) */
-export function getSceneImageCandidates(source: string | null): string[] {
+export function getSceneImageCandidates(
+  source: string | null,
+  episodeId = DEFAULT_EPISODE_ID,
+): string[] {
   if (!source) return [];
   const stem = source.replace(/\.jpg$/i, "");
+  const ghibli = ghibliBase(episodeId);
+  const frames = framesBase(episodeId);
   return [
-    `${GHIBLI_BASE}/${stem}.jpg`,
-    `${GHIBLI_BASE}/${stem}.png`,
-    `${FRAMES_BASE}/${source}`,
+    `${ghibli}/${stem}.jpg`,
+    `${ghibli}/${stem}.png`,
+    `${frames}/${source}`,
   ];
 }
 
@@ -19,9 +30,12 @@ export function getSceneImageUrl(source: string | null): string | null {
   return candidates[0] ?? null;
 }
 
-export function getSceneFrameFallbackUrl(source: string | null): string | null {
+export function getSceneFrameFallbackUrl(
+  source: string | null,
+  episodeId = DEFAULT_EPISODE_ID,
+): string | null {
   if (!source) return null;
-  return `${FRAMES_BASE}/${source}`;
+  return `${framesBase(episodeId)}/${source}`;
 }
 
 export function beatTypeLabel(type: BeatType): string {

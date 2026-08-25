@@ -83,4 +83,6 @@ review the branch you push and merge it if it meets the bar below.
 - [x] 3b — sampled quiz + score history
   - Questions come from `pickQuiz(5)` after mount (brief empty shell first) so prerender stays stable; Try again draws a fresh sample.
   - Finishing an attempt appends `{ts, score, total}` and the score card shows "Best so far: X/5" plus attempt count, including the first run.
-- [ ] 4 (optional) — episode meta registry
+- [x] 4 (optional) — episode meta registry
+  - Added `EpisodeMeta`, `DEFAULT_EPISODE_ID`, and `EPISODES` keyed by `"ep05"`. Kept the `EP05_META` named export (now includes `id`).
+  - `audioPath`, ghibli/frames bases, and storage keys derive from an episode id defaulting to `ep05`, so existing URLs and `hwk-ep05:*` keys are unchanged. No UI or route changes.

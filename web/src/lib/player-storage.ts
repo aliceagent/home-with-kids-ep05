@@ -7,12 +7,18 @@
  * during render would desync hydration.
  */
 
+import { DEFAULT_EPISODE_ID } from "@/lib/episode-meta";
+
 /** Bump the `:vN` suffix whenever a stored shape stops being readable */
-export const SETTINGS_KEY = "hwk-ep05:settings:v1";
-export const POSITION_KEY = "hwk-ep05:position:v1";
-export const SPEED_KEY = "hwk-ep05:speed:v1";
-export const SEEN_KEY = "hwk-ep05:seen:v1";
-export const QUIZ_HISTORY_KEY = "hwk-ep05:quiz:v1";
+export function storageKey(kind: string, episodeId = DEFAULT_EPISODE_ID): string {
+  return `hwk-${episodeId}:${kind}:v1`;
+}
+
+export const SETTINGS_KEY = storageKey("settings");
+export const POSITION_KEY = storageKey("position");
+export const SPEED_KEY = storageKey("speed");
+export const SEEN_KEY = storageKey("seen");
+export const QUIZ_HISTORY_KEY = storageKey("quiz");
 
 export type QuizHistoryEntry = { ts: number; score: number; total: number };
 
