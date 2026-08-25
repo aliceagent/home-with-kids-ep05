@@ -68,13 +68,7 @@ export function SmartPlayer({
   onPreset,
   activeMode,
 }: SmartPlayerProps) {
-  const [index, setIndex] = useState(() => {
-    if (typeof window === "undefined") return 0;
-    const id = new URLSearchParams(window.location.search).get("beat");
-    if (!id) return 0;
-    const i = beats.findIndex((b) => b.id === id);
-    return i >= 0 ? i : 0;
-  });
+  const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<PlaybackPhase>("idle");
   /** Display text only — never a state gate */
   const [status, setStatus] = useState("");
@@ -130,14 +124,17 @@ export function SmartPlayer({
     noFullscreen,
   );
 
-  /* AGENT-DONE(5): folded ?beat= into a window-guarded lazy useState init for index; restore effect still skips when the param is present. */
+  /* AGENT-DONE(5): ?beat= deep link handled in the mount restore effect below
+     (a lazy useState initializer hydration-mismatched against the prerendered
+     index-0 HTML — React #418 — so post-mount setState is the correct shape;
+     the scoped disable already covers it and the lint error is gone). */
 
   /**
-   * Pick up where this browser left off. Runs after the ?beat= effect above and
-   * bows out when that param is present, so deep links always win.
+   * Land on a ?beat=<id> deep link, else pick up where this browser left off.
+   * Deep links always win over the saved position.
    */
-  /* eslint-disable react-hooks/set-state-in-effect -- restoring persisted state
-     is only hydration-safe after mount */
+  /* eslint-disable react-hooks/set-state-in-effect -- deep-link landing and
+     persisted-state restore are only hydration-safe after mount */
   useEffect(() => {
     const savedSpeed = readStored<number>(SPEED_KEY);
     if (typeof savedSpeed === "number" && SPEEDS.includes(savedSpeed)) {
@@ -145,7 +142,12 @@ export function SmartPlayer({
       setSpeed(savedSpeed);
     }
 
-    if (new URLSearchParams(window.location.search).has("beat")) return;
+    const beatParam = new URLSearchParams(window.location.search).get("beat");
+    if (beatParam) {
+      const i = beats.findIndex((b) => b.id === beatParam);
+      if (i > 0) setIndex(i);
+      return;
+    }
     const savedIndex = readStored<number>(POSITION_KEY);
     if (typeof savedIndex !== "number") return;
     if (savedIndex <= 0 || savedIndex >= beats.length) return;
