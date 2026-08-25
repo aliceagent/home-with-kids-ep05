@@ -31,7 +31,7 @@ import { PlayerSettingsDrawer } from "@/components/lesson/player-settings-drawer
 import { ChapterPicker } from "@/components/lesson/chapter-picker";
 import { PlayerControls } from "@/components/lesson/player-controls";
 import { chapterAtIndex, resolveChapters } from "@/lib/episode-chapters";
-import { POSITION_KEY, SPEED_KEY, readStored, writeStored } from "@/lib/player-storage";
+import { POSITION_KEY, SPEED_KEY, markSeen, readSeen, readStored, writeStored } from "@/lib/player-storage";
 
 /** Playback rates the speed button cycles through */
 const SPEEDS = [0.75, 1, 1.25];
@@ -113,6 +113,11 @@ export function SmartPlayer({
   const progress = ((index + 1) / beats.length) * 100;
   const chapters = useMemo(() => resolveChapters(beats), [beats]);
   const currentChapter = chapterAtIndex(chapters, index);
+  const dialogueTotal = useMemo(
+    () => beats.filter((b) => b.type === "dialogue").length,
+    [beats],
+  );
+  const [seenCount, setSeenCount] = useState<number | null>(null);
 
   const isFullscreen = useSyncExternalStore(
     subscribeFullscreen,
@@ -158,20 +163,19 @@ export function SmartPlayer({
     writeStored(POSITION_KEY, index);
   }, [index]);
 
-  /*
-   * AGENT-TASK(1b) [progress tracking — record watched lines]
-   * Brief + workflow: /CURSOR-TASKS.md; do task 1a (storage helpers in
-   * lib/player-storage.ts) first.
-   * Call markSeen(b.id) from the playScene loop once a beat has actually been
-   * experienced — i.e. after its audio layers finish (or after its reading
-   * hold when it played silently), NOT when it is merely landed on via seek,
-   * skip, or the ?beat= deep link. The cleanest hook point is in playScene
-   * right after the per-beat playback block completes and before the
-   * inter-beat wait; teaching beats count too (after playTeachingBeat).
-   * markSeen is a cheap no-op for already-seen ids, so no extra bookkeeping
-   * is needed here.
-   * When done, replace this block with: AGENT-DONE(1b): <summary>.
-   */
+  /* eslint-disable react-hooks/set-state-in-effect -- restoring persisted state
+     is only hydration-safe after mount */
+  useEffect(() => {
+    const seen = readSeen();
+    let n = 0;
+    for (const b of beats) {
+      if (b.type === "dialogue" && seen.has(b.id)) n += 1;
+    }
+    setSeenCount(n);
+  }, [beats, index, phase]);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  /* AGENT-DONE(1b): markSeen(b.id) after a beat's audio/hold (and after playTeachingBeat) finishes, skipped on cancel/seek. */
 
   // Preload upcoming scene images so crossfades never wait on network
   useEffect(() => {
@@ -387,6 +391,7 @@ export function SmartPlayer({
 
     setTeachingCardId(null);
     await wait(300);
+    if (!cancelRef.current) markSeen(b.id);
   };
 
   /**
@@ -456,6 +461,8 @@ export function SmartPlayer({
           await shadowPause();
           if (cancelRef.current) break;
         }
+
+        markSeen(b.id);
 
         const nextUrl = nextPlayableAudioUrl(beats, i, settings);
         await wait(nextUrl && isAudioReady(nextUrl) ? 80 : 220);
@@ -757,6 +764,8 @@ export function SmartPlayer({
               onStart={handlePlay}
               onPreset={onPreset}
               activeMode={activeMode}
+              seenCount={seenCount}
+              dialogueTotal={dialogueTotal}
             />
 
             <SubtitleOverlay beat={beat} settings={settings} visible={showDialogueSubtitles} />

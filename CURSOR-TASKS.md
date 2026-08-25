@@ -68,9 +68,12 @@ review the branch you push and merge it if it meets the bar below.
 - [x] 5 — lint error fixed, baseline now 2
   - Replaced the `?beat=` `useEffect`/`setIndex` with a `typeof window`-guarded lazy `useState` initializer so prerender stays at 0 and the browser lands on the deep-linked beat.
   - Left the restore effect's `has("beat")` early-return in place so deep links still win over saved position.
-- [ ] 1a — progress storage helpers
-- [ ] 1b — seen-line recording
-- [ ] 1c — cover progress line
+- [x] 1a — progress storage helpers
+  - Added `SEEN_KEY` / `QUIZ_HISTORY_KEY` and `readSeen`, `markSeen` (skips write when already present), `readQuizHistory`, `pushQuizResult` (keeps the 50 most recent) using the existing try/catch storage pattern.
+- [x] 1b — seen-line recording
+  - `markSeen(b.id)` runs after a dialogue beat's audio/hold (and after shadowing if on), and at the end of `playTeachingBeat` once the card has actually been shown. Cancel/seek/deep-link landing does not record.
+- [x] 1c — cover progress line
+  - Cover takes `seenCount` / `dialogueTotal` from smart-player (dialogue ids only). Renders nothing until storage is read and N > 0: "You've studied N of 173 lines" with an amber N.
 - [ ] 2 — CSV export + studied badges
 - [ ] 3a — generated question bank
 - [ ] 3b — sampled quiz + score history
