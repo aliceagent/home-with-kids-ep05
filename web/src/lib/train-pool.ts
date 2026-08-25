@@ -35,6 +35,18 @@ export function chineseClip(id: string): string {
   return audioPath(id, "chinese");
 }
 
+export function pinyinClip(id: string): string {
+  return audioPath(id, "pinyin");
+}
+
+export function englishClip(id: string): string {
+  return audioPath(id, "english");
+}
+
+export function beatById(id: string): Beat | undefined {
+  return ALL.find((b) => b.id === id);
+}
+
 export function shuffle<T>(items: T[]): T[] {
   const copy = [...items];
   for (let i = copy.length - 1; i > 0; i--) {
@@ -70,14 +82,47 @@ export function sampleBeats(pool: Beat[], n: number): Beat[] {
 const CHOICE_IDS = ["a", "b", "c", "d"] as const;
 
 export function fourEnglishChoices(correct: Beat, distractors: Beat[]) {
+  return fourBeatChoices(correct, distractors, "english");
+}
+
+export function fourBeatChoices(
+  correct: Beat,
+  distractors: Beat[],
+  field: "english" | "chinese" | "pinyin",
+) {
   const labels = shuffle([
-    { id: "", beat: correct },
-    ...distractors.slice(0, 3).map((beat) => ({ id: "", beat })),
+    correct,
+    ...distractors.slice(0, 3),
   ]);
-  return labels.map((row, i) => ({
+  return labels.map((beat, i) => ({
     id: CHOICE_IDS[i],
-    label: row.beat.english,
-    beatId: row.beat.id,
-    correct: row.beat.id === correct.id,
+    label: beat[field],
+    beatId: beat.id,
+    correct: beat.id === correct.id,
   }));
+}
+
+export type BeatMcq = {
+  beat: Beat;
+  beatId: string;
+  choices: { id: string; label: string; correct: boolean }[];
+  correctId: string;
+};
+
+/** 8-question (or fewer) round: similar-length distractors, labels from one beat field. */
+export function buildBeatMcqRound(
+  n: number,
+  choiceField: "english" | "chinese" | "pinyin",
+): BeatMcq[] {
+  const pool = quizableDialogue().filter((b) => String(b[choiceField] ?? "").trim());
+  return sampleBeats(pool, n).map((beat) => {
+    const rest = pool.filter((b) => b[choiceField] !== beat[choiceField]);
+    const choices = fourBeatChoices(beat, similarBeats(rest, beat, 3), choiceField);
+    return {
+      beat,
+      beatId: beat.id,
+      choices: choices.map((c) => ({ id: c.id, label: c.label, correct: c.correct })),
+      correctId: choices.find((c) => c.correct)?.id ?? "a",
+    };
+  });
 }
