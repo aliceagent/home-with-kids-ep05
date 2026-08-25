@@ -74,7 +74,9 @@ review the branch you push and merge it if it meets the bar below.
   - `markSeen(b.id)` runs after a dialogue beat's audio/hold (and after shadowing if on), and at the end of `playTeachingBeat` once the card has actually been shown. Cancel/seek/deep-link landing does not record.
 - [x] 1c — cover progress line
   - Cover takes `seenCount` / `dialogueTotal` from smart-player (dialogue ids only). Renders nothing until storage is read and N > 0: "You've studied N of 173 lines" with an amber N.
-- [ ] 2 — CSV export + studied badges
+- [x] 2 — CSV export + studied badges
+  - Export CSV sits next to search on Vocabulary/Idioms tabs only; downloads the filtered rows as UTF-8 CSV with BOM (`chinese,pinyin,english,note,heardAt`). Idiom `note` is the trap text when present.
+  - Emerald "studied" badge after the English gloss when every `heardAt` / `anchors` beat is in `readSeen()`. Hidden when the set is empty so layout does not jump.
 - [ ] 3a — generated question bank
 - [ ] 3b — sampled quiz + score history
 - [ ] 4 (optional) — episode meta registry
