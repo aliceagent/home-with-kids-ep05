@@ -159,7 +159,8 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
   - Front is Chinese + "hear it in the show"; back shows English/note and pinyin (toggle, or a second "show pinyin" tap). Hub due count includes unseen cards.
 - [x] Q4 — who said it?
   - `/train/who-said-it`: 8 rounds from `spokenByCast()` (夏雪 / 刘梅 / 夏东海 / 夏雨). Large tap-to-play chinese clip, four character chips with `EP05_META` colors, reveal scene still + Chinese/pinyin/English + speaker. History `mode: "who-said-it"`.
-- [ ] Q5 — tone drill
+- [x] Q5 — tone drill
+  - `/train/tones`: 8 vocab items whose pinyin has tone marks. Chinese + first `heardAt` chinese clip, four deterministic variants of the first toned vowel (e.g. hàozi / háozi / hǎozi / hāozi). Pinyin toggle hidden. Reveal English + jump. History `mode: "tones"`.
 - [ ] B1 (optional) — written bank v2
 
 ---
