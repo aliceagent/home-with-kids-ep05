@@ -59,6 +59,7 @@ const TOGGLE_GROUPS: { label: string; keys: (keyof DisplaySettings)[] }[] = [
       "timestamp",
       "registerRewrite",
       "breakdown",
+      "wordHints",
     ],
   },
   {
