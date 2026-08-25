@@ -77,6 +77,8 @@ review the branch you push and merge it if it meets the bar below.
 - [x] 2 — CSV export + studied badges
   - Export CSV sits next to search on Vocabulary/Idioms tabs only; downloads the filtered rows as UTF-8 CSV with BOM (`chinese,pinyin,english,note,heardAt`). Idiom `note` is the trap text when present.
   - Emerald "studied" badge after the English gloss when every `heardAt` / `anchors` beat is in `readSeen()`. Hidden when the set is empty so layout does not jump.
-- [ ] 3a — generated question bank
+- [x] 3a — generated question bank
+  - Kept the 5 handwritten questions and generated 28 more at module scope from curriculum + ep05-beats (idiom gloss vs trap/literal, Beijing → standard, vocab Chinese → English with same-deck distractors, grammar cloze from worked examples). Bank total 33, all with `why` and a `beatId`.
+  - `pickQuiz(n=5)` shuffles client-side and always includes at least 2 handwritten questions.
 - [ ] 3b — sampled quiz + score history
 - [ ] 4 (optional) — episode meta registry
