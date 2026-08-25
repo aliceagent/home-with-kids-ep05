@@ -150,7 +150,8 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
 - [x] T3 — /train hub + cover cards
   - `/train` hub matches `/study` furniture: six mode cards with icon, blurb, and best/attempts (flashcards shows SRS due count, 0 until cards are graded).
   - Cover and player header now point to Training / Exit quiz / Study guide.
-- [ ] Q1 — listening quiz
+- [x] Q1 — listening quiz
+  - `/train/listening`: 8 questions after mount from dialogue beats with ≥6 Han characters. Large tap-to-play chinese clip, 4 English choices from similar-length lines, reveal Chinese + pinyin (toggle) and jump link. History `mode: "listening"`.
 - [ ] Q2 — match the audio
 - [ ] Q3 — flashcards + SRS
 - [ ] Q4 — who said it?

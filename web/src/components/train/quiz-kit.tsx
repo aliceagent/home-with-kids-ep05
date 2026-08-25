@@ -3,6 +3,7 @@
 /* AGENT-DONE(T2): shared pinyin pref/toggle, choice/reveal/score UI, and tap-to-play clip helper. History entries now carry mode (legacy rows count as "quiz"). */
 
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -200,7 +201,7 @@ export function QuizScoreCard({
 export function useClipPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const stop = () => {
+  const stop = useCallback(() => {
     const el = audioRef.current;
     if (!el) return;
     el.pause();
@@ -211,34 +212,38 @@ export function useClipPlayer() {
       /* ignore */
     }
     audioRef.current = null;
-  };
+  }, []);
 
-  const play = (url: string) => {
-    stop();
-    const el = new Audio(url);
-    audioRef.current = el;
-    el.play().catch(() => {
-      /* autoplay blocked — caller is a click handler so this should be rare */
-    });
-  };
+  const play = useCallback(
+    (url: string) => {
+      stop();
+      const el = new Audio(url);
+      audioRef.current = el;
+      el.play().catch(() => {
+        /* autoplay blocked — caller is a click handler so this should be rare */
+      });
+    },
+    [stop],
+  );
 
-  useEffect(() => stop, []);
+  useEffect(() => stop, [stop]);
 
   return { play, stop };
 }
 
 export function PlayClipButton({
   url,
-  label = "Play",
+  play,
+  label = "Play line",
   large = false,
-  playingHint,
+  caption,
 }: {
   url: string;
+  play: (url: string) => void;
   label?: string;
   large?: boolean;
-  playingHint?: string;
+  caption?: string;
 }) {
-  const { play } = useClipPlayer();
   return (
     <button
       type="button"
@@ -246,11 +251,11 @@ export function PlayClipButton({
       aria-label={label}
       className={cn(
         "inline-flex items-center justify-center gap-2 rounded-full border border-amber-400/50 bg-amber-600 font-semibold text-white shadow-lg shadow-amber-950/30 transition hover:bg-amber-500",
-        large ? "size-20 text-sm" : "px-4 py-2 text-sm",
+        large ? "size-20" : "px-4 py-2 text-sm",
       )}
     >
       <Volume2 className={large ? "size-7" : "size-4"} />
-      {!large && <span>{playingHint ?? label}</span>}
+      {!large && <span>{caption ?? label}</span>}
     </button>
   );
 }
