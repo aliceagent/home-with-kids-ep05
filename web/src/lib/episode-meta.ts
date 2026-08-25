@@ -1,3 +1,17 @@
+/*
+ * AGENT-TASK(4) [multi-episode prep — OPTIONAL, structure only]
+ * Brief + workflow: /CURSOR-TASKS.md. Attempt only after tasks 5, 1, 2, 3 are
+ * done and green.
+ * Goal: make adding episode 2 a data drop, not a code change. Introduce an
+ * EpisodeMeta interface and an EPISODES registry keyed by episode id (e.g.
+ * "ep05"), with EP05_META as its first entry (keep the named export as an
+ * alias so nothing breaks). Parameterize the hardcoded "ep05" path segments
+ * in lib/voices.ts (audioPath), lib/lesson-utils.ts (GHIBLI_BASE/FRAMES_BASE)
+ * and the storage keys in lib/player-storage.ts ("hwk-ep05:*") to derive from
+ * an episode id, defaulting to "ep05". NO UI changes, NO new routes — same
+ * rendered output as before, verified by npm run build.
+ * When done, replace this block with: AGENT-DONE(4): <summary>.
+ */
 export const EP05_META = {
   series: "家有儿女",
   seriesEn: "Home With Kids",

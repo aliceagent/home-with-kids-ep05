@@ -21,6 +21,19 @@ interface EpisodeCoverSheetProps {
   activeMode?: PresetMode | "custom";
 }
 
+/*
+ * AGENT-TASK(1c) [progress on the cover]
+ * Brief + workflow: /CURSOR-TASKS.md; requires task 1a helpers.
+ * Between the mode-chip row and the quiz/study/audition nav cards below,
+ * render a one-line progress note when the learner has history:
+ *   "You've studied N of 173 lines" — N = readSeen() ids that are dialogue
+ *   beats (import the beats data or accept a prop from smart-player; prefer
+ *   a prop `seenCount` computed in smart-player to keep this component dumb).
+ * Style: text-[11px] text-white/50, amber number, matching the cover's look.
+ * localStorage must be read in a useEffect (page is prerendered) — render
+ * nothing until the value is known to avoid hydration mismatch.
+ * When done, replace this block with: AGENT-DONE(1c): <summary>.
+ */
 const MODE_CHIPS: { id: PresetMode; label: string }[] = [
   { id: "immersion", label: "Story only" },
   { id: "listen", label: "Chinese → English" },

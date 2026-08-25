@@ -45,6 +45,20 @@ function ChoiceButton({
   );
 }
 
+/*
+ * AGENT-TASK(3b) [sampled quiz + score history]
+ * Brief + workflow: /CURSOR-TASKS.md; requires tasks 1a and 3a.
+ * - Draw the attempt's questions with pickQuiz(5) instead of using EP05_QUIZ
+ *   directly. The page is prerendered, so sample AFTER mount (useEffect into
+ *   state, rendering a brief empty shell first) — never during render, or
+ *   hydration will mismatch. "Try again" draws a fresh sample.
+ * - On finish, pushQuizResult({ ts: Date.now(), score, total }) and show the
+ *   best previous score ("Best so far: X/5") from readQuizHistory() on the
+ *   score card, plus attempt count. Handle the empty-history first run.
+ * - Update the header copy ("Five questions drawn from...") if it no longer
+ *   matches what the sample contains.
+ * When done, replace this block with: AGENT-DONE(3b): <summary>.
+ */
 export function ExitQuiz() {
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);

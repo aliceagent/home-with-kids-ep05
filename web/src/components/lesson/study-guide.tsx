@@ -312,6 +312,22 @@ function CultureTab({ query }: { query: string }) {
   );
 }
 
+/*
+ * AGENT-TASK(2) [vocab export + studied highlighting]
+ * Brief + workflow: /CURSOR-TASKS.md; requires task 1a helpers.
+ * (a) Export: add an "Export CSV" button in the page header area (next to the
+ *     search input) that downloads the CURRENT tab's visible entries as a
+ *     UTF-8 CSV with BOM (so Chinese opens correctly in Excel/Anki import).
+ *     Columns: chinese,pinyin,english,note,heardAt (join multiple ids with
+ *     ";"). Client-side only: build a Blob, createObjectURL, temporary <a>
+ *     click, revokeObjectURL. Filename like hwk-ep05-<tab>.csv. Only the
+ *     decks and idioms tabs need export; hide the button on other tabs.
+ * (b) Studied badges: using readSeen() (loaded once in a useEffect), mark
+ *     deck items and idioms whose heardAt/anchor beats are ALL in the seen
+ *     set with a small emerald "studied" badge after the English gloss.
+ *     No layout shift when the set is empty.
+ * When done, replace this block with: AGENT-DONE(2): <summary>.
+ */
 export function StudyGuide() {
   const [tab, setTab] = useState<TabId>("decks");
   const [query, setQuery] = useState("");

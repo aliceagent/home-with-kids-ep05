@@ -14,6 +14,28 @@ export interface QuizQuestion {
   beatId?: string;
 }
 
+/*
+ * AGENT-TASK(3a) [generated quiz bank]
+ * Brief + workflow: /CURSOR-TASKS.md.
+ * Grow this fixed 5-question list into a bank of 20+ questions and export a
+ * sampler:
+ *   - Keep the 5 hand-written questions below (they're good) and generate the
+ *     rest at module scope from src/data/ep05-beats.json and
+ *     src/data/curriculum.ts (static imports — no fetch, no randomness at
+ *     module scope so the build stays deterministic):
+ *       · idiom meaning questions (correct gloss vs. the literal-reading trap
+ *         and one distractor from another idiom),
+ *       · Beijing-dialect word → standard-Mandarin equivalent,
+ *       · vocab-deck translation questions (Chinese → English, distractors
+ *         drawn from the same deck),
+ *       · grammar-ladder cloze questions from the worked examples.
+ *   - Every generated question keeps the QuizQuestion shape, including a
+ *     `beatId` anchor when a source line exists and a `why` explanation.
+ *   - export function pickQuiz(n = 5): QuizQuestion[] — sample n distinct
+ *     questions (Math.random is fine INSIDE this function; callers invoke it
+ *     client-side), always including at least 2 of the hand-written ones.
+ * When done, replace this block with: AGENT-DONE(3a): <summary>.
+ */
 export const EP05_QUIZ: QuizQuestion[] = [
   {
     id: "q-haozi",
