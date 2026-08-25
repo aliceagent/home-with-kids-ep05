@@ -68,7 +68,13 @@ export function SmartPlayer({
   onPreset,
   activeMode,
 }: SmartPlayerProps) {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(() => {
+    if (typeof window === "undefined") return 0;
+    const id = new URLSearchParams(window.location.search).get("beat");
+    if (!id) return 0;
+    const i = beats.findIndex((b) => b.id === id);
+    return i >= 0 ? i : 0;
+  });
   const [phase, setPhase] = useState<PlaybackPhase>("idle");
   /** Display text only — never a state gate */
   const [status, setStatus] = useState("");
@@ -119,26 +125,7 @@ export function SmartPlayer({
     noFullscreen,
   );
 
-  /*
-   * AGENT-TASK(5) [fix the pre-existing lint error]
-   * Brief + workflow: /CURSOR-TASKS.md. `npm run lint` reports a
-   * react-hooks/set-state-in-effect ERROR for the setIndex call in the ?beat=
-   * effect below. Fix it properly rather than suppressing: fold the ?beat=
-   * read into a lazy useState initializer for `index` guarded with
-   * `typeof window !== "undefined"` (prerender sees 0, browser sees the deep
-   * link — verify there is no hydration warning in `next build`/dev), or an
-   * equivalent clean approach. The restore effect below already carries a
-   * scoped eslint-disable and keeps its "?beat= wins" guard — make sure that
-   * ordering still holds after your change.
-   * When done, replace this block with: AGENT-DONE(5): <summary>.
-   */
-  // Land on a specific card via ?beat=<id> — useful for recording video frames
-  useEffect(() => {
-    const id = new URLSearchParams(window.location.search).get("beat");
-    if (!id) return;
-    const i = beats.findIndex((b) => b.id === id);
-    if (i >= 0) setIndex(i);
-  }, [beats]);
+  /* AGENT-DONE(5): folded ?beat= into a window-guarded lazy useState init for index; restore effect still skips when the param is present. */
 
   /**
    * Pick up where this browser left off. Runs after the ?beat= effect above and

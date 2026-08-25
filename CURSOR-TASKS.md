@@ -65,7 +65,9 @@ review the branch you push and merge it if it meets the bar below.
 
 ## Status checklist (update as you go)
 
-- [ ] 5 — lint error fixed, baseline now 2
+- [x] 5 — lint error fixed, baseline now 2
+  - Replaced the `?beat=` `useEffect`/`setIndex` with a `typeof window`-guarded lazy `useState` initializer so prerender stays at 0 and the browser lands on the deep-linked beat.
+  - Left the restore effect's `has("beat")` early-return in place so deep links still win over saved position.
 - [ ] 1a — progress storage helpers
 - [ ] 1b — seen-line recording
 - [ ] 1c — cover progress line
