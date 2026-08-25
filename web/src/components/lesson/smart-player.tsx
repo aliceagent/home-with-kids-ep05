@@ -1,0 +1,566 @@
+"use client";
+
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { Beat, DisplaySettings } from "@/types/lesson";
+import { getSceneImageCandidates } from "@/lib/lesson-utils";
+import { audioPath, activeLayers, type AudioLayer, voiceForBeat } from "@/lib/voices";
+import { isTeachingBeat, shouldPlayTeachingBeat } from "@/lib/teaching";
+import {
+  ensureAudio,
+  isAudioReady,
+  nextPlayableAudioUrl,
+  releaseAudioCache,
+  upcomingAudioUrls,
+  warmAudioUrls,
+} from "@/lib/audio-prefetch";
+import { SubtitleOverlay } from "@/components/lesson/subtitle-overlay";
+import { EpisodeCoverSheet } from "@/components/lesson/episode-cover-sheet";
+import { SceneCrossfade } from "@/components/lesson/scene-crossfade";
+import { SceneWatermark } from "@/components/lesson/scene-watermark";
+import { TeachingPauseOverlay } from "@/components/lesson/teaching-pause-overlay";
+import { PlayerSettingsDrawer } from "@/components/lesson/player-settings-drawer";
+import { ChapterPicker } from "@/components/lesson/chapter-picker";
+import { PlayerControls } from "@/components/lesson/player-controls";
+import { chapterAtIndex, resolveChapters } from "@/lib/episode-chapters";
+
+interface SmartPlayerProps {
+  beats: Beat[];
+  settings: DisplaySettings;
+  onSettingsChange: (key: keyof DisplaySettings, value: boolean) => void;
+  onPreset: (preset: "full" | "immersion" | "reading" | "minimal") => void;
+}
+
+export function SmartPlayer({
+  beats,
+  settings,
+  onSettingsChange,
+  onPreset,
+}: SmartPlayerProps) {
+  const [index, setIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [status, setStatus] = useState("");
+  const [showSettings, setShowSettings] = useState(false);
+  const [showChapters, setShowChapters] = useState(false);
+  const [displaySource, setDisplaySource] = useState<string | null>(
+    beats[0]?.source ?? null,
+  );
+  /** Id of the beat whose teaching card is on screen, or null */
+  const [teachingCardId, setTeachingCardId] = useState<string | null>(null);
+  /** Scene URLs that 404'd, so we fall through to the next candidate */
+  const [failedSceneUrls, setFailedSceneUrls] = useState<ReadonlySet<string>>(
+    () => new Set(),
+  );
+
+  const playGenerationRef = useRef(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const cancelRef = useRef(false);
+  const pauseRef = useRef(false);
+  const playingRef = useRef(false);
+  const skipTargetRef = useRef<number | null>(null);
+
+  const beat = beats[index];
+  const progress = ((index + 1) / beats.length) * 100;
+  const chapters = useMemo(() => resolveChapters(beats), [beats]);
+  const currentChapter = chapterAtIndex(chapters, index);
+
+  // Land on a specific card via ?beat=<id> — useful for recording video frames
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("beat");
+    if (!id) return;
+    const i = beats.findIndex((b) => b.id === id);
+    if (i >= 0) setIndex(i);
+  }, [beats]);
+
+  // Preload upcoming scene images so crossfades never wait on network
+  useEffect(() => {
+    if (!settings.sceneImage) return;
+    for (let offset = 1; offset <= 3; offset++) {
+      const next = beats[index + offset];
+      if (!next?.source) continue;
+      const nextUrl = getSceneImageCandidates(next.source)[0];
+      if (!nextUrl) continue;
+      const img = new window.Image();
+      img.src = nextUrl;
+    }
+  }, [index, beats, settings.sceneImage]);
+
+  // Fetch and decode the next ~12 lines so playback does not stall on download
+  useEffect(() => {
+    warmAudioUrls(upcomingAudioUrls(beats, index, settings, 12));
+  }, [beats, index, settings]);
+
+  /**
+   * While the scene loop drives playback it owns the displayed frame; when
+   * idle the frame simply follows the selected beat.
+   */
+  const sceneSource = playing || paused ? (displaySource ?? beat.source) : beat.source;
+  const sceneCandidates = settings.sceneImage
+    ? getSceneImageCandidates(sceneSource)
+    : [];
+  const sceneImageUrl =
+    sceneCandidates.find((url) => !failedSceneUrls.has(url)) ?? null;
+  const showSceneImage = settings.sceneImage && sceneImageUrl;
+
+  const stop = useCallback(() => {
+    skipTargetRef.current = null;
+    cancelRef.current = true;
+    pauseRef.current = false;
+    playingRef.current = false;
+    playGenerationRef.current += 1;
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.onended = null;
+      audioRef.current.onerror = null;
+      audioRef.current = null;
+    }
+    setPlaying(false);
+    setPaused(false);
+    setTeachingCardId(null);
+    setStatus("");
+  }, []);
+
+  useEffect(
+    () => () => {
+      stop();
+      releaseAudioCache();
+    },
+    [stop],
+  );
+
+  /**
+   * Play one clip. Never rejects and never hangs.
+   *
+   * Resolves `false` when the clip is missing, blocked, or interrupted. A
+   * watchdog also settles the promise if playback is cancelled externally
+   * (skip / stop blanks the element, which does not reliably fire `error`) —
+   * without it the scene loop could wedge mid-beat and leave a teaching
+   * card's state stuck on.
+   */
+  const playUrl = (url: string) =>
+    new Promise<boolean>((resolve) => {
+      const generation = ++playGenerationRef.current;
+      const previous = audioRef.current;
+      if (previous) {
+        previous.pause();
+        previous.onended = null;
+        previous.onerror = null;
+      }
+
+      let settled = false;
+      let watchdog = 0;
+      let audio: HTMLAudioElement | null = null;
+
+      function finish(ok: boolean) {
+        if (settled) return;
+        settled = true;
+        window.clearInterval(watchdog);
+        if (audio) {
+          audio.onended = null;
+          audio.onerror = null;
+        }
+        resolve(ok);
+      }
+
+      watchdog = window.setInterval(() => {
+        if (cancelRef.current || generation !== playGenerationRef.current) {
+          audio?.pause();
+          finish(false);
+          return;
+        }
+        if (audio && audioRef.current !== audio) {
+          finish(false);
+          return;
+        }
+        if (audio?.ended) finish(true);
+      }, 150);
+
+      ensureAudio(url)
+        .then((el) => {
+          if (settled || cancelRef.current || generation !== playGenerationRef.current) {
+            finish(false);
+            return;
+          }
+          audio = el;
+          audioRef.current = el;
+          el.onended = () => finish(true);
+          el.onerror = () => finish(false);
+          return el.play();
+        })
+        .catch(() => finish(false));
+    });
+
+  const wait = (ms: number) =>
+    new Promise<void>((resolve) => {
+      const start = Date.now();
+      const tick = () => {
+        if (cancelRef.current) {
+          resolve();
+          return;
+        }
+        if (pauseRef.current) {
+          setTimeout(tick, 80);
+          return;
+        }
+        if (Date.now() - start >= ms) {
+          resolve();
+          return;
+        }
+        setTimeout(tick, 80);
+      };
+      tick();
+    });
+
+  /** Returns true if at least one layer actually produced audio */
+  const playBeatLayers = async (b: Beat, layers: AudioLayer[], beatIndex: number) => {
+    const voice = voiceForBeat(b);
+    let anyPlayed = false;
+
+    for (let li = 0; li < layers.length; li++) {
+      const layer = layers[li];
+      if (cancelRef.current) return anyPlayed;
+      while (pauseRef.current && !cancelRef.current) {
+        await wait(100);
+      }
+      if (cancelRef.current) return anyPlayed;
+
+      const label =
+        layer === "chinese"
+          ? "中文"
+          : layer === "english"
+            ? "English"
+            : layer === "narrator"
+              ? "Narrator"
+              : "拼音";
+      setStatus(`${voice.nameEn} · ${label}`);
+      const played = await playUrl(audioPath(b.id, layer));
+      anyPlayed = anyPlayed || played;
+
+      const nextUrl =
+        li + 1 < layers.length
+          ? audioPath(b.id, layers[li + 1])
+          : nextPlayableAudioUrl(beats, beatIndex, settings);
+      const nextReady = nextUrl ? isAudioReady(nextUrl) : false;
+      await wait(layer === "narrator" ? 280 : nextReady ? 60 : 180);
+    }
+
+    return anyPlayed;
+  };
+
+  /** Teaching cards stay up long enough to actually read */
+  const MIN_CARD_MS = 4000;
+
+  const playTeachingBeat = async (b: Beat, beatIndex: number) => {
+    if (!shouldPlayTeachingBeat(b, settings)) {
+      return;
+    }
+
+    // Show the card before any audio work, so it renders even if audio fails
+    setTeachingCardId(b.id);
+    setStatus("Teaching pause");
+
+    const shownAt = Date.now();
+    const layers = activeLayers(settings, b);
+    const played = layers.length > 0 ? await playBeatLayers(b, layers, beatIndex) : false;
+
+    if (!played && !cancelRef.current) {
+      // No narration available — hold the card for its own reading time
+      const fallbackMs = Math.max((b.durationSec ?? 6) * 1000, MIN_CARD_MS);
+      await wait(fallbackMs - (Date.now() - shownAt));
+    }
+
+    const onScreenFor = Date.now() - shownAt;
+    if (onScreenFor < MIN_CARD_MS && !cancelRef.current) {
+      await wait(MIN_CARD_MS - onScreenFor);
+    }
+
+    setTeachingCardId(null);
+    await wait(300);
+  };
+
+  const playScene = async (startIndex = 0) => {
+    const hasAnyAudio =
+      settings.audioChinese ||
+      settings.audioEnglish ||
+      settings.audioPinyin ||
+      settings.audioNarrator;
+
+    cancelRef.current = false;
+    pauseRef.current = false;
+    playingRef.current = true;
+    setPlaying(true);
+    setPaused(false);
+    warmAudioUrls(upcomingAudioUrls(beats, startIndex, settings, 12));
+
+    try {
+      for (let i = startIndex; i < beats.length; i++) {
+        if (cancelRef.current) break;
+
+        const b = beats[i];
+        setIndex(i);
+        if (b.source) setDisplaySource(b.source);
+        warmAudioUrls(upcomingAudioUrls(beats, i, settings, 12));
+
+        if (isTeachingBeat(b)) {
+          await playTeachingBeat(b, i);
+          continue;
+        }
+
+        const readingMs = Math.max((b.durationSec ?? 4) * 1000, 1500);
+        const layers = activeLayers(settings, b);
+
+        if (hasAnyAudio && layers.length > 0) {
+          const startedAt = Date.now();
+          const played = await playBeatLayers(b, layers, i);
+          // Silent line (missing clip, blocked autoplay) — still hold the subtitle
+          if (!played && !cancelRef.current) {
+            await wait(readingMs - (Date.now() - startedAt));
+          }
+        } else {
+          setStatus(`${i + 1}/${beats.length}`);
+          await wait(readingMs);
+        }
+
+        if (cancelRef.current) break;
+        const nextUrl = nextPlayableAudioUrl(beats, i, settings);
+        await wait(nextUrl && isAudioReady(nextUrl) ? 80 : 220);
+      }
+    } catch (e) {
+      setStatus(e instanceof Error ? e.message : "Playback error");
+    } finally {
+      playingRef.current = false;
+      setTeachingCardId(null);
+
+      const resumeAt = skipTargetRef.current;
+      skipTargetRef.current = null;
+
+      if (resumeAt !== null) {
+        cancelRef.current = false;
+        pauseRef.current = false;
+        playScene(resumeAt).catch(() => setStatus("Playback failed — try again"));
+        return;
+      }
+
+      setPlaying(false);
+      setPaused(false);
+      if (!cancelRef.current) setStatus("Scene complete");
+    }
+  };
+
+  const handlePlay = () => {
+    if (paused) {
+      pauseRef.current = false;
+      setPlaying(true);
+      setPaused(false);
+      setStatus("");
+      audioRef.current?.play().catch(() => setStatus("Tap Play to start audio"));
+      return;
+    }
+    const startAt = status === "Scene complete" ? 0 : index;
+    setPlaying(true);
+    setStatus("Starting…");
+    playScene(startAt).catch(() => setStatus("Playback failed — try again"));
+  };
+
+  const handlePause = () => {
+    if (playing) {
+      pauseRef.current = true;
+      audioRef.current?.pause();
+      setPlaying(false);
+      setPaused(true);
+      setStatus("Paused");
+    } else if (paused) {
+      pauseRef.current = false;
+      audioRef.current?.play();
+      setPlaying(true);
+      setPaused(false);
+      setStatus("");
+    }
+  };
+
+  const handleRestart = () => {
+    skipTargetRef.current = null;
+    stop();
+    setTeachingCardId(null);
+    setIndex(0);
+    setDisplaySource(beats[0]?.source ?? null);
+  };
+
+  const jumpToBeat = useCallback(
+    (newIndex: number) => {
+      if (newIndex < 0 || newIndex >= beats.length || newIndex === index) return;
+
+      // Cancel first so any in-flight clip's watchdog settles immediately
+      const sessionActive = playingRef.current || playing || paused;
+      if (sessionActive) {
+        cancelRef.current = true;
+        playGenerationRef.current += 1;
+      }
+
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+
+      setTeachingCardId(null);
+      setIndex(newIndex);
+      if (beats[newIndex]?.source) setDisplaySource(beats[newIndex].source);
+
+      if (sessionActive) {
+        skipTargetRef.current = newIndex;
+        pauseRef.current = false;
+        setPlaying(true);
+        setPaused(false);
+        setStatus("");
+      }
+    },
+    [beats, index, playing, paused],
+  );
+
+  const handleSkipBack = () => jumpToBeat(index - 1);
+  const handleSkipForward = () => jumpToBeat(index + 1);
+
+  const handleSelectChapter = (startIndex: number) => {
+    setShowChapters(false);
+    const sessionActive = playingRef.current || playing || paused;
+    if (sessionActive) {
+      if (startIndex !== index) jumpToBeat(startIndex);
+      return;
+    }
+    setIndex(startIndex);
+    if (beats[startIndex]?.source) setDisplaySource(beats[startIndex].source);
+    setPlaying(true);
+    setStatus("Starting…");
+    playScene(startIndex).catch(() => setStatus("Playback failed — try again"));
+  };
+
+  const showCover = beat.type === "title";
+
+  /**
+   * During playback the card is tied to a specific beat id, so it can never
+   * outlive its beat. When idle or paused, land on a teaching beat and show it.
+   */
+  const teachingCardVisible =
+    isTeachingBeat(beat) &&
+    shouldPlayTeachingBeat(beat, settings) &&
+    (teachingCardId === beat.id || (!playing && teachingCardId === null));
+
+  const showDialogueSubtitles =
+    !teachingCardVisible && !isTeachingBeat(beat) && beat.type !== "title";
+
+  return (
+    <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-stone-950">
+      <div
+        className="relative flex min-h-0 flex-1 items-center justify-center overflow-hidden px-3 py-2"
+        style={{ containerType: "size" }}
+      >
+        <div
+          className="relative overflow-hidden rounded-xl shadow-2xl ring-1 ring-white/10"
+          style={{
+            aspectRatio: "4 / 3",
+            width: "min(100cqw, 56rem, calc(100cqh * 4 / 3))",
+            height: "min(100cqh, calc(min(100cqw, 56rem) * 3 / 4))",
+          }}
+        >
+            {/* Always keep last scene under overlays — never swap to empty/black */}
+            <SceneCrossfade
+              url={showSceneImage ? sceneImageUrl : null}
+              alt={beat.chinese}
+              dimmed={teachingCardVisible}
+              onError={() => {
+                if (!sceneImageUrl) return;
+                setFailedSceneUrls((prev) => {
+                  if (prev.has(sceneImageUrl)) return prev;
+                  const next = new Set(prev);
+                  next.add(sceneImageUrl);
+                  return next;
+                });
+              }}
+            />
+
+            {!showSceneImage && !showCover ? (
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-amber-900/40 via-stone-900 to-stone-950 p-8">
+                {settings.chinese && (
+                  <p className="text-center font-serif text-3xl text-white/90 md:text-4xl">
+                    {beat.chinese}
+                  </p>
+                )}
+              </div>
+            ) : null}
+
+            <EpisodeCoverSheet
+              beat={beat}
+              settings={settings}
+              active={showCover}
+              playing={playing && showCover}
+            />
+
+            <SubtitleOverlay beat={beat} settings={settings} visible={showDialogueSubtitles} />
+            <TeachingPauseOverlay
+              beat={beat}
+              settings={settings}
+              active={teachingCardVisible}
+            />
+
+            {status === "Scene complete" && !playing && !paused && (
+              <div className="absolute inset-0 z-[35] flex items-end justify-center bg-gradient-to-t from-black/80 via-black/30 to-transparent p-6 pb-10">
+                <a
+                  href="/quiz"
+                  className="rounded-full border border-amber-400/50 bg-amber-600 px-5 py-2 text-sm font-medium text-white shadow-lg transition hover:bg-amber-500"
+                >
+                  Take the 5-question exit quiz
+                </a>
+              </div>
+            )}
+
+            <SceneWatermark />
+
+            <PlayerSettingsDrawer
+              open={showSettings}
+              settings={settings}
+              onSettingChange={onSettingsChange}
+              onPreset={onPreset}
+              onClose={() => setShowSettings(false)}
+            />
+
+            <ChapterPicker
+              open={showChapters}
+              chapters={chapters}
+              currentIndex={index}
+              onSelect={handleSelectChapter}
+              onClose={() => setShowChapters(false)}
+            />
+          </div>
+      </div>
+
+      <PlayerControls
+        playing={playing}
+        paused={paused}
+        canPlay
+        progress={progress}
+        currentStep={index + 1}
+        totalSteps={beats.length}
+        status={status}
+        showSettings={showSettings}
+        onToggleSettings={() => {
+          setShowSettings((v) => !v);
+          setShowChapters(false);
+        }}
+        showChapters={showChapters}
+        chapterLabel={currentChapter ? currentChapter.titleEn : null}
+        onToggleChapters={() => {
+          setShowChapters((v) => !v);
+          setShowSettings(false);
+        }}
+        onPlay={handlePlay}
+        onPause={handlePause}
+        onStop={stop}
+        onRestart={handleRestart}
+        onSkipBack={handleSkipBack}
+        onSkipForward={handleSkipForward}
+        canSkipBack={index > 0}
+        canSkipForward={index < beats.length - 1}
+      />
+    </div>
+  );
+}

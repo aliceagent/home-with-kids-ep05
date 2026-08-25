@@ -1,0 +1,253 @@
+{
+  "lesson": {
+    "id": "ep05-lesson-01",
+    "series": "Learn Chinese with 家有儿女",
+    "episode": 5,
+    "episodeTitle": "猫鼠之争",
+    "part": 1,
+    "title": "来，宝贝 — Morning F4 Chat",
+    "titleChinese": "来，宝贝 — F4 聊天",
+    "timeRange": "0:00–1:10",
+    "hskLevel": "HSK 2–3",
+    "runtime": "10–12 min",
+    "characters": {
+      "xiaoxue": { "name": "夏雪", "pinyin": "Xià Xuě", "role": "Stepdaughter, middle school student" },
+      "liumei": { "name": "刘梅", "pinyin": "Liú Méi", "role": "Stepmother / mother" },
+      "xiadonghai": { "name": "夏东海", "pinyin": "Xià Dōnghǎi", "role": "Father" },
+      "xiayu": { "name": "夏雨", "pinyin": "Xià Yǔ", "role": "Younger brother" }
+    }
+  },
+  "scenes": [
+    {
+      "id": "scene-1",
+      "timestamp": "0:02",
+      "ghibliAsset": "assets/ghibli/scene-01-breakfast-f4.png",
+      "sourceAsset": "assets/source/00m08s_003_喜欢呢 真的.jpg",
+      "dialogue": [
+        {
+          "speaker": "xiaoyu",
+          "chinese": "来，宝贝，喝点牛奶。",
+          "pinyin": "Lái, bǎobèi, hē diǎn niúnǎi.",
+          "english": "Come on, sweetie, drink some milk.",
+          "notes": "来 (lái) softens commands. 宝贝 is affectionate."
+        },
+        {
+          "speaker": "xiaoxue",
+          "chinese": "阿姨，你喜欢 F4 吗？",
+          "pinyin": "Āyí, nǐ xǐhuān F4 ma?",
+          "english": "Auntie, do you like F4?",
+          "notes": "F4 = famous Taiwanese boy band. 阿姨 = polite term for stepmother."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "喜欢呢，真的。",
+          "pinyin": "Xǐhuān ne, zhēn de.",
+          "english": "I do like them, really.",
+          "notes": "呢 (ne) adds a casual, affirming tone."
+        },
+        {
+          "speaker": "xiaoxue",
+          "chinese": "那您觉得 F4 帅吗？",
+          "pinyin": "Nà nín juéde F4 shuài ma?",
+          "english": "Do you think F4 are handsome?",
+          "notes": "您 = polite you. Sets up Liu Mei's joke."
+        }
+      ]
+    },
+    {
+      "id": "scene-2",
+      "timestamp": "0:14",
+      "ghibliAsset": "assets/ghibli/scene-02-liumei-f4.png",
+      "sourceAsset": "assets/source/00m16s_006_我觉得他们的直忆2的都帅.jpg",
+      "dialogue": [
+        {
+          "speaker": "liumei",
+          "chinese": "我觉得吧，他们比 F1、F2、F3 都帅。",
+          "pinyin": "Wǒ juéde ba, tāmen bǐ F1, F2, F3 dōu shuài.",
+          "english": "I think they're even handsomer than F1, F2, and F3.",
+          "grammar": "比 comparison: A 比 B + adjective",
+          "notes": "The joke: Liu Mei thinks F4 is numbered F1–F4. She doesn't realize F4 is the band name."
+        },
+        {
+          "speaker": "xiaoxue",
+          "chinese": "那是什么乐队呀？",
+          "pinyin": "Nà shì shénme yuèduì ya?",
+          "english": "What band is that?",
+          "notes": "呀 (ya) = casual question particle."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "那都是些老乐队。",
+          "pinyin": "Nà dōu shì xiē lǎo yuèduì.",
+          "english": "Those are all old bands.",
+          "vocab": ["乐队 yuèduì = band", "些 xiē = some"]
+        }
+      ]
+    },
+    {
+      "id": "scene-3",
+      "timestamp": "0:34",
+      "ghibliAsset": "assets/ghibli/scene-02-liumei-f4.png",
+      "dialogue": [
+        {
+          "speaker": "xiaoxue",
+          "chinese": "阿姨，您对流行音乐的历史还真有研究。",
+          "pinyin": "Āyí, nín duì liúxíng yīnyuè de lìshǐ hái zhēn yǒu yánjiū.",
+          "english": "Auntie, you really know your pop music history.",
+          "notes": "您 = polite you. 有研究 = know a lot about (colloquial praise)."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "那当然了，阿姨是老追星族。",
+          "pinyin": "Nà dāngrán le, āyí shì lǎo zhuīxīngzú.",
+          "english": "Of course! Auntie is an old-school fan.",
+          "vocab": ["追星族 zhuīxīngzú = fan/groupie", "老 lǎo = long-time, not just 'old'"]
+        },
+        {
+          "speaker": "xiaoxue",
+          "chinese": "阿姨，那您喜欢哪首歌呀？",
+          "pinyin": "Āyí, nà nín xǐhuān nǎ shǒu gē ya?",
+          "english": "Auntie, which song do you like?",
+          "notes": "首 (shǒu) = measure word for songs."
+        },
+        {
+          "speaker": "xiaoxue",
+          "chinese": "我喜欢那首《要定你》。",
+          "pinyin": "Wǒ xǐhuān nà shǒu «Yào Dìng Nǐ».",
+          "english": "I like that song 'Want You for Sure.'",
+          "notes": "F4 song reference. 《》 marks titles."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "我也喜欢这首。",
+          "pinyin": "Wǒ yě xǐhuān zhè shǒu.",
+          "english": "I like this one too.",
+          "notes": "这首 = this song (首 measure word)."
+        }
+      ]
+    },
+    {
+      "id": "scene-4",
+      "timestamp": "0:52",
+      "ghibliAsset": "assets/ghibli/scene-03-chouweixiangtou.png",
+      "sourceAsset": "assets/source/00m52s_020_&我也喜欢这首.jpg",
+      "dialogue": [
+        {
+          "speaker": "xiadonghai",
+          "chinese": "你们俩还有点臭味相投啊。",
+          "pinyin": "Nǐmen liǎ hái yǒudiǎn chòuwèixiāngtóu a.",
+          "english": "You two really are birds of a feather!",
+          "idiom": "臭味相投 chòuwèixiāngtóu",
+          "notes": "Playful/sarcastic. 俩 = two of you (colloquial)."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "那当然了。",
+          "pinyin": "Nà dāngrán le.",
+          "english": "Of course!",
+          "notes": "那当然了 = natural agreement phrase."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "这叫不像一家人，不进一家门。",
+          "pinyin": "Zhè jiào bù xiàng yī jiā rén, bù jìn yī jiā mén.",
+          "english": "That's what they mean — like attracts like!",
+          "idiom": "不是一家人，不进一家门",
+          "notes": "Classic chengyu about shared traits; Liu Mei uses 不像 playfully."
+        }
+      ]
+    },
+    {
+      "id": "scene-5",
+      "timestamp": "1:02",
+      "ghibliAsset": "assets/ghibli/scene-05-singing.png",
+      "sourceAsset": "assets/source/01m10s_025_那第亠 句词是什么来着.jpg",
+      "dialogue": [
+        {
+          "speaker": "xiaoxue",
+          "chinese": "阿姨，那您唱两句。",
+          "pinyin": "Āyí, nà nín chàng liǎng jù.",
+          "english": "Auntie, sing a couple lines for us!",
+          "notes": "唱两句 = sing a bit (句 = lines/clauses)."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "那第一句词是什么来着？",
+          "pinyin": "Nà dì yī jù cí shì shénme láizhe?",
+          "english": "What were the first lyrics again?",
+          "notes": "来着 = 'as I recall' (casual past)."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "我是骚动，我是爱情的暴风。",
+          "pinyin": "Wǒ shì sāodòng, wǒ shì àiqíng de bàofēng.",
+          "english": "I am the commotion, I am the storm of love.",
+          "notes": "Liu Mei botches F4 lyrics — comedy beat."
+        },
+        {
+          "speaker": "liumei",
+          "chinese": "爱主攻，不喜欢被动。",
+          "pinyin": "Ài zhǔgōng, bù xǐhuān bèidòng.",
+          "english": "Love taking the lead, don't like being passive!",
+          "notes": "Second botched lyric line."
+        }
+      ]
+    }
+  ],
+  "vocabulary": [
+    { "chinese": "阿姨", "pinyin": "āyí", "english": "auntie; polite term for stepmother", "hsk": 3, "card": "assets/cards/card-vocab-ayi.png" },
+    { "chinese": "喜欢", "pinyin": "xǐhuān", "english": "to like", "hsk": 1 },
+    { "chinese": "帅", "pinyin": "shuài", "english": "handsome; cool", "hsk": 3 },
+    { "chinese": "乐队", "pinyin": "yuèduì", "english": "band", "hsk": 4 },
+    { "chinese": "追星族", "pinyin": "zhuīxīngzú", "english": "fan; groupie (star-chaser)", "hsk": null, "card": "assets/cards/card-vocab-zhuixingzu.png" },
+    { "chinese": "研究", "pinyin": "yánjiū", "english": "research; expertise (colloq.)", "hsk": 4 },
+    { "chinese": "首", "pinyin": "shǒu", "english": "measure word for songs", "hsk": 3 },
+    { "chinese": "当然", "pinyin": "dāngrán", "english": "of course", "hsk": 3 }
+  ],
+  "idioms": [
+    {
+      "chinese": "臭味相投",
+      "pinyin": "chòuwèixiāngtóu",
+      "english": "birds of a feather (share the same tastes)",
+      "literal": "same foul smell, same direction",
+      "card": "assets/cards/card-idiom-chouweixiangtou.png"
+    },
+    {
+      "chinese": "不是一家人，不进一家门",
+      "pinyin": "bù shì yī jiā rén, bù jìn yī jiā mén",
+      "english": "like attracts like; people of the same kind stick together",
+      "literal": "if you're not family, you don't enter the same door",
+      "card": "assets/cards/card-idiom-yijiaren.png"
+    }
+  ],
+  "grammar": [
+    {
+      "pattern": "A 比 B 都 + Adj",
+      "meaning": "A is even more [adj] than B",
+      "example": "他们比 F1、F2、F3 都帅",
+      "examplePinyin": "Tāmen bǐ F1, F2, F3 dōu shuài",
+      "exampleEnglish": "They're even handsomer than F1, F2, and F3",
+      "card": "assets/cards/card-grammar-bi.png"
+    },
+    {
+      "pattern": "觉得 + opinion",
+      "meaning": "to feel/think that...",
+      "example": "我觉得吧",
+      "examplePinyin": "Wǒ juéde ba",
+      "exampleEnglish": "I think (well)..."
+    },
+    {
+      "pattern": "还真有 + noun",
+      "meaning": "really do have / really know about",
+      "example": "还真有研究",
+      "examplePinyin": "Hái zhēn yǒu yánjiū",
+      "exampleEnglish": "You really know your stuff"
+    }
+  ],
+  "recapQuiz": [
+    { "question": "What does 阿姨 mean in this episode?", "answer": "A polite term Xiaoxue uses for her stepmother Liu Mei" },
+    { "question": "What does 臭味相投 mean?", "answer": "Birds of a feather — people who share the same tastes" },
+    { "question": "Fill in: 他们 ___ F1、F2、F3 都帅", "answer": "比 (bǐ)" },
+    { "question": "What measure word is used for songs?", "answer": "首 (shǒu)" }
+  ]
+}

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson 1 — Morning F4 Chat | 家有儿女 EP5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f2;
+      --card: #ffffff;
+      --text: #2c2416;
+      --muted: #6b5d4d;
+      --accent: #c45c3e;
+      --accent-soft: #f4e4d9;
+      --green: #5a7a5a;
+      --gold: #c9a227;
+      --shadow: 0 4px 24px rgba(44,36,22,0.08);
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .hero {
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+    .hero img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 30%, rgba(44,36,22,0.85));
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2rem;
+      color: white;
+    }
+    .hero-overlay h1 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .hero-overlay .meta {
+      opacity: 0.85;
+      font-size: 0.95rem;
+      margin-top: 0.5rem;
+    }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+    .section {
+      margin-bottom: 3rem;
+    }
+    .section h2 {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--accent-soft);
+    }
+    .scene-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+    .scene-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+    }
+    .scene-body { padding: 1.5rem; }
+    .scene-body h3 {
+      font-family: 'Noto Serif SC', serif;
+      color: var(--accent);
+      margin-bottom: 0.25rem;
+    }
+    .timestamp {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .dialogue-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    .dialogue-table th {
+      text-align: left;
+      padding: 0.6rem 0.5rem;
+      background: var(--accent-soft);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .dialogue-table td {
+      padding: 0.75rem 0.5rem;
+      border-bottom: 1px solid #eee;
+      vertical-align: top;
+    }
+    .dialogue-table .cn {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+    .dialogue-table .py { color: var(--green); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+    .lang-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s;
+    }
+    .lang-card:hover { transform: translateY(-4px); }
+    .lang-card img { width: 100%; display: block; }
+    .vocab-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+    .vocab-item {
+      background: var(--card);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+    .vocab-item .cn {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .vocab-item .py { color: var(--green); font-size: 0.9rem; }
+    .vocab-item .en { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+    .quiz-item {
+      background: var(--card);
+      padding: 1.25rem;
+      border-radius: 12px;
+      margin-bottom: 0.75rem;
+      box-shadow: var(--shadow);
+    }
+    .quiz-item .q { font-weight: 600; margin-bottom: 0.5rem; }
+    .quiz-item .a {
+      color: var(--green);
+      font-size: 0.9rem;
+      padding-left: 1rem;
+      border-left: 3px solid var(--green);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    @media (max-width: 600px) {
+      .hero { height: 280px; }
+      .hero-overlay h1 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <img src="assets/lesson-01-title-card.png" alt="Lesson 1 title">
+    <div class="hero-overlay">
+      <h1>来，宝贝 — Morning F4 Chat</h1>
+      <div class="meta">家有儿女 EP5 · Part 1 of 12 · HSK 2–3 · 0:00–1:10</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="section">
+      <h2>Language Cards</h2>
+      <div class="cards-grid">
+        <div class="lang-card"><img src="assets/cards/card-vocab-ayi.png" alt="阿姨 vocabulary card"></div>
+        <div class="lang-card"><img src="assets/cards/card-vocab-zhuixingzu.png" alt="追星族 vocabulary card"></div>
+        <div class="lang-card"><img src="assets/cards/card-grammar-bi.png" alt="比 grammar card"></div>
+        <div class="lang-card"><img src="assets/cards/card-idiom-chouweixiangtou.png" alt="臭味相投 idiom card"></div>
+        <div class="lang-card"><img src="assets/cards/card-idiom-yijiaren.png" alt="不是一家人不进一家门 idiom card"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Scene 1 — Breakfast & F4</h2>
+      <div class="scene-card">
+        <img class="scene-img" src="assets/ghibli/scene-01-breakfast-f4.png" alt="Ghibli breakfast scene">
+        <div class="scene-body">
+          <h3>来，宝贝，喝点牛奶</h3>
+          <div class="timestamp">0:02 – 0:12</div>
+          <table class="dialogue-table">
+            <tr><th>Speaker</th><th>中文</th><th>Pinyin</th><th>English</th></tr>
+            <tr><td>夏雨</td><td class="cn">来，宝贝，喝点牛奶。</td><td class="py">Lái, bǎobèi, hē diǎn niúnǎi.</td><td>Come on, sweetie, drink some milk.</td></tr>
+            <tr><td>夏雪</td><td class="cn">阿姨，你喜欢 F4 吗？</td><td class="py">Āyí, nǐ xǐhuān F4 ma?</td><td>Auntie, do you like F4?</td></tr>
+            <tr><td>刘梅</td><td class="cn">喜欢呢，真的。</td><td class="py">Xǐhuān ne, zhēn de.</td><td>I do like them, really.</td></tr>
+            <tr><td>夏雪</td><td class="cn">那您觉得 F4 帅吗？</td><td class="py">Nà nín juédé F4 shuài ma?</td><td>Do you think F4 are handsome?</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Scene 2 — Handsomer Than F4</h2>
+      <div class="scene-card">
+        <img class="scene-img" src="assets/ghibli/scene-02-liumei-f4.png" alt="Liu Mei talking about F4">
+        <div class="scene-body">
+          <h3>我觉得他们比 F4 都帅</h3>
+          <div class="timestamp">0:14 – 0:32 · Grammar: A 比 B 都 + Adj</div>
+          <table class="dialogue-table">
+            <tr><th>Speaker</th><th>中文</th><th>Pinyin</th><th>English</th></tr>
+            <tr><td>刘梅</td><td class="cn">我觉得吧，他们比 F4 都帅。</td><td class="py">Wǒ juéde ba, tāmen bǐ F4 dōu shuài.</td><td>I think they're even handsomer than F4.</td></tr>
+            <tr><td>夏雪</td><td class="cn">那是什么乐队呀？</td><td class="py">Nà shì shénme yuèduì ya?</td><td>What band is that?</td></tr>
+            <tr><td>刘梅</td><td class="cn">那都是些老乐队。</td><td class="py">Nà dōu shì xiē lǎo yuèduì.</td><td>Those are all old bands.</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Scene 3 — Pop Music Expert</h2>
+      <div class="scene-card">
+        <img class="scene-img" src="assets/ghibli/scene-02-liumei-f4.png" alt="Pop music conversation">
+        <div class="scene-body">
+          <h3>阿姨是老追星族</h3>
+          <div class="timestamp">0:34 – 0:52</div>
+          <table class="dialogue-table">
+            <tr><th>Speaker</th><th>中文</th><th>Pinyin</th><th>English</th></tr>
+            <tr><td>夏雪</td><td class="cn">阿姨，您对流行音乐的历史还真有研究。</td><td class="py">Āyí, nín duì liúxíng yīnyuè de lìshǐ hái zhēn yǒu yánjiū.</td><td>Auntie, you really know your pop music history!</td></tr>
+            <tr><td>刘梅</td><td class="cn">那当然了，阿姨是老追星族。</td><td class="py">Nà dāngrán le, āyí shì lǎo zhuīxīngzú.</td><td>Of course! Auntie is an old-school fan.</td></tr>
+            <tr><td>夏雪</td><td class="cn">我喜欢那首《要定你》。</td><td class="py">Wǒ xǐhuān nà shǒu «Yào Dìng Nǐ».</td><td>I like that song "Want You for Sure."</td></tr>
+            <tr><td>刘梅</td><td class="cn">我也喜欢这首。</td><td class="py">Wǒ yě xǐhuān zhè shǒu.</td><td>I like this one too.</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Scene 4 — Birds of a Feather</h2>
+      <div class="scene-card">
+        <img class="scene-img" src="assets/ghibli/scene-03-chouweixiangtou.png" alt="Xia Donghai teasing">
+        <div class="scene-body">
+          <h3>你们俩还有点臭味相投啊</h3>
+          <div class="timestamp">0:52 – 1:00</div>
+          <table class="dialogue-table">
+            <tr><th>Speaker</th><th>中文</th><th>Pinyin</th><th>English</th></tr>
+            <tr><td>夏东海</td><td class="cn">你们俩还有点臭味相投啊。</td><td class="py">Nǐmen liǎ hái yǒudiǎn chòuwèixiāngtóu a.</td><td>You two really are birds of a feather!</td></tr>
+            <tr><td>刘梅</td><td class="cn">那当然了。</td><td class="py">Nà dāngrán le.</td><td>Of course!</td></tr>
+            <tr><td>刘梅</td><td class="cn">这叫不是一家人，不进一家门。</td><td class="py">Zhè jiào bù shì yī jiā rén, bù jìn yī jiā mén.</td><td>That's "like attracts like"!</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="scene-card">
+        <img class="scene-img" src="assets/ghibli/scene-04-yijiaren.png" alt="Family idiom scene">
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Scene 5 — Sing a Couple Lines!</h2>
+      <div class="scene-card">
+        <img class="scene-img" src="assets/ghibli/scene-05-singing.png" alt="Singing scene">
+        <div class="scene-body">
+          <h3>阿姨，那您唱两句</h3>
+          <div class="timestamp">1:02 – 1:10</div>
+          <table class="dialogue-table">
+            <tr><th>Speaker</th><th>中文</th><th>Pinyin</th><th>English</th></tr>
+            <tr><td>夏雪</td><td class="cn">阿姨，那您唱两句。</td><td class="py">Āyí, nà nín chàng liǎng jù.</td><td>Auntie, sing a couple lines for us!</td></tr>
+            <tr><td>刘梅</td><td class="cn">那第一句词是什么来着？</td><td class="py">Nà dì yī jù cí shì shénme láizhe?</td><td>What were the first lyrics again?</td></tr>
+            <tr><td>刘梅</td><td class="cn">我是骚动，我是爱情的暴风。</td><td class="py">Wǒ shì sāodòng, wǒ shì àiqíng de bàofēng.</td><td>I am the commotion, I am the storm of love!</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Vocabulary</h2>
+      <div class="vocab-list">
+        <div class="vocab-item"><div class="cn">阿姨</div><div class="py">āyí</div><div class="en">auntie; stepmother (polite)</div></div>
+        <div class="vocab-item"><div class="cn">喜欢</div><div class="py">xǐhuān</div><div class="en">to like</div></div>
+        <div class="vocab-item"><div class="cn">帅</div><div class="py">shuài</div><div class="en">handsome; cool</div></div>
+        <div class="vocab-item"><div class="cn">乐队</div><div class="py">yuèduì</div><div class="en">band</div></div>
+        <div class="vocab-item"><div class="cn">追星族</div><div class="py">zhuīxīngzú</div><div class="en">fan; groupie</div></div>
+        <div class="vocab-item"><div class="cn">研究</div><div class="py">yánjiū</div><div class="en">research; expertise</div></div>
+        <div class="vocab-item"><div class="cn">首</div><div class="py">shǒu</div><div class="en">measure word for songs</div></div>
+        <div class="vocab-item"><div class="cn">当然</div><div class="py">dāngrán</div><div class="en">of course</div></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Recap Quiz</h2>
+      <div class="quiz-item"><div class="q">1. What does 阿姨 mean in this episode?</div><div class="a">A polite term Xiaoxue uses for her stepmother Liu Mei</div></div>
+      <div class="quiz-item"><div class="q">2. Fill in: 他们 ___ F4 都帅</div><div class="a">比 (bǐ) — comparison marker</div></div>
+      <div class="quiz-item"><div class="q">3. What does 臭味相投 mean?</div><div class="a">Birds of a feather — people who share the same tastes</div></div>
+      <div class="quiz-item"><div class="q">4. What measure word is used for songs?</div><div class="a">首 (shǒu)</div></div>
+    </section>
+  </div>
+
+  <footer>Learn Chinese with 家有儿女 · EP5 Lesson 1 · Part 2 next: 周渝民 Memorizing Idol Trivia</footer>
+</body>
+</html>
