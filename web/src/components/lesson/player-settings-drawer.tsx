@@ -137,7 +137,7 @@ export function PlayerSettingsDrawer({
         onClick={(e) => e.stopPropagation()}
         className={cn(
           "relative z-10 max-h-[82%] w-full gap-0 overflow-hidden rounded-t-2xl rounded-b-none bg-stone-900 py-0 text-white ring-white/15",
-          "animate-in slide-in-from-bottom-6 fade-in duration-300",
+          "motion-safe:animate-in motion-safe:slide-in-from-bottom-6 motion-safe:fade-in motion-safe:duration-300",
         )}
       >
         <CardHeader className="flex flex-row items-start justify-between gap-3 border-b border-white/10 px-4 py-3 md:px-5">

@@ -139,7 +139,7 @@ export function ExitQuiz() {
                 Question {index + 1} of {EP05_QUIZ.length}
               </span>
               {question.promptZh && (
-                <span className="font-serif text-base text-amber-200/90">
+                <span lang="zh-CN" className="font-serif text-base text-amber-200/90">
                   {question.promptZh}
                 </span>
               )}

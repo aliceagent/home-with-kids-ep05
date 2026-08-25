@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import beatsData from "@/data/ep05-beats.json";
 import { SmartPlayer } from "@/components/lesson/smart-player";
 import { DEFAULT_DISPLAY, type Beat, type DisplaySettings } from "@/types/lesson";
 import { EP05_META } from "@/lib/episode-meta";
+import { SETTINGS_KEY, readStored, writeStored } from "@/lib/player-storage";
 
 const beats = beatsData as Beat[];
 
@@ -75,6 +76,29 @@ const lastBeat = beats[beats.length - 1];
 
 export function LessonViewer() {
   const [settings, setSettings] = useState<DisplaySettings>(DEFAULT_DISPLAY);
+  /** Skips the first write so a fresh mount cannot clobber the saved settings */
+  const settingsSavedRef = useRef(false);
+
+  /**
+   * Restore saved toggles. Storage can only be read after mount — the page is
+   * statically prerendered — and unknown keys are merged over the defaults so
+   * an older stored blob still gets any newly added toggle.
+   */
+  /* eslint-disable react-hooks/set-state-in-effect -- restoring persisted state
+     is only hydration-safe after mount */
+  useEffect(() => {
+    const saved = readStored<Partial<DisplaySettings>>(SETTINGS_KEY);
+    if (saved) setSettings((s) => ({ ...s, ...saved }));
+  }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  useEffect(() => {
+    if (!settingsSavedRef.current) {
+      settingsSavedRef.current = true;
+      return;
+    }
+    writeStored(SETTINGS_KEY, settings);
+  }, [settings]);
 
   const updateSetting = (key: keyof DisplaySettings, value: boolean) => {
     setSettings((s) => ({ ...s, [key]: value }));
@@ -89,7 +113,7 @@ export function LessonViewer() {
       <header className="shrink-0 border-b border-white/10 px-4 py-1.5 md:px-6">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
           <p className="text-xs text-white/40">
-            {EP05_META.series} · EP{EP05_META.episode}
+            <span lang="zh-CN">{EP05_META.series}</span> · EP{EP05_META.episode}
           </p>
           <div className="flex items-center gap-4">
             <a

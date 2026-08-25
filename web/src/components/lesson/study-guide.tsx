@@ -86,7 +86,7 @@ function DecksTab({ query }: { query: string }) {
             className="border-indigo-400/30 bg-indigo-500/[0.07]"
           >
             <div className="mb-4">
-              <h2 className="font-serif text-2xl text-white">{deck.title}</h2>
+              <h2 lang="zh-CN" className="font-serif text-2xl text-white">{deck.title}</h2>
               <p className="text-sm text-indigo-200">{deck.titleEn}</p>
               <p className="mt-1 text-xs text-white/45">{deck.theme}</p>
             </div>
@@ -95,7 +95,7 @@ function DecksTab({ query }: { query: string }) {
               {items.map((item) => (
                 <li key={item.chinese} className="py-3 first:pt-0 last:pb-0">
                   <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <span className="font-serif text-xl text-white">
+                    <span lang="zh-CN" className="font-serif text-xl text-white">
                       {item.chinese}
                     </span>
                     <span className="text-sm text-teal-200">{item.pinyin}</span>
@@ -137,7 +137,7 @@ function IdiomsTab({ query }: { query: string }) {
     <div className="space-y-4">
       {items.map((idiom) => (
         <Section key={idiom.id} className="border-rose-400/30 bg-rose-500/[0.07]">
-          <h2 className="font-serif text-2xl text-white md:text-3xl">
+          <h2 lang="zh-CN" className="font-serif text-2xl text-white md:text-3xl">
             {idiom.chinese}
           </h2>
           <p className="mt-1 text-base text-teal-200">{idiom.pinyin}</p>
@@ -180,12 +180,12 @@ function GrammarTab({ query }: { query: string }) {
       {items.map((step) => (
         <Section key={step.id} className="border-sky-400/30 bg-sky-500/[0.07]">
           <div className="mb-2 flex flex-wrap items-center gap-2">
-            <h2 className="font-serif text-xl text-white md:text-2xl">
+            <h2 lang="zh-CN" className="font-serif text-xl text-white md:text-2xl">
               {step.pattern}
             </h2>
             {step.ladder && (
               <span className="inline-flex items-center gap-1.5 rounded-full border border-sky-400/40 bg-sky-500/15 px-2.5 py-0.5 text-[10px] font-semibold text-sky-100">
-                <span className="font-serif text-sm">{step.ladder.family}</span>
+                <span lang="zh-CN" className="font-serif text-sm">{step.ladder.family}</span>
                 step {step.ladder.step} of {step.ladder.of}
               </span>
             )}
@@ -233,7 +233,7 @@ function BeijingTab({ query }: { query: string }) {
           className="border-orange-400/30 bg-orange-500/[0.07]"
         >
           <div className="flex flex-wrap items-baseline gap-x-3">
-            <h2 className="font-serif text-2xl text-white md:text-3xl">
+            <h2 lang="zh-CN" className="font-serif text-2xl text-white md:text-3xl">
               {note.feature}
             </h2>
             <span className="text-base text-teal-200">{note.featurePinyin}</span>
@@ -274,7 +274,7 @@ function CultureTab({ query }: { query: string }) {
           className="border-emerald-400/30 bg-emerald-500/[0.07]"
         >
           <div className="flex flex-wrap items-baseline gap-x-3">
-            <h2 className="font-serif text-2xl text-white md:text-3xl">
+            <h2 lang="zh-CN" className="font-serif text-2xl text-white md:text-3xl">
               {card.title}
             </h2>
             <span className="text-base text-teal-200">{card.titlePinyin}</span>
@@ -311,7 +311,7 @@ export function StudyGuide() {
 
         <header className="mb-8">
           <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-amber-400/90">
-            Home With Kids · EP5 猫鼠之争
+            Home With Kids · EP5 <span lang="zh-CN">猫鼠之争</span>
           </p>
           <h1 className="mt-2 font-serif text-4xl text-white md:text-5xl">
             Study guide

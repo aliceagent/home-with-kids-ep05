@@ -41,8 +41,8 @@ export function EpisodeCoverSheet({
           alt=""
           fill
           className={cn(
-            "object-cover transition-transform duration-[4000ms] ease-out",
-            playing ? "scale-110" : "scale-105",
+            "object-cover motion-safe:transition-transform motion-safe:duration-[4000ms] motion-safe:ease-out",
+            playing ? "motion-safe:scale-110" : "motion-safe:scale-105",
           )}
           priority
           sizes="(max-width: 896px) 100vw, 896px"
@@ -71,7 +71,7 @@ export function EpisodeCoverSheet({
           Learn Chinese with {meta.seriesEn}
         </p>
 
-        <p className="mb-1 font-serif text-sm tracking-wide text-white/50 md:text-base">
+        <p lang="zh-CN" className="mb-1 font-serif text-sm tracking-wide text-white/50 md:text-base">
           {meta.series}
         </p>
 
@@ -84,6 +84,7 @@ export function EpisodeCoverSheet({
         </div>
 
         <h1
+          lang="zh-CN"
           className={cn(
             "font-serif text-4xl font-bold leading-none tracking-tight text-white drop-shadow-lg sm:text-5xl md:text-6xl",
             playing && "animate-in fade-in zoom-in-95 duration-700",
@@ -105,7 +106,7 @@ export function EpisodeCoverSheet({
         <div className="my-4 h-px w-16 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent md:my-6 md:w-24" />
 
         <p className="max-w-sm px-2 text-xs leading-snug text-white/55 drop-shadow md:text-sm md:leading-relaxed">
-          {settings.chinese && meta.taglineZh}
+          {settings.chinese && <span lang="zh-CN">{meta.taglineZh}</span>}
           {settings.chinese && settings.english && " · "}
           {settings.english && meta.taglineEn}
         </p>
@@ -117,13 +118,13 @@ export function EpisodeCoverSheet({
               className="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-black/30 px-2.5 py-1 text-[11px] text-white/75 backdrop-blur-sm"
             >
               <span className={cn("size-1.5 rounded-full", c.color)} />
-              {settings.chinese ? c.name : c.nameEn}
+              {settings.chinese ? <span lang="zh-CN">{c.name}</span> : c.nameEn}
             </span>
           ))}
         </div>
 
         {!playing && (
-          <p className="mt-6 animate-pulse text-xs text-white/40 md:mt-10">
+          <p className="mt-6 text-xs text-white/40 motion-safe:animate-pulse md:mt-10">
             Press Play scene to begin
           </p>
         )}

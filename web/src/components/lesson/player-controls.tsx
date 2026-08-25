@@ -1,7 +1,7 @@
 "use client";
 
+import { useRef, type KeyboardEvent, type PointerEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import {
   ChevronDown,
   ChevronUp,
@@ -9,6 +9,7 @@ import {
   Pause,
   Play,
   RotateCcw,
+  RotateCw,
   Settings2,
   SkipBack,
   SkipForward,
@@ -32,8 +33,13 @@ interface PlayerControlsProps {
   onPause: () => void;
   onStop: () => void;
   onRestart: () => void;
+  onReplay: () => void;
   onSkipBack: () => void;
   onSkipForward: () => void;
+  /** Zero-based beat index the viewer scrubbed to */
+  onSeek: (index: number) => void;
+  speed: number;
+  onCycleSpeed: () => void;
   canSkipBack: boolean;
   canSkipForward: boolean;
 }
@@ -55,18 +61,81 @@ export function PlayerControls({
   onPause,
   onStop,
   onRestart,
+  onReplay,
   onSkipBack,
   onSkipForward,
+  onSeek,
+  speed,
+  onCycleSpeed,
   canSkipBack,
   canSkipForward,
 }: PlayerControlsProps) {
   const isActive = playing || paused;
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const draggingRef = useRef(false);
+
+  /** Horizontal position inside the bar → beat index */
+  const seekToClientX = (clientX: number) => {
+    const el = trackRef.current;
+    if (!el || totalSteps < 2) return;
+    const rect = el.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const ratio = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
+    onSeek(Math.round(ratio * (totalSteps - 1)));
+  };
+
+  const handleTrackPointerDown = (e: PointerEvent<HTMLDivElement>) => {
+    draggingRef.current = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+    seekToClientX(e.clientX);
+  };
+
+  const handleTrackPointerMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (draggingRef.current) seekToClientX(e.clientX);
+  };
+
+  const handleTrackPointerUp = (e: PointerEvent<HTMLDivElement>) => {
+    draggingRef.current = false;
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+  };
+
+  const handleTrackKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    // Stop the player's window-level shortcut from moving a second line
+    e.preventDefault();
+    e.stopPropagation();
+    onSeek(currentStep - 1 + (e.key === "ArrowRight" ? 1 : -1));
+  };
 
   return (
     <footer className="relative z-40 shrink-0 border-t border-white/10 bg-stone-950/95 backdrop-blur-md">
       <div className="mx-auto max-w-5xl px-3 py-2 md:px-6">
         <div className="mb-1.5 flex items-center gap-3">
-          <Progress value={progress} className="h-1 flex-1 bg-white/10" />
+          <div
+            ref={trackRef}
+            role="slider"
+            tabIndex={0}
+            aria-label="Lesson position"
+            aria-valuemin={1}
+            aria-valuemax={totalSteps}
+            aria-valuenow={currentStep}
+            aria-valuetext={`Line ${currentStep} of ${totalSteps}`}
+            onPointerDown={handleTrackPointerDown}
+            onPointerMove={handleTrackPointerMove}
+            onPointerUp={handleTrackPointerUp}
+            onPointerCancel={handleTrackPointerUp}
+            onKeyDown={handleTrackKeyDown}
+            className="group relative h-4 flex-1 cursor-pointer touch-none select-none outline-none"
+          >
+            <div className="absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 overflow-hidden rounded-full bg-white/10 transition-[height] group-hover:h-1.5 group-focus-visible:h-1.5 group-focus-visible:ring-1 group-focus-visible:ring-amber-400/60">
+              <div
+                className="h-full rounded-full bg-amber-500/90"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
           <span className="shrink-0 font-mono text-xs text-white/50">
             {currentStep}/{totalSteps}
           </span>
@@ -83,6 +152,17 @@ export function PlayerControls({
               title="Previous line"
             >
               <SkipBack className="size-4" />
+            </Button>
+
+            <Button
+              onClick={onReplay}
+              size="icon"
+              variant="ghost"
+              className="text-white/70 hover:bg-white/10 hover:text-white"
+              title="Replay this line (R)"
+              aria-label="Replay this line"
+            >
+              <RotateCw className="size-4" />
             </Button>
 
             {!isActive ? (
@@ -118,6 +198,8 @@ export function PlayerControls({
                   size="icon"
                   variant="ghost"
                   className="text-white/70 hover:bg-white/10 hover:text-white"
+                  title="Stop playback"
+                  aria-label="Stop playback"
                 >
                   <Square className="size-4" />
                 </Button>
@@ -144,11 +226,26 @@ export function PlayerControls({
             >
               <RotateCcw className="size-4" />
             </Button>
+
+            <Button
+              onClick={onCycleSpeed}
+              size="sm"
+              variant="ghost"
+              className="min-w-12 font-mono text-xs text-white/70 hover:bg-white/10 hover:text-white"
+              title="Playback speed — cycles 0.75× / 1× / 1.25×"
+            >
+              {speed}×
+            </Button>
           </div>
 
           <div className="flex items-center gap-2">
             {status && (
-              <p className="hidden text-sm text-amber-300/90 sm:block">{status}</p>
+              <p
+                aria-live="polite"
+                className="hidden text-sm text-amber-300/90 sm:block"
+              >
+                {status}
+              </p>
             )}
             <Button
               type="button"
@@ -196,7 +293,12 @@ export function PlayerControls({
         </div>
 
         {status && (
-          <p className="mt-1 truncate text-xs text-amber-300/80 sm:hidden">{status}</p>
+          <p
+            aria-hidden="true"
+            className="mt-1 truncate text-xs text-amber-300/80 sm:hidden"
+          >
+            {status}
+          </p>
         )}
       </div>
     </footer>

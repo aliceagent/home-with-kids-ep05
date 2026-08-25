@@ -72,7 +72,7 @@ export function ChapterPicker({
         onClick={(e) => e.stopPropagation()}
         className={cn(
           "relative z-10 max-h-[82%] w-full gap-0 overflow-hidden rounded-t-2xl rounded-b-none bg-stone-900 py-0 text-white ring-white/15",
-          "animate-in slide-in-from-bottom-6 fade-in duration-300",
+          "motion-safe:animate-in motion-safe:slide-in-from-bottom-6 motion-safe:fade-in motion-safe:duration-300",
         )}
       >
         <CardHeader className="flex flex-row items-start justify-between gap-3 border-b border-white/10 px-4 py-3 md:px-5">
@@ -127,7 +127,7 @@ export function ChapterPicker({
                     ) : null}
                   </div>
                   <div className="bg-black/40 px-2 py-1.5">
-                    <p className="text-xs font-medium text-white">{chapter.titleZh}</p>
+                    <p lang="zh-CN" className="text-xs font-medium text-white">{chapter.titleZh}</p>
                     <p className="text-[11px] text-white/70">{chapter.titleEn}</p>
                     <p className="mt-0.5 line-clamp-2 text-[10px] leading-snug text-white/45">
                       {chapter.blurb}

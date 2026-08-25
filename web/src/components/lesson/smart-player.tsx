@@ -22,6 +22,10 @@ import { PlayerSettingsDrawer } from "@/components/lesson/player-settings-drawer
 import { ChapterPicker } from "@/components/lesson/chapter-picker";
 import { PlayerControls } from "@/components/lesson/player-controls";
 import { chapterAtIndex, resolveChapters } from "@/lib/episode-chapters";
+import { POSITION_KEY, SPEED_KEY, readStored, writeStored } from "@/lib/player-storage";
+
+/** Playback rates the speed button cycles through */
+const SPEEDS = [0.75, 1, 1.25];
 
 interface SmartPlayerProps {
   beats: Beat[];
@@ -42,6 +46,7 @@ export function SmartPlayer({
   const [status, setStatus] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
+  const [speed, setSpeed] = useState(1);
   const [displaySource, setDisplaySource] = useState<string | null>(
     beats[0]?.source ?? null,
   );
@@ -58,6 +63,12 @@ export function SmartPlayer({
   const pauseRef = useRef(false);
   const playingRef = useRef(false);
   const skipTargetRef = useRef<number | null>(null);
+  /** Latest speed, readable from the long-lived scene loop's closure */
+  const speedRef = useRef(1);
+  /** Generation of the single-line replay that runs outside the scene loop */
+  const idleReplayRef = useRef(0);
+  /** Skips the first write so a fresh mount cannot clobber the saved position */
+  const positionSavedRef = useRef(false);
 
   const beat = beats[index];
   const progress = ((index + 1) / beats.length) * 100;
@@ -71,6 +82,37 @@ export function SmartPlayer({
     const i = beats.findIndex((b) => b.id === id);
     if (i >= 0) setIndex(i);
   }, [beats]);
+
+  /**
+   * Pick up where this browser left off. Runs after the ?beat= effect above and
+   * bows out when that param is present, so deep links always win.
+   */
+  /* eslint-disable react-hooks/set-state-in-effect -- restoring persisted state
+     is only hydration-safe after mount */
+  useEffect(() => {
+    const savedSpeed = readStored<number>(SPEED_KEY);
+    if (typeof savedSpeed === "number" && SPEEDS.includes(savedSpeed)) {
+      speedRef.current = savedSpeed;
+      setSpeed(savedSpeed);
+    }
+
+    if (new URLSearchParams(window.location.search).has("beat")) return;
+    const savedIndex = readStored<number>(POSITION_KEY);
+    if (typeof savedIndex !== "number") return;
+    if (savedIndex <= 0 || savedIndex >= beats.length) return;
+    setIndex(savedIndex);
+    setStatus(`Resumed at line ${savedIndex + 1} — press Play`);
+  }, [beats]);
+  /* eslint-enable react-hooks/set-state-in-effect */
+
+  // Remember the current line so a reload lands back on it
+  useEffect(() => {
+    if (!positionSavedRef.current) {
+      positionSavedRef.current = true;
+      return;
+    }
+    writeStored(POSITION_KEY, index);
+  }, [index]);
 
   // Preload upcoming scene images so crossfades never wait on network
   useEffect(() => {
@@ -183,6 +225,7 @@ export function SmartPlayer({
           }
           audio = el;
           audioRef.current = el;
+          el.playbackRate = speedRef.current;
           el.onended = () => finish(true);
           el.onerror = () => finish(false);
           return el.play();
@@ -211,18 +254,28 @@ export function SmartPlayer({
       tick();
     });
 
-  /** Returns true if at least one layer actually produced audio */
-  const playBeatLayers = async (b: Beat, layers: AudioLayer[], beatIndex: number) => {
+  /**
+   * Returns true if at least one layer actually produced audio.
+   *
+   * `isStale` lets a caller outside the scene loop (the idle replay) bail out
+   * without touching cancelRef, which the loop owns.
+   */
+  const playBeatLayers = async (
+    b: Beat,
+    layers: AudioLayer[],
+    beatIndex: number,
+    isStale?: () => boolean,
+  ) => {
     const voice = voiceForBeat(b);
     let anyPlayed = false;
 
     for (let li = 0; li < layers.length; li++) {
       const layer = layers[li];
-      if (cancelRef.current) return anyPlayed;
+      if (cancelRef.current || isStale?.()) return anyPlayed;
       while (pauseRef.current && !cancelRef.current) {
         await wait(100);
       }
-      if (cancelRef.current) return anyPlayed;
+      if (cancelRef.current || isStale?.()) return anyPlayed;
 
       const label =
         layer === "chinese"
@@ -386,9 +439,14 @@ export function SmartPlayer({
     setDisplaySource(beats[0]?.source ?? null);
   };
 
+  /**
+   * Move to `newIndex`. `allowSameIndex` lets the replay button re-enter the
+   * scene loop on the line that is already showing.
+   */
   const jumpToBeat = useCallback(
-    (newIndex: number) => {
-      if (newIndex < 0 || newIndex >= beats.length || newIndex === index) return;
+    (newIndex: number, allowSameIndex = false) => {
+      if (newIndex < 0 || newIndex >= beats.length) return;
+      if (newIndex === index && !allowSameIndex) return;
 
       // Cancel first so any in-flight clip's watchdog settles immediately
       const sessionActive = playingRef.current || playing || paused;
@@ -420,6 +478,37 @@ export function SmartPlayer({
   const handleSkipBack = () => jumpToBeat(index - 1);
   const handleSkipForward = () => jumpToBeat(index + 1);
 
+  /**
+   * Replay the line on screen. Mid-session it re-enters the scene loop at the
+   * same index; when idle it plays that line's layers once and stops there.
+   */
+  const handleReplay = async () => {
+    if (playingRef.current || playing || paused) {
+      jumpToBeat(index, true);
+      return;
+    }
+
+    const layers = activeLayers(settings, beat);
+    if (layers.length === 0) return;
+
+    // A newer replay, or a scene that started meanwhile, retires this one
+    const run = ++idleReplayRef.current;
+    const isStale = () => run !== idleReplayRef.current || playingRef.current;
+
+    cancelRef.current = false;
+    await playBeatLayers(beat, layers, index, isStale);
+    if (!cancelRef.current && !isStale()) setStatus("");
+  };
+
+  const handleCycleSpeed = () => {
+    const next = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
+    speedRef.current = next;
+    setSpeed(next);
+    // Take effect on the clip that is already sounding, not just the next one
+    if (audioRef.current) audioRef.current.playbackRate = next;
+    writeStored(SPEED_KEY, next);
+  };
+
   const handleSelectChapter = (startIndex: number) => {
     setShowChapters(false);
     const sessionActive = playingRef.current || playing || paused;
@@ -433,6 +522,61 @@ export function SmartPlayer({
     setStatus("Starting…");
     playScene(startIndex).catch(() => setStatus("Playback failed — try again"));
   };
+
+  /**
+   * Window-level shortcuts: Space, ArrowLeft/Right, R, Escape. Re-subscribed
+   * every render (no dep array) so the handler always sees the current beat and
+   * the current playback handlers — one listener swap per render is free.
+   */
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName.toLowerCase() ?? "";
+      if (target?.isContentEditable) return;
+      if (tag === "input" || tag === "textarea" || tag === "select") return;
+      // A focused button already activates on Space — don't toggle twice
+      if (e.key === " " && (tag === "button" || tag === "a")) return;
+      // The seek bar owns its own arrows while focused
+      if (
+        (e.key === "ArrowLeft" || e.key === "ArrowRight") &&
+        target?.closest('[role="slider"]')
+      ) {
+        return;
+      }
+
+      switch (e.key) {
+        case " ":
+          e.preventDefault();
+          if (playing || paused) handlePause();
+          else handlePlay();
+          break;
+        case "ArrowLeft":
+          e.preventDefault();
+          jumpToBeat(index - 1);
+          break;
+        case "ArrowRight":
+          e.preventDefault();
+          jumpToBeat(index + 1);
+          break;
+        case "r":
+        case "R":
+          e.preventDefault();
+          void handleReplay();
+          break;
+        case "Escape":
+          if (!showSettings && !showChapters) break;
+          e.preventDefault();
+          setShowSettings(false);
+          setShowChapters(false);
+          break;
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  });
 
   const showCover = beat.type === "title";
 
@@ -556,8 +700,12 @@ export function SmartPlayer({
         onPause={handlePause}
         onStop={stop}
         onRestart={handleRestart}
+        onReplay={() => void handleReplay()}
         onSkipBack={handleSkipBack}
         onSkipForward={handleSkipForward}
+        onSeek={(target) => jumpToBeat(target)}
+        speed={speed}
+        onCycleSpeed={handleCycleSpeed}
         canSkipBack={index > 0}
         canSkipForward={index < beats.length - 1}
       />
