@@ -15,7 +15,7 @@ cd web
 npx vercel --prod --yes
 ```
 
-Pre-generated scene audio and Ghibli frames are in `web/public/lessons/`. Playback does not need an API key. Optional on-demand TTS (`POST /api/tts`) needs `XAI_API_KEY` in the Vercel project environment.
+Pre-generated scene audio and Ghibli frames are in `web/public/lessons/`. Playback does not need an API key. TTS generation happens offline via `web/scripts/` (needs `XAI_API_KEY` locally); the app itself makes no TTS calls, so no API key should be set in the Vercel project environment.
 
 ## Full episode player
 

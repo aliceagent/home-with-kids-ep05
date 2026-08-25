@@ -58,7 +58,7 @@ export function SubtitleOverlay({ beat, settings, visible }: SubtitleOverlayProp
               <span
                 className={cn("size-1.5 shrink-0 rounded-full", speakerDotOnDark(beat.speaker))}
               />
-              {beat.speaker}
+              <span lang="zh-CN">{beat.speaker}</span>
               <span className="font-normal text-white/75">{voice.nameEn}</span>
             </span>
           )}
@@ -73,15 +73,15 @@ export function SubtitleOverlay({ beat, settings, visible }: SubtitleOverlayProp
         </div>
 
         {settings.chinese && beat.chinese && (
-          <p className="font-serif text-base leading-tight text-white md:text-lg">
+          <p lang="zh-CN" className="font-serif text-base leading-tight text-white md:text-lg">
             {beat.chinese}
           </p>
         )}
         {settings.pinyin && beat.pinyin && (
-          <p className="text-[11px] leading-tight text-teal-100 md:text-xs">{beat.pinyin}</p>
+          <p className="text-[13px] leading-tight text-teal-100 md:text-sm">{beat.pinyin}</p>
         )}
         {settings.english && beat.english && (
-          <p className="text-[11px] leading-tight text-white/85 md:text-xs">{beat.english}</p>
+          <p className="text-xs leading-tight text-white/85 md:text-[13px]">{beat.english}</p>
         )}
 
         {rewrite && (
@@ -90,7 +90,7 @@ export function SubtitleOverlay({ beat, settings, visible }: SubtitleOverlayProp
               <BookOpen className="size-2.5" />
               Textbook
             </span>
-            <span className="font-serif text-sky-50">{rewrite}</span>
+            <span lang="zh-CN" className="font-serif text-sky-50">{rewrite}</span>
           </p>
         )}
 

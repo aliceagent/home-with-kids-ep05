@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { DISPLAY_LABELS, type DisplaySettings } from "@/types/lesson";
+import type { PresetMode } from "@/components/lesson/lesson-viewer";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -11,12 +12,15 @@ interface PlayerSettingsDrawerProps {
   open: boolean;
   settings: DisplaySettings;
   onSettingChange: (key: keyof DisplaySettings, value: boolean) => void;
-  onPreset: (preset: "full" | "immersion" | "reading" | "minimal") => void;
+  onPreset: (preset: PresetMode) => void;
+  /** Which preset the current settings match, if any */
+  activeMode: PresetMode | "custom";
   onClose: () => void;
 }
 
 const PRESETS = [
   { id: "immersion" as const, label: "Uninterrupted story" },
+  { id: "listen" as const, label: "Chinese → English" },
   { id: "full" as const, label: "All teaching pauses" },
   { id: "reading" as const, label: "Reading" },
   { id: "minimal" as const, label: "Chinese only" },
@@ -50,7 +54,13 @@ const TOGGLE_GROUPS: { label: string; keys: (keyof DisplaySettings)[] }[] = [
   },
   {
     label: "Audio",
-    keys: ["audioChinese", "audioPinyin", "audioEnglish", "audioNarrator"],
+    keys: [
+      "audioChinese",
+      "audioPinyin",
+      "audioEnglish",
+      "audioNarrator",
+      "shadowing",
+    ],
   },
 ];
 
@@ -113,6 +123,7 @@ export function PlayerSettingsDrawer({
   settings,
   onSettingChange,
   onPreset,
+  activeMode,
   onClose,
 }: PlayerSettingsDrawerProps) {
   if (!open) return null;
@@ -137,7 +148,7 @@ export function PlayerSettingsDrawer({
         onClick={(e) => e.stopPropagation()}
         className={cn(
           "relative z-10 max-h-[82%] w-full gap-0 overflow-hidden rounded-t-2xl rounded-b-none bg-stone-900 py-0 text-white ring-white/15",
-          "animate-in slide-in-from-bottom-6 fade-in duration-300",
+          "motion-safe:animate-in motion-safe:slide-in-from-bottom-6 motion-safe:fade-in motion-safe:duration-300",
         )}
       >
         <CardHeader className="flex flex-row items-start justify-between gap-3 border-b border-white/10 px-4 py-3 md:px-5">
@@ -170,7 +181,7 @@ export function PlayerSettingsDrawer({
                 onClick={() => onPreset(p.id)}
                 className={cn(
                   "rounded-full border px-3 py-1 text-xs font-medium transition",
-                  p.id === "immersion"
+                  p.id === activeMode
                     ? "border-amber-400/70 bg-amber-500/25 text-amber-50 hover:bg-amber-500/35"
                     : "border-white/20 bg-white/5 text-white/80 hover:bg-white/10 hover:text-white",
                 )}

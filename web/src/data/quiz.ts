@@ -10,6 +10,8 @@ export interface QuizQuestion {
   choices: QuizChoice[];
   correctId: string;
   why: string;
+  /** Beat id this question is drawn from — powers the "Jump to this line" link */
+  beatId?: string;
 }
 
 export const EP05_QUIZ: QuizQuestion[] = [
@@ -25,6 +27,7 @@ export const EP05_QUIZ: QuizQuestion[] = [
     ],
     correctId: "a",
     why: "耗子 is what Beijing speakers say at home. When Liu Mei pretends to be a mouse specialist she switches to 老鼠 — same creature, different register.",
+    beatId: "042",
   },
   {
     id: "q-zan",
@@ -38,6 +41,7 @@ export const EP05_QUIZ: QuizQuestion[] = [
     ],
     correctId: "b",
     why: "咱 always includes the person you are speaking to. 咱俩 is 'the two of us'. Northern speakers reach for it constantly; textbooks barely mention it.",
+    beatId: "025",
   },
   {
     id: "q-haoburongyi",
@@ -51,6 +55,7 @@ export const EP05_QUIZ: QuizQuestion[] = [
     ],
     correctId: "c",
     why: "好不 here is an intensifier. 好不容易 marks success after effort — 'I've finally almost got it memorized.' Read it as 'not easy' and you get the meaning backwards.",
+    beatId: "030",
   },
   {
     id: "q-bi",
@@ -64,6 +69,7 @@ export const EP05_QUIZ: QuizQuestion[] = [
     ],
     correctId: "c",
     why: "比 compares two things. 比较 softens one adjective — 'on the large side.' That is step 3 of the 比 ladder in this episode.",
+    beatId: "147",
   },
   {
     id: "q-ayi",
@@ -77,5 +83,6 @@ export const EP05_QUIZ: QuizQuestion[] = [
     ],
     correctId: "a",
     why: "阿姨 literally means auntie, and kids use it for any adult woman who isn't mum. Xiaoxue calling her stepmother 阿姨 is the quiet engine of the series — polite, and distant. Donghai notices when it upgrades from 哎 to 阿姨.",
+    beatId: "085",
   },
 ];

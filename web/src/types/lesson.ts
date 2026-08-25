@@ -96,6 +96,8 @@ export interface DisplaySettings {
   audioEnglish: boolean;
   audioPinyin: boolean;
   audioNarrator: boolean;
+  /** Pause after every spoken dialogue line so the learner can repeat it */
+  shadowing: boolean;
 }
 
 export const DEFAULT_DISPLAY: DisplaySettings = {
@@ -119,6 +121,7 @@ export const DEFAULT_DISPLAY: DisplaySettings = {
   audioEnglish: false,
   audioPinyin: false,
   audioNarrator: true,
+  shadowing: false,
 };
 
 export const DISPLAY_LABELS: Record<keyof DisplaySettings, string> = {
@@ -129,17 +132,18 @@ export const DISPLAY_LABELS: Record<keyof DisplaySettings, string> = {
   vocab: "Pause for vocabulary cards",
   idiom: "Pause for idiom cards 成语",
   notes: "Pause for teaching notes",
-  beijing: "Pause for 北京话 Beijing speech",
+  beijing: "Beijing dialect notes",
   culture: "Pause for culture notes",
-  decks: "Pause for vocabulary review decks",
-  drills: "Show practice drills on cards",
-  registerRewrite: "Textbook rewrite of colloquial lines",
+  decks: "Vocabulary review decks",
+  drills: "Practice drills",
+  registerRewrite: "Textbook rewrite (formal version)",
   speaker: "Speaker names",
   timestamp: "Timestamps",
   sceneImage: "Scene illustration",
-  breakdown: "Character breakdown",
+  breakdown: "Word-by-word breakdown",
   audioChinese: "🔊 Chinese audio",
   audioEnglish: "🔊 English audio",
   audioPinyin: "🔊 Slow Chinese (pinyin pace)",
-  audioNarrator: "🔊 Narrator explains cards",
+  audioNarrator: "🔊 Narrator audio",
+  shadowing: "Shadowing — pause after each line",
 };

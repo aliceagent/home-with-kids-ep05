@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { Beat, DisplaySettings } from "@/types/lesson";
 import { teachingKindLabel } from "@/lib/teaching";
 import { cn } from "@/lib/utils";
@@ -52,7 +53,7 @@ function LadderPips({
 }) {
   return (
     <span className="inline-flex items-center gap-1 rounded-full border border-white/20 bg-black/30 px-2 py-0.5 text-[9px] font-semibold tracking-wide text-white/85">
-      <span className="font-serif text-[13px] leading-none">{family}</span>
+      <span lang="zh-CN" className="font-serif text-[13px] leading-none">{family}</span>
       <span className="flex gap-0.5">
         {Array.from({ length: of }, (_, i) => (
           <span
@@ -71,13 +72,37 @@ function LadderPips({
   );
 }
 
+/**
+ * Hides the answer behind a tap. Keyed on beat.id by the caller so a fresh
+ * card always starts collapsed.
+ */
+function DrillAnswer({ answer }: { answer: string }) {
+  const [revealed, setRevealed] = useState(false);
+
+  if (!revealed) {
+    return (
+      <button
+        type="button"
+        onClick={() => setRevealed(true)}
+        className="mt-1 rounded-full border border-sky-400/40 bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-sky-200 transition hover:bg-sky-500/20"
+      >
+        Show answer
+      </button>
+    );
+  }
+
+  return (
+    <p className="mt-0.5 font-serif text-[15px] leading-snug text-sky-200">{answer}</p>
+  );
+}
+
 function DeckCard({ beat }: { beat: Beat }) {
   const items = beat.deckItems ?? [];
 
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex flex-wrap items-baseline gap-x-2">
-        <p className="font-serif text-lg leading-tight text-white">{beat.deckTitle}</p>
+        <p lang="zh-CN" className="font-serif text-lg leading-tight text-white">{beat.deckTitle}</p>
         <p className="text-xs text-indigo-200">{beat.deckTitleEn}</p>
       </div>
       {beat.deckTheme && (
@@ -87,7 +112,7 @@ function DeckCard({ beat }: { beat: Beat }) {
       <ul className="divide-y divide-white/10 border-t border-white/15">
         {items.map((item) => (
           <li key={item.chinese} className="flex flex-wrap items-baseline gap-x-2 py-1">
-            <span className="font-serif text-[15px] leading-tight text-white">
+            <span lang="zh-CN" className="font-serif text-[15px] leading-tight text-white">
               {item.chinese}
             </span>
             <span className="text-[11px] text-teal-200">{item.pinyin}</span>
@@ -164,7 +189,10 @@ export function TeachingPauseOverlay({
           ) : (
             <div className="flex flex-col gap-0.5">
               {settings.chinese && beat.chinese && (
-                <p className="font-serif text-xl leading-snug text-white md:text-[1.35rem]">
+                <p
+                  lang="zh-CN"
+                  className="font-serif text-xl leading-snug text-white md:text-[1.35rem]"
+                >
                   {beat.chinese}
                 </p>
               )}
@@ -185,14 +213,14 @@ export function TeachingPauseOverlay({
           )}
 
           {beat.literal && (
-            <p className="mt-2 border-t border-white/15 pt-2 text-[12px] leading-snug text-white/70">
+            <p className="mt-2 border-t border-white/15 pt-2 text-[13px] leading-snug text-white/70">
               <span className="font-semibold text-white/90">Literal: </span>
               {beat.literal}
             </p>
           )}
 
           {beat.trap && (
-            <p className="mt-2 flex gap-1.5 rounded-md border border-amber-400/40 bg-amber-500/10 px-2 py-1.5 text-[12px] leading-snug text-amber-100">
+            <p className="mt-2 flex gap-1.5 rounded-md border border-amber-400/40 bg-amber-500/10 px-2 py-1.5 text-[13px] leading-snug text-amber-100">
               <TriangleAlert className="mt-0.5 size-3.5 shrink-0" />
               <span>
                 <span className="font-semibold">Watch out: </span>
@@ -206,16 +234,16 @@ export function TeachingPauseOverlay({
               <p className="text-[9px] font-semibold uppercase tracking-widest text-white/40">
                 From the episode
               </p>
-              <p className="mt-0.5 font-serif text-base leading-snug text-white">
+              <p lang="zh-CN" className="mt-0.5 font-serif text-base leading-snug text-white">
                 {beat.example}
               </p>
               {settings.pinyin && beat.examplePinyin && (
-                <p className="text-[12px] leading-snug text-teal-200">
+                <p className="text-[13px] leading-snug text-teal-200">
                   {beat.examplePinyin}
                 </p>
               )}
               {settings.english && beat.exampleEnglish && (
-                <p className="text-[12px] leading-snug text-white/65">
+                <p className="text-[13px] leading-snug text-white/65">
                   {beat.exampleEnglish}
                 </p>
               )}
@@ -227,17 +255,13 @@ export function TeachingPauseOverlay({
               <p className="text-[9px] font-semibold uppercase tracking-widest text-sky-300/80">
                 Your turn
               </p>
-              <p className="mt-0.5 text-[12px] leading-snug text-white/85">{beat.drill}</p>
-              {beat.drillAnswer && (
-                <p className="mt-0.5 font-serif text-[15px] leading-snug text-sky-200">
-                  {beat.drillAnswer}
-                </p>
-              )}
+              <p className="mt-0.5 text-[13px] leading-snug text-white/85">{beat.drill}</p>
+              {beat.drillAnswer && <DrillAnswer key={beat.id} answer={beat.drillAnswer} />}
             </div>
           )}
 
           {beat.breakdown?.length && settings.breakdown ? (
-            <ul className="mt-2 space-y-0.5 border-t border-white/15 pt-2 text-[12px] leading-snug text-violet-200">
+            <ul className="mt-2 space-y-0.5 border-t border-white/15 pt-2 text-[13px] leading-snug text-violet-200">
               {beat.breakdown.map((line) => (
                 <li key={line}>{line}</li>
               ))}
@@ -245,13 +269,13 @@ export function TeachingPauseOverlay({
           ) : null}
 
           {beat.cultureBody && (
-            <p className="mt-2 border-t border-white/15 pt-2 text-[12px] leading-snug text-emerald-50/90">
+            <p className="mt-2 border-t border-white/15 pt-2 text-[13px] leading-snug text-emerald-50/90">
               {beat.cultureBody}
             </p>
           )}
 
           {beat.notes && settings.notes && (
-            <p className="mt-2 border-t border-white/15 pt-2 text-[12px] leading-snug text-amber-100/90">
+            <p className="mt-2 border-t border-white/15 pt-2 text-[13px] leading-snug text-amber-100/90">
               <span className="font-semibold text-amber-50">Note: </span>
               {beat.notes}
             </p>

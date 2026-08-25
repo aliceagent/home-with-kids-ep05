@@ -5,7 +5,7 @@ import Link from "next/link";
 import { EP05_QUIZ, type QuizQuestion } from "@/data/quiz";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { ArrowLeft, Check, RotateCcw, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, RotateCcw, X } from "lucide-react";
 
 function ChoiceButton({
   question,
@@ -139,7 +139,7 @@ export function ExitQuiz() {
                 Question {index + 1} of {EP05_QUIZ.length}
               </span>
               {question.promptZh && (
-                <span className="font-serif text-base text-amber-200/90">
+                <span lang="zh-CN" className="font-serif text-base text-amber-200/90">
                   {question.promptZh}
                 </span>
               )}
@@ -180,12 +180,23 @@ export function ExitQuiz() {
                 <p className="mt-2 text-sm leading-relaxed text-white/75">
                   {question.why}
                 </p>
-                <Button
-                  onClick={handleNext}
-                  className="mt-4 bg-amber-600 text-white hover:bg-amber-500"
-                >
-                  {index === EP05_QUIZ.length - 1 ? "See score" : "Next question"}
-                </Button>
+                {question.beatId && (
+                  <Link
+                    href={`/?beat=${question.beatId}`}
+                    className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-amber-400/80 transition hover:text-amber-300"
+                  >
+                    Jump to this line
+                    <ArrowRight className="size-3" />
+                  </Link>
+                )}
+                <div>
+                  <Button
+                    onClick={handleNext}
+                    className="mt-4 bg-amber-600 text-white hover:bg-amber-500"
+                  >
+                    {index === EP05_QUIZ.length - 1 ? "See score" : "Next question"}
+                  </Button>
+                </div>
               </div>
             )}
           </article>
