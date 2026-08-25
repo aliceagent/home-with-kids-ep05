@@ -13,6 +13,7 @@ import {
 import type { Beat } from "@/types/lesson";
 import { cn } from "@/lib/utils";
 import { readSeen } from "@/lib/player-storage";
+import { PageCrossLinks } from "@/components/lesson/page-nav-links";
 import {
   ArrowLeft,
   BookOpen,
@@ -419,9 +420,12 @@ export function StudyGuide() {
         </Link>
 
         <header className="mb-8">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-amber-400/90">
-            Home With Kids · EP5 <span lang="zh-CN">猫鼠之争</span>
-          </p>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-amber-400/90">
+              Home With Kids · EP5 <span lang="zh-CN">猫鼠之争</span>
+            </p>
+            <PageCrossLinks current="study" />
+          </div>
           <h1 className="mt-2 font-serif text-4xl text-white md:text-5xl">
             Study guide
           </h1>
