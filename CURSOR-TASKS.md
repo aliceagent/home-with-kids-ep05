@@ -144,7 +144,9 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
 - [x] R1 — audition feature removed
   - Deleted `/audition`, `voice-audition.tsx`, `AUDITION_CAST`, the `audition` field on character voices, cover/header links, and `public/lessons/ep05/auditions/` (5 mp3s).
   - README no longer mentions the audition page. Cover still has quiz + study cards; Training is added in T3.
-- [ ] T2 — quiz kit + pinyin toggle (wired into /quiz)
+- [x] T2 — quiz kit + pinyin toggle (wired into /quiz)
+  - New `quiz-kit.tsx` (`usePinyinPref`, `PinyinToggle`, choice/reveal/score-card, tap-to-play helper). Preference key `hwk-ep05:quiz-pinyin:v1`, default ON, read after mount.
+  - History entries now include `mode`; missing mode counts as `"quiz"`. `/quiz` filters to that mode, shows the toggle, and hides beat-pinyin beside `promptZh` / in the reveal when off.
 - [ ] T3 — /train hub + cover cards
 - [ ] Q1 — listening quiz
 - [ ] Q2 — match the audio
