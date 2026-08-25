@@ -1,7 +1,7 @@
 "use client";
 
 /* AGENT-DONE(T3): /train hub lists all modes with icons, one-line blurbs, and per-mode best/attempts (flashcards shows SRS due count). Cover cards are Training / Exit quiz / Study guide. */
-/* AGENT-DONE(R5): grouped hub — core modes plus listen/read quizzes (translate, pinyin, listen-pinyin, english-audio, slow). */
+/* AGENT-DONE(R5): grouped hub — core, listen/read, and episode-note quizzes. */
 
 import { useEffect, useState, type ComponentType } from "react";
 import Link from "next/link";
@@ -11,14 +11,19 @@ import { cn } from "@/lib/utils";
 import {
   ArrowLeft,
   AudioLines,
+  BookOpen,
   Ear,
   Gauge,
   Headphones,
+  Landmark,
   Languages,
   Layers,
+  ListTree,
+  MapPin,
   Music2,
   PenLine,
   Speech,
+  SquareAsterisk,
   Type,
   Users,
 } from "lucide-react";
@@ -119,9 +124,48 @@ const LISTEN_READ: Mode[] = [
   },
 ];
 
+const NOTES: Mode[] = [
+  {
+    href: "/train/idioms",
+    id: "idioms",
+    label: "Idioms",
+    description: "成语 and set phrases — skip the literal trap",
+    icon: BookOpen,
+  },
+  {
+    href: "/train/grammar",
+    id: "grammar",
+    label: "Grammar",
+    description: "Pick the pattern used in a worked example",
+    icon: ListTree,
+  },
+  {
+    href: "/train/beijing",
+    id: "beijing",
+    label: "Beijing speech",
+    description: "Hear a northern word, pick the standard equivalent",
+    icon: MapPin,
+  },
+  {
+    href: "/train/cloze",
+    id: "cloze",
+    label: "Fill the blank",
+    description: "A vocab word is missing from an episode line",
+    icon: SquareAsterisk,
+  },
+  {
+    href: "/train/culture",
+    id: "culture",
+    label: "Culture notes",
+    description: "阿姨, F4, 大片, and the composition assignment",
+    icon: Landmark,
+  },
+];
+
 const SECTIONS: Section[] = [
   { title: "Core", modes: CORE },
   { title: "Listen & read", modes: LISTEN_READ },
+  { title: "Episode notes", modes: NOTES },
 ];
 
 const ALL_MODES = SECTIONS.flatMap((s) => s.modes);

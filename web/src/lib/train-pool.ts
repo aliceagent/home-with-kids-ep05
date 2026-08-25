@@ -75,11 +75,34 @@ export function similarBeats(pool: Beat[], target: Beat, n: number): Beat[] {
   return shuffle(near).slice(0, n);
 }
 
-export function sampleBeats(pool: Beat[], n: number): Beat[] {
+export function sampleBeats<T>(pool: T[], n: number): T[] {
   return shuffle(pool).slice(0, Math.min(n, pool.length));
 }
 
 const CHOICE_IDS = ["a", "b", "c", "d"] as const;
+
+export function fourStringChoices(correct: string, distractors: string[]) {
+  const unique: string[] = [];
+  for (const d of distractors) {
+    if (d && d !== correct && !unique.includes(d)) unique.push(d);
+    if (unique.length >= 3) break;
+  }
+  const extras = [
+    "None of these — a different line from this episode",
+    "The literal reading is the whole meaning",
+    "A particle with no standard equivalent",
+    "A proper name, not a regular word",
+  ];
+  for (const extra of extras) {
+    if (unique.length >= 3) break;
+    if (extra !== correct && !unique.includes(extra)) unique.push(extra);
+  }
+  return shuffle([correct, ...unique.slice(0, 3)]).map((label, i) => ({
+    id: CHOICE_IDS[i],
+    label,
+    correct: label === correct,
+  }));
+}
 
 export function fourEnglishChoices(correct: Beat, distractors: Beat[]) {
   return fourBeatChoices(correct, distractors, "english");
