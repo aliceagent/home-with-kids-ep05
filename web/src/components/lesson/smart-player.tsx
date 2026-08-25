@@ -42,6 +42,7 @@ import {
   markSeen,
   readSeen,
   readStored,
+  recordActivity,
   writeStored,
   type LoopMode,
   type TextSize,
@@ -52,6 +53,9 @@ const SPEEDS = [0.75, 1, 1.25];
 
 /** Breather between a line and its loop repeat, so repeats stay legible */
 const LOOP_GAP_MS = 400;
+
+/** Lines to buffer before writing study activity out to storage */
+const ACTIVITY_FLUSH_LINES = 10;
 
 /** Single source of truth for where playback stands */
 type PlaybackPhase = "idle" | "playing" | "paused" | "complete";
@@ -125,6 +129,9 @@ export function SmartPlayer({
   const positionSavedRef = useRef(false);
   /** The element handed to the Fullscreen API — the stage, not the controls */
   const stageRef = useRef<HTMLDivElement | null>(null);
+  /** Study effort waiting to be written out — see recordActivity */
+  const activityLinesRef = useRef(0);
+  const activityMsRef = useRef(0);
 
   const beat = beats[index];
   const progress = ((index + 1) / beats.length) * 100;
@@ -241,7 +248,27 @@ export function SmartPlayer({
     sceneCandidates.find((url) => !failedSceneUrls.has(url)) ?? null;
   const showSceneImage = settings.sceneImage && sceneImageUrl;
 
+  /** Hand the buffered effort to storage and start a fresh batch */
+  const flushActivity = useCallback(() => {
+    const lines = activityLinesRef.current;
+    const ms = activityMsRef.current;
+    activityLinesRef.current = 0;
+    activityMsRef.current = 0;
+    recordActivity(lines, ms);
+  }, []);
+
+  /**
+   * One line finished playing. Repeats and lines seen before both count —
+   * this measures time at the desk, not how much of the episode is covered.
+   */
+  const countPlayedLine = (ms: number) => {
+    activityLinesRef.current += 1;
+    activityMsRef.current += Math.max(0, ms);
+    if (activityLinesRef.current >= ACTIVITY_FLUSH_LINES) flushActivity();
+  };
+
   const stop = useCallback(() => {
+    flushActivity();
     skipTargetRef.current = null;
     loopBreakRef.current = true;
     cancelRef.current = true;
@@ -257,7 +284,7 @@ export function SmartPlayer({
     setPhase("idle");
     setTeachingCardId(null);
     setStatus("");
-  }, []);
+  }, [flushActivity]);
 
   useEffect(
     () => () => {
@@ -426,7 +453,10 @@ export function SmartPlayer({
 
     setTeachingCardId(null);
     await wait(300);
-    if (!cancelRef.current) markSeen(b.id);
+    if (!cancelRef.current) {
+      markSeen(b.id);
+      countPlayedLine(Date.now() - shownAt);
+    }
   };
 
   /**
@@ -481,6 +511,8 @@ export function SmartPlayer({
         // One pass per play of this line: once normally, then once more for
         // each loop repeat still owed.
         for (;;) {
+          const blockStartedAt = Date.now();
+
           if (hasAnyAudio && layers.length > 0) {
             const startedAt = Date.now();
             const played = await playBeatLayers(b, layers, i);
@@ -496,6 +528,8 @@ export function SmartPlayer({
           plays += 1;
 
           if (cancelRef.current) break;
+          countPlayedLine(Date.now() - blockStartedAt);
+
           // Looping drills the spoken line — title and teaching beats never repeat
           if (b.type !== "dialogue" || loopBreakRef.current) break;
 
@@ -540,6 +574,9 @@ export function SmartPlayer({
         playScene(resumeAt).catch(() => setStatus("Playback failed — try again"));
         return;
       }
+
+      // The session is really over — don't sit on unwritten study time
+      flushActivity();
 
       if (cancelRef.current) {
         setPhase("idle");

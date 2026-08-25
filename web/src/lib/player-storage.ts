@@ -96,6 +96,92 @@ export function markSeen(id: string): void {
   }
 }
 
+/* ------------------------------------------------------------------ *
+ * Study activity — how much work actually happened, day by day
+ * ------------------------------------------------------------------ */
+
+/**
+ * One day's study effort.
+ *
+ * `lines` counts every line the player finished playing, repeats and
+ * already-seen lines included — this measures effort, not coverage, so it is
+ * always >= the number of distinct lines in SEEN_KEY. `ms` is listened
+ * wall-clock time for those lines, pauses included.
+ */
+export type DayActivity = { lines: number; ms: number };
+
+/**
+ * Stored under ACTIVITY_KEY as `Record<string, DayActivity>`, keyed by LOCAL
+ * calendar date in "YYYY-MM-DD" form (so a late-night session lands on the
+ * day the learner thinks it did). Days are pruned once they fall outside the
+ * trailing 90-day window, so the blob stays small:
+ *
+ *   { "2026-08-24": { lines: 42, ms: 613000 }, "2026-08-25": { … } }
+ *
+ * Reads never throw: a missing, corrupt, or partially written blob comes back
+ * as `{}` and malformed day entries are dropped.
+ */
+export const ACTIVITY_KEY = storageKey("activity");
+
+/** How much history is worth keeping for a progress dashboard */
+const ACTIVITY_RETENTION_DAYS = 90;
+
+/** Local (not UTC) calendar date — "2026-08-25" */
+export function activityDayKey(date = new Date()): string {
+  const y = date.getFullYear();
+  const m = `${date.getMonth() + 1}`.padStart(2, "0");
+  const d = `${date.getDate()}`.padStart(2, "0");
+  return `${y}-${m}-${d}`;
+}
+
+export function readActivity(): Record<string, DayActivity> {
+  try {
+    const raw = readStored<Record<string, Partial<DayActivity>>>(ACTIVITY_KEY);
+    if (!raw || typeof raw !== "object") return {};
+    const out: Record<string, DayActivity> = {};
+    for (const [day, entry] of Object.entries(raw)) {
+      if (!entry || typeof entry !== "object") continue;
+      const lines = typeof entry.lines === "number" ? entry.lines : 0;
+      const ms = typeof entry.ms === "number" ? entry.ms : 0;
+      if (lines <= 0 && ms <= 0) continue;
+      out[day] = { lines, ms };
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Add a batch of finished lines and listened milliseconds to today's entry.
+ * Callers should buffer and flush occasionally rather than call per line.
+ */
+export function recordActivity(lines: number, ms: number): void {
+  if (!(lines > 0) && !(ms > 0)) return;
+  try {
+    const all = readActivity();
+    const today = activityDayKey();
+    const cutoff = activityDayKey(
+      new Date(Date.now() - ACTIVITY_RETENTION_DAYS * 24 * 60 * 60 * 1000),
+    );
+
+    const next: Record<string, DayActivity> = {};
+    for (const [day, entry] of Object.entries(all)) {
+      // String compare is safe on zero-padded ISO dates
+      if (day >= cutoff) next[day] = entry;
+    }
+
+    const current = next[today] ?? { lines: 0, ms: 0 };
+    next[today] = {
+      lines: current.lines + Math.max(0, Math.round(lines)),
+      ms: current.ms + Math.max(0, Math.round(ms)),
+    };
+    writeStored(ACTIVITY_KEY, next);
+  } catch {
+    /* private mode or quota — activity is a nice-to-have */
+  }
+}
+
 export function readQuizHistory(mode?: string): QuizHistoryEntry[] {
   try {
     const entries = readStored<Array<Partial<QuizHistoryEntry>>>(QUIZ_HISTORY_KEY);
