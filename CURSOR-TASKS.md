@@ -152,7 +152,8 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
   - Cover and player header now point to Training / Exit quiz / Study guide.
 - [x] Q1 — listening quiz
   - `/train/listening`: 8 questions after mount from dialogue beats with ≥6 Han characters. Large tap-to-play chinese clip, 4 English choices from similar-length lines, reveal Chinese + pinyin (toggle) and jump link. History `mode: "listening"`.
-- [ ] Q2 — match the audio
+- [x] Q2 — match the audio
+  - `/train/match-audio`: 8 rounds. Written English + Chinese (pinyin if on), three tap-to-play clips (one match, two similar-length decoys), lock in A/B/C. Reveal labels the match and prints all three Chinese lines. History `mode: "match-audio"`.
 - [ ] Q3 — flashcards + SRS
 - [ ] Q4 — who said it?
 - [ ] Q5 — tone drill
