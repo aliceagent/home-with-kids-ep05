@@ -4,7 +4,8 @@ A Next.js app that turns one episode of 家有儿女 (Home With Kids), S1E5
 "猫鼠之争" (Cat vs. Mouse), into an interactive Mandarin lesson: a
 scene-by-scene player with synced Chinese/pinyin/English subtitles,
 narrated teaching pauses (grammar, idioms, vocabulary, Beijing dialect
-notes, culture), a searchable study guide, and a five-question exit quiz.
+notes, culture), a searchable study guide, a five-question exit quiz, a
+full-episode transcript reader, and a progress dashboard.
 
 ## Getting started
 
@@ -53,6 +54,8 @@ Generated lesson assets live under `public/lessons/ep05/`:
 - `/study` — searchable study guide across vocab decks, idioms, grammar, Beijing dialect notes, and culture cards (`src/data/curriculum.ts`).
 - `/quiz` — the five-question exit quiz (`src/data/quiz.ts`).
 - `/train` — listening, matching, flashcards, speaker ID, and tone drills.
+- `/transcript` — the full 201-beat episode transcript grouped by chapter, with per-line audio, pinyin/English toggles, search, and jump-to-player links (`src/components/lesson/transcript-reader.tsx`).
+- `/progress` — a "how am I doing?" dashboard: lines studied, quiz/drill history, flashcards due, listening time, and a 5-week activity streak grid (`src/components/lesson/progress-dashboard.tsx`).
 
 Lesson content lives in `src/data/ep05-beats.json` (the playable
 timeline) and `src/data/curriculum.ts` (the teaching material that gets

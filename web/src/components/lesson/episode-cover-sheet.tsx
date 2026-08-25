@@ -35,10 +35,12 @@ const MODE_CHIPS: { id: PresetMode; label: string }[] = [
 
 const NAV_CARDS = [
   { href: "/train", label: "Training", description: "Listening, flashcards, tones, and more" },
-  { href: "/quiz", label: "Exit quiz", description: "Five questions on what you just watched" },
+  { href: "/transcript", label: "Transcript", description: "Read every line of the episode" },
+  { href: "/progress", label: "Progress", description: "Lines studied, quiz scores, streaks" },
   { href: "/study", label: "Study guide", description: "Vocab, idioms, grammar & culture notes" },
 ];
 /* AGENT-DONE(R1+T3): cover cards are Training, Exit quiz, Study guide. */
+/* AGENT-DONE(S1+S2): cover cards are Training, Transcript, Progress, Study guide (exit quiz stays reachable from the player header and /train). */
 
 export function EpisodeCoverSheet({
   beat,
@@ -208,7 +210,7 @@ export function EpisodeCoverSheet({
         )}
 
         {!playing && (
-          <div className="mt-5 grid w-full max-w-md grid-cols-1 gap-1.5 sm:grid-cols-3 md:mt-7 md:gap-2">
+          <div className="mt-5 grid w-full max-w-md grid-cols-2 gap-1.5 md:mt-7 md:gap-2">
             {NAV_CARDS.map((card) => (
               <Link
                 key={card.href}
