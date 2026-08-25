@@ -92,6 +92,8 @@ export interface DisplaySettings {
   timestamp: boolean;
   sceneImage: boolean;
   breakdown: boolean;
+  /** Gloss known words in the subtitle and pop a card up when one is tapped */
+  wordHints: boolean;
   audioChinese: boolean;
   audioEnglish: boolean;
   audioPinyin: boolean;
@@ -117,6 +119,7 @@ export const DEFAULT_DISPLAY: DisplaySettings = {
   timestamp: true,
   sceneImage: true,
   breakdown: true,
+  wordHints: true,
   audioChinese: true,
   audioEnglish: false,
   audioPinyin: false,
@@ -141,6 +144,7 @@ export const DISPLAY_LABELS: Record<keyof DisplaySettings, string> = {
   timestamp: "Timestamps",
   sceneImage: "Scene illustration",
   breakdown: "Word-by-word breakdown",
+  wordHints: "Tap words for hints",
   audioChinese: "🔊 Chinese audio",
   audioEnglish: "🔊 English audio",
   audioPinyin: "🔊 Slow Chinese (pinyin pace)",

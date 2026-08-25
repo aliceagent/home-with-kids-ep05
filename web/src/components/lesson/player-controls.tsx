@@ -2,6 +2,8 @@
 
 import { useRef, type KeyboardEvent, type PointerEvent } from "react";
 import { Button } from "@/components/ui/button";
+import { LOOP_CAPTIONS, type LoopMode } from "@/lib/player-storage";
+import { cn } from "@/lib/utils";
 import {
   ChevronDown,
   ChevronUp,
@@ -10,6 +12,7 @@ import {
   Minimize,
   Pause,
   Play,
+  Repeat,
   RotateCcw,
   RotateCw,
   Settings2,
@@ -17,6 +20,14 @@ import {
   SkipForward,
   Square,
 } from "lucide-react";
+
+/** Spoken form of each loop mode, for the button's accessible name */
+const LOOP_LABELS: Record<LoopMode, string> = {
+  off: "off",
+  x2: "twice",
+  x3: "three times",
+  inf: "until I move on",
+};
 
 interface PlayerControlsProps {
   playing: boolean;
@@ -36,6 +47,9 @@ interface PlayerControlsProps {
   onStop: () => void;
   onRestart: () => void;
   onReplay: () => void;
+  /** How many times the current line repeats before playback moves on */
+  loopMode: LoopMode;
+  onCycleLoop: () => void;
   onSkipBack: () => void;
   onSkipForward: () => void;
   /** Zero-based beat index the viewer scrubbed to */
@@ -68,6 +82,8 @@ export function PlayerControls({
   onStop,
   onRestart,
   onReplay,
+  loopMode,
+  onCycleLoop,
   onSkipBack,
   onSkipForward,
   onSeek,
@@ -172,6 +188,27 @@ export function PlayerControls({
               aria-label="Replay this line"
             >
               <RotateCw className="size-4" />
+            </Button>
+
+            {/* Loop the line being studied — the caption carries the count */}
+            <Button
+              onClick={onCycleLoop}
+              size="sm"
+              variant="ghost"
+              aria-pressed={loopMode !== "off"}
+              className={cn(
+                "gap-1 px-2 hover:bg-white/10 hover:text-white",
+                loopMode === "off" ? "text-white/50" : "text-amber-300",
+              )}
+              title="Loop this line — cycles off / ×2 / ×3 / ∞ (L)"
+              aria-label={`Repeat this line: ${LOOP_LABELS[loopMode]}`}
+            >
+              <Repeat className="size-4" />
+              {loopMode !== "off" && (
+                <span className="font-mono text-[11px] leading-none">
+                  {LOOP_CAPTIONS[loopMode]}
+                </span>
+              )}
             </Button>
 
             {!isActive ? (
