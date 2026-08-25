@@ -246,6 +246,11 @@ const GENERATED_QUIZ: QuizQuestion[] = [
   ...generateGrammarQuestions(),
 ];
 
+/* AGENT-TASK(B1) [optional — written bank v2] — per /CURSOR-TASKS.md task
+   B1: add a sentence-comprehension generator (show a dialogue line's
+   Chinese, pick its English among 4; distractors from other lines of
+   similar length) and grow the bank to 60+. Keep pickQuiz semantics.
+   Replace with AGENT-DONE(B1). */
 /** AGENT-DONE(3a): bank is the 5 handwritten questions plus 28 generated from curriculum/beats (idiom, Beijing, vocab, grammar cloze); pickQuiz(n) samples client-side and always includes ≥2 handwritten. */
 
 export const EP05_QUIZ: QuizQuestion[] = [...HANDWRITTEN_QUIZ, ...GENERATED_QUIZ];
