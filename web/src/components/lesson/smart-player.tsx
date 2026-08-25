@@ -32,19 +32,26 @@ import { ChapterPicker } from "@/components/lesson/chapter-picker";
 import { PlayerControls } from "@/components/lesson/player-controls";
 import { chapterAtIndex, resolveChapters } from "@/lib/episode-chapters";
 import {
+  LOOP_KEY,
+  LOOP_MODES,
   POSITION_KEY,
   SPEED_KEY,
   TEXT_SIZES,
   TEXT_SIZE_KEY,
+  loopPlayCount,
   markSeen,
   readSeen,
   readStored,
   writeStored,
+  type LoopMode,
   type TextSize,
 } from "@/lib/player-storage";
 
 /** Playback rates the speed button cycles through */
 const SPEEDS = [0.75, 1, 1.25];
+
+/** Breather between a line and its loop repeat, so repeats stay legible */
+const LOOP_GAP_MS = 400;
 
 /** Single source of truth for where playback stands */
 type PlaybackPhase = "idle" | "playing" | "paused" | "complete";
@@ -85,6 +92,7 @@ export function SmartPlayer({
   const [showSettings, setShowSettings] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [loopMode, setLoopMode] = useState<LoopMode>("off");
   const [textSize, setTextSize] = useState<TextSize>("small");
   const [displaySource, setDisplaySource] = useState<string | null>(
     beats[0]?.source ?? null,
@@ -107,6 +115,10 @@ export function SmartPlayer({
   const skipTargetRef = useRef<number | null>(null);
   /** Latest speed, readable from the long-lived scene loop's closure */
   const speedRef = useRef(1);
+  /** Latest loop mode, read fresh on every repeat so a mid-line change lands */
+  const loopRef = useRef<LoopMode>("off");
+  /** Set by any manual navigation — drops the repeats still owed to this line */
+  const loopBreakRef = useRef(false);
   /** Generation of the single-line replay that runs outside the scene loop */
   const idleReplayRef = useRef(0);
   /** Skips the first write so a fresh mount cannot clobber the saved position */
@@ -155,6 +167,12 @@ export function SmartPlayer({
 
     const savedSize = readStored<TextSize>(TEXT_SIZE_KEY);
     if (savedSize && TEXT_SIZES.includes(savedSize)) setTextSize(savedSize);
+
+    const savedLoop = readStored<LoopMode>(LOOP_KEY);
+    if (savedLoop && LOOP_MODES.includes(savedLoop)) {
+      loopRef.current = savedLoop;
+      setLoopMode(savedLoop);
+    }
 
     const beatParam = new URLSearchParams(window.location.search).get("beat");
     if (beatParam) {
@@ -225,6 +243,7 @@ export function SmartPlayer({
 
   const stop = useCallback(() => {
     skipTargetRef.current = null;
+    loopBreakRef.current = true;
     cancelRef.current = true;
     pauseRef.current = false;
     playingRef.current = false;
@@ -454,19 +473,42 @@ export function SmartPlayer({
 
         const readingMs = Math.max((b.durationSec ?? 4) * 1000, 1500);
         const layers = activeLayers(settings, b);
+        // Every new line starts with a fresh repeat budget
+        loopBreakRef.current = false;
         let spoke = false;
+        let plays = 0;
 
-        if (hasAnyAudio && layers.length > 0) {
-          const startedAt = Date.now();
-          const played = await playBeatLayers(b, layers, i);
-          spoke = played;
-          // Silent line (missing clip, blocked autoplay) — still hold the subtitle
-          if (!played && !cancelRef.current) {
-            await wait(readingMs - (Date.now() - startedAt));
+        // One pass per play of this line: once normally, then once more for
+        // each loop repeat still owed.
+        for (;;) {
+          if (hasAnyAudio && layers.length > 0) {
+            const startedAt = Date.now();
+            const played = await playBeatLayers(b, layers, i);
+            spoke = played;
+            // Silent line (missing clip, blocked autoplay) — still hold the subtitle
+            if (!played && !cancelRef.current) {
+              await wait(readingMs - (Date.now() - startedAt));
+            }
+          } else {
+            setStatus(`${i + 1}/${beats.length}`);
+            await wait(readingMs);
           }
-        } else {
-          setStatus(`${i + 1}/${beats.length}`);
-          await wait(readingMs);
+          plays += 1;
+
+          if (cancelRef.current) break;
+          // Looping drills the spoken line — title and teaching beats never repeat
+          if (b.type !== "dialogue" || loopBreakRef.current) break;
+
+          const wanted = loopPlayCount(loopRef.current);
+          if (plays >= wanted) break;
+
+          setStatus(
+            wanted === Number.POSITIVE_INFINITY
+              ? "Looping this line — skip to move on"
+              : `Loop ${plays + 1} of ${wanted}`,
+          );
+          await wait(LOOP_GAP_MS);
+          if (cancelRef.current || loopBreakRef.current) break;
         }
 
         if (cancelRef.current) break;
@@ -553,6 +595,10 @@ export function SmartPlayer({
       if (newIndex < 0 || newIndex >= beats.length) return;
       if (newIndex === index && !allowSameIndex) return;
 
+      // Moving by hand ends the current line's drill, however many repeats
+      // it still had coming
+      loopBreakRef.current = true;
+
       // Cancel first so any in-flight clip's watchdog settles immediately
       const sessionActive = playingRef.current || playing || paused;
       if (sessionActive) {
@@ -607,6 +653,16 @@ export function SmartPlayer({
   const handleTextSizeChange = (size: TextSize) => {
     setTextSize(size);
     writeStored(TEXT_SIZE_KEY, size);
+  };
+
+  /** Off → ×2 → ×3 → ∞ → off. Takes effect on the line already sounding. */
+  const handleCycleLoop = () => {
+    const next = LOOP_MODES[(LOOP_MODES.indexOf(loopMode) + 1) % LOOP_MODES.length];
+    loopRef.current = next;
+    // Turning the loop off mid-line drops what it still owed
+    if (next === "off") loopBreakRef.current = true;
+    setLoopMode(next);
+    writeStored(LOOP_KEY, next);
   };
 
   const handleCycleSpeed = () => {
@@ -701,6 +757,11 @@ export function SmartPlayer({
         case "R":
           e.preventDefault();
           void handleReplay();
+          break;
+        case "l":
+        case "L":
+          e.preventDefault();
+          handleCycleLoop();
           break;
         case "f":
         case "F":
@@ -860,6 +921,8 @@ export function SmartPlayer({
         onStop={stop}
         onRestart={handleRestart}
         onReplay={() => void handleReplay()}
+        loopMode={loopMode}
+        onCycleLoop={handleCycleLoop}
         onSkipBack={handleSkipBack}
         onSkipForward={handleSkipForward}
         onSeek={(target) => jumpToBeat(target)}

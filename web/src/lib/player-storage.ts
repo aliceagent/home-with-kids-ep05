@@ -18,6 +18,31 @@ export const SETTINGS_KEY = storageKey("settings");
 export const POSITION_KEY = storageKey("position");
 export const SPEED_KEY = storageKey("speed");
 export const TEXT_SIZE_KEY = storageKey("text-size");
+export const LOOP_KEY = storageKey("loop");
+
+/**
+ * Line-loop study mode — how many times in a row the player says one line
+ * before moving on. "x2" means the line is heard twice, "inf" repeats until
+ * the learner navigates away.
+ */
+export type LoopMode = "off" | "x2" | "x3" | "inf";
+export const LOOP_MODES: LoopMode[] = ["off", "x2", "x3", "inf"];
+
+/** Caption shown next to the loop button — empty when looping is off */
+export const LOOP_CAPTIONS: Record<LoopMode, string> = {
+  off: "",
+  x2: "×2",
+  x3: "×3",
+  inf: "∞",
+};
+
+/** Total plays of a line under each mode, so `inf` never terminates */
+export function loopPlayCount(mode: LoopMode): number {
+  if (mode === "x2") return 2;
+  if (mode === "x3") return 3;
+  if (mode === "inf") return Number.POSITIVE_INFINITY;
+  return 1;
+}
 
 /** Subtitle/teaching-card text scale. "small" is the original sizing. */
 export type TextSize = "small" | "medium" | "large";
