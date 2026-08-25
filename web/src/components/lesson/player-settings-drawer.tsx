@@ -20,6 +20,7 @@ interface PlayerSettingsDrawerProps {
 
 const PRESETS = [
   { id: "immersion" as const, label: "Uninterrupted story" },
+  { id: "listen" as const, label: "Chinese → English" },
   { id: "full" as const, label: "All teaching pauses" },
   { id: "reading" as const, label: "Reading" },
   { id: "minimal" as const, label: "Chinese only" },

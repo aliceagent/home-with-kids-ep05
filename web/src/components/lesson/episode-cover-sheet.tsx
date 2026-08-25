@@ -23,6 +23,7 @@ interface EpisodeCoverSheetProps {
 
 const MODE_CHIPS: { id: PresetMode; label: string }[] = [
   { id: "immersion", label: "Story only" },
+  { id: "listen", label: "Chinese → English" },
   { id: "full", label: "Full teaching" },
   { id: "reading", label: "Reading" },
   { id: "minimal", label: "Chinese only" },

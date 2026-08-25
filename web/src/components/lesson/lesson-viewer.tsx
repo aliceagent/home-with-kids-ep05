@@ -9,10 +9,28 @@ import { SETTINGS_KEY, readStored, writeStored } from "@/lib/player-storage";
 
 const beats = beatsData as Beat[];
 
-export type PresetMode = "full" | "immersion" | "reading" | "minimal";
+export type PresetMode = "full" | "immersion" | "listen" | "reading" | "minimal";
 
 const PRESETS: Record<PresetMode, DisplaySettings> = {
   full: { ...DEFAULT_DISPLAY },
+  /** Each line spoken in Chinese, then its English translation */
+  listen: {
+    ...DEFAULT_DISPLAY,
+    grammar: false,
+    vocab: false,
+    idiom: false,
+    notes: false,
+    beijing: false,
+    culture: false,
+    decks: false,
+    drills: false,
+    registerRewrite: false,
+    breakdown: false,
+    audioChinese: true,
+    audioEnglish: true,
+    audioPinyin: false,
+    audioNarrator: false,
+  },
   immersion: {
     ...DEFAULT_DISPLAY,
     english: false,
