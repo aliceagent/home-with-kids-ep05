@@ -36,10 +36,11 @@ const MODE_CHIPS: { id: PresetMode; label: string }[] = [
 const NAV_CARDS = [
   { href: "/train", label: "Training", description: "Listening, flashcards, tones, and more" },
   { href: "/transcript", label: "Transcript", description: "Read every line of the episode" },
+  { href: "/progress", label: "Progress", description: "Lines studied, quiz scores, streaks" },
   { href: "/study", label: "Study guide", description: "Vocab, idioms, grammar & culture notes" },
 ];
 /* AGENT-DONE(R1+T3): cover cards are Training, Exit quiz, Study guide. */
-/* AGENT-DONE(S1): cover cards are Training, Transcript, Study guide (exit quiz stays reachable from the player header and /train). */
+/* AGENT-DONE(S1+S2): cover cards are Training, Transcript, Progress, Study guide (exit quiz stays reachable from the player header and /train). */
 
 export function EpisodeCoverSheet({
   beat,
