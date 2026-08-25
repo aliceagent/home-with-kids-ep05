@@ -1,0 +1,10 @@
+{
+  "name": "home-with-kids-ep05",
+  "install": "npm ci",
+  "terminals": [
+    {
+      "name": "dev",
+      "command": "npm run dev"
+    }
+  ]
+}
