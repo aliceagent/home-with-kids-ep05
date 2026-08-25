@@ -141,7 +141,9 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
 
 ## Round 3 checklist (update as you go)
 
-- [ ] R1 — audition feature removed
+- [x] R1 — audition feature removed
+  - Deleted `/audition`, `voice-audition.tsx`, `AUDITION_CAST`, the `audition` field on character voices, cover/header links, and `public/lessons/ep05/auditions/` (5 mp3s).
+  - README no longer mentions the audition page. Cover still has quiz + study cards; Training is added in T3.
 - [ ] T2 — quiz kit + pinyin toggle (wired into /quiz)
 - [ ] T3 — /train hub + cover cards
 - [ ] Q1 — listening quiz

@@ -163,14 +163,7 @@ export function LessonViewer() {
               >
                 Study guide
               </a>
-              {/* AGENT-TASK(R1) — remove this audition link; per task T3 a
-                  /train link may take its place. AGENT-DONE(R1) when done. */}
-              <a
-                href="/audition"
-                className="text-xs text-amber-400/80 transition hover:text-amber-300"
-              >
-                Voice audition
-              </a>
+              {/* AGENT-DONE(R1): removed Voice audition header link. */}
             </div>
             <p className="hidden text-xs text-white/30 sm:block">
               {dialogueCount} lines · 0:02–{lastBeat?.timestamp ?? "13:12"}

@@ -46,14 +46,12 @@ Generated lesson assets live under `public/lessons/ep05/`:
 - `frames/` — raw OCR'd screenshot frames, one per dialogue beat.
 - `ghibli-4x3/` — Ghibli-stylized 4:3 versions of those frames, used as the on-screen scene art.
 - `audio/` — per-beat TTS clips (`<beatId>-chinese.mp3`, `-english.mp3`, `-pinyin.mp3`, plus narrator audio for teaching beats).
-- `auditions/` — one sample clip per character voice, used on `/audition`.
 
 ## App structure
 
 - `/` — the player (`src/components/lesson/lesson-viewer.tsx` + `smart-player.tsx`), supports `?beat=<id>` deep links into a specific line.
 - `/study` — searchable study guide across vocab decks, idioms, grammar, Beijing dialect notes, and culture cards (`src/data/curriculum.ts`).
 - `/quiz` — the five-question exit quiz (`src/data/quiz.ts`).
-- `/audition` — voice samples for each character.
 
 Lesson content lives in `src/data/ep05-beats.json` (the playable
 timeline) and `src/data/curriculum.ts` (the teaching material that gets
