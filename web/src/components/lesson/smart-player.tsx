@@ -31,7 +31,17 @@ import { PlayerSettingsDrawer } from "@/components/lesson/player-settings-drawer
 import { ChapterPicker } from "@/components/lesson/chapter-picker";
 import { PlayerControls } from "@/components/lesson/player-controls";
 import { chapterAtIndex, resolveChapters } from "@/lib/episode-chapters";
-import { POSITION_KEY, SPEED_KEY, markSeen, readSeen, readStored, writeStored } from "@/lib/player-storage";
+import {
+  POSITION_KEY,
+  SPEED_KEY,
+  TEXT_SIZES,
+  TEXT_SIZE_KEY,
+  markSeen,
+  readSeen,
+  readStored,
+  writeStored,
+  type TextSize,
+} from "@/lib/player-storage";
 
 /** Playback rates the speed button cycles through */
 const SPEEDS = [0.75, 1, 1.25];
@@ -75,6 +85,7 @@ export function SmartPlayer({
   const [showSettings, setShowSettings] = useState(false);
   const [showChapters, setShowChapters] = useState(false);
   const [speed, setSpeed] = useState(1);
+  const [textSize, setTextSize] = useState<TextSize>("small");
   const [displaySource, setDisplaySource] = useState<string | null>(
     beats[0]?.source ?? null,
   );
@@ -141,6 +152,9 @@ export function SmartPlayer({
       speedRef.current = savedSpeed;
       setSpeed(savedSpeed);
     }
+
+    const savedSize = readStored<TextSize>(TEXT_SIZE_KEY);
+    if (savedSize && TEXT_SIZES.includes(savedSize)) setTextSize(savedSize);
 
     const beatParam = new URLSearchParams(window.location.search).get("beat");
     if (beatParam) {
@@ -590,6 +604,11 @@ export function SmartPlayer({
     if (!cancelRef.current && !isStale()) setStatus("");
   };
 
+  const handleTextSizeChange = (size: TextSize) => {
+    setTextSize(size);
+    writeStored(TEXT_SIZE_KEY, size);
+  };
+
   const handleCycleSpeed = () => {
     const next = SPEEDS[(SPEEDS.indexOf(speed) + 1) % SPEEDS.length];
     speedRef.current = next;
@@ -770,11 +789,17 @@ export function SmartPlayer({
               dialogueTotal={dialogueTotal}
             />
 
-            <SubtitleOverlay beat={beat} settings={settings} visible={showDialogueSubtitles} />
+            <SubtitleOverlay
+              beat={beat}
+              settings={settings}
+              visible={showDialogueSubtitles}
+              textSize={textSize}
+            />
             <TeachingPauseOverlay
               beat={beat}
               settings={settings}
               active={teachingCardVisible}
+              textSize={textSize}
             />
 
             {phase === "complete" && (
@@ -796,6 +821,8 @@ export function SmartPlayer({
               onSettingChange={onSettingsChange}
               onPreset={onPreset}
               activeMode={activeMode}
+              textSize={textSize}
+              onTextSizeChange={handleTextSizeChange}
               onClose={() => setShowSettings(false)}
             />
 

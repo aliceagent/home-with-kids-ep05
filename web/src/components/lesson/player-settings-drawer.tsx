@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { DISPLAY_LABELS, type DisplaySettings } from "@/types/lesson";
 import type { PresetMode } from "@/components/lesson/lesson-viewer";
+import { TEXT_SIZES, type TextSize } from "@/lib/player-storage";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -15,8 +16,16 @@ interface PlayerSettingsDrawerProps {
   onPreset: (preset: PresetMode) => void;
   /** Which preset the current settings match, if any */
   activeMode: PresetMode | "custom";
+  textSize: TextSize;
+  onTextSizeChange: (size: TextSize) => void;
   onClose: () => void;
 }
+
+const TEXT_SIZE_LABELS: Record<TextSize, string> = {
+  small: "Small",
+  medium: "Medium",
+  large: "Large",
+};
 
 const PRESETS = [
   { id: "immersion" as const, label: "Uninterrupted story" },
@@ -124,6 +133,8 @@ export function PlayerSettingsDrawer({
   onSettingChange,
   onPreset,
   activeMode,
+  textSize,
+  onTextSizeChange,
   onClose,
 }: PlayerSettingsDrawerProps) {
   if (!open) return null;
@@ -189,6 +200,30 @@ export function PlayerSettingsDrawer({
                 {p.label}
               </button>
             ))}
+          </div>
+
+          <div className="mb-4 flex items-center gap-2">
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-white/40">
+              Text size
+            </span>
+            <div className="flex overflow-hidden rounded-full border border-white/20">
+              {TEXT_SIZES.map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  aria-pressed={size === textSize}
+                  onClick={() => onTextSizeChange(size)}
+                  className={cn(
+                    "px-3 py-1 text-xs font-medium transition",
+                    size === textSize
+                      ? "bg-amber-500/25 text-amber-50"
+                      : "bg-white/5 text-white/70 hover:bg-white/10 hover:text-white",
+                  )}
+                >
+                  {TEXT_SIZE_LABELS[size]}
+                </button>
+              ))}
+            </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-3">

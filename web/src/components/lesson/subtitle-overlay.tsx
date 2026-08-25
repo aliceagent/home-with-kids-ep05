@@ -3,6 +3,7 @@
 import type { Beat, DisplaySettings } from "@/types/lesson";
 import { BookOpen, MapPin } from "lucide-react";
 import { beatTypeLabel, speakerColorOnDark, speakerDotOnDark } from "@/lib/lesson-utils";
+import type { TextSize } from "@/lib/player-storage";
 import { textbookRewrite } from "@/lib/register";
 import { voiceForBeat } from "@/lib/voices";
 import { cn } from "@/lib/utils";
@@ -11,7 +12,30 @@ interface SubtitleOverlayProps {
   beat: Beat;
   settings: DisplaySettings;
   visible: boolean;
+  textSize?: TextSize;
 }
+
+/** "small" is the original sizing; medium/large scale the three text lines */
+const SIZE = {
+  small: {
+    chinese: "text-base md:text-lg",
+    pinyin: "text-[13px] md:text-sm",
+    english: "text-xs md:text-[13px]",
+    rewrite: "text-[11px]",
+  },
+  medium: {
+    chinese: "text-xl md:text-2xl",
+    pinyin: "text-sm md:text-base",
+    english: "text-[13px] md:text-[15px]",
+    rewrite: "text-xs",
+  },
+  large: {
+    chinese: "text-2xl md:text-3xl",
+    pinyin: "text-base md:text-lg",
+    english: "text-[15px] md:text-lg",
+    rewrite: "text-sm",
+  },
+} satisfies Record<TextSize, Record<string, string>>;
 
 const SPEAKER_ACCENT: Record<string, string> = {
   夏雪: "border-l-red-400",
@@ -20,7 +44,13 @@ const SPEAKER_ACCENT: Record<string, string> = {
   夏雨: "border-l-green-400",
 };
 
-export function SubtitleOverlay({ beat, settings, visible }: SubtitleOverlayProps) {
+export function SubtitleOverlay({
+  beat,
+  settings,
+  visible,
+  textSize = "small",
+}: SubtitleOverlayProps) {
+  const size = SIZE[textSize];
   const voice = voiceForBeat(beat);
   const accent = beat.speaker ? SPEAKER_ACCENT[beat.speaker] : "border-l-amber-400";
   const rewrite = settings.registerRewrite ? textbookRewrite(beat.chinese) : null;
@@ -73,19 +103,19 @@ export function SubtitleOverlay({ beat, settings, visible }: SubtitleOverlayProp
         </div>
 
         {settings.chinese && beat.chinese && (
-          <p lang="zh-CN" className="font-serif text-base leading-tight text-white md:text-lg">
+          <p lang="zh-CN" className={cn("font-serif leading-tight text-white", size.chinese)}>
             {beat.chinese}
           </p>
         )}
         {settings.pinyin && beat.pinyin && (
-          <p className="text-[13px] leading-tight text-teal-100 md:text-sm">{beat.pinyin}</p>
+          <p className={cn("leading-tight text-teal-100", size.pinyin)}>{beat.pinyin}</p>
         )}
         {settings.english && beat.english && (
-          <p className="text-xs leading-tight text-white/85 md:text-[13px]">{beat.english}</p>
+          <p className={cn("leading-tight text-white/85", size.english)}>{beat.english}</p>
         )}
 
         {rewrite && (
-          <p className="mt-0.5 flex flex-wrap items-baseline gap-x-1.5 text-[11px] leading-tight">
+          <p className={cn("mt-0.5 flex flex-wrap items-baseline gap-x-1.5 leading-tight", size.rewrite)}>
             <span className="inline-flex items-center gap-0.5 text-[9px] font-semibold uppercase tracking-widest text-sky-300/80">
               <BookOpen className="size-2.5" />
               Textbook
