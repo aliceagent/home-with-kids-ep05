@@ -25,7 +25,12 @@ export const TEXT_SIZES: TextSize[] = ["small", "medium", "large"];
 export const SEEN_KEY = storageKey("seen");
 export const QUIZ_HISTORY_KEY = storageKey("quiz");
 
-export type QuizHistoryEntry = { ts: number; score: number; total: number };
+export type QuizHistoryEntry = {
+  ts: number;
+  score: number;
+  total: number;
+  mode: string;
+};
 
 export function readStored<T>(key: string): T | null {
   try {
@@ -66,26 +71,44 @@ export function markSeen(id: string): void {
   }
 }
 
-export function readQuizHistory(): QuizHistoryEntry[] {
+export function readQuizHistory(mode?: string): QuizHistoryEntry[] {
   try {
-    const entries = readStored<QuizHistoryEntry[]>(QUIZ_HISTORY_KEY);
+    const entries = readStored<Array<Partial<QuizHistoryEntry>>>(QUIZ_HISTORY_KEY);
     if (!Array.isArray(entries)) return [];
-    return entries.filter(
-      (e) =>
-        e &&
-        typeof e.ts === "number" &&
-        typeof e.score === "number" &&
-        typeof e.total === "number",
-    );
+    const normalized = entries
+      .filter(
+        (e) =>
+          e &&
+          typeof e.ts === "number" &&
+          typeof e.score === "number" &&
+          typeof e.total === "number",
+      )
+      .map((e) => ({
+        ts: e.ts as number,
+        score: e.score as number,
+        total: e.total as number,
+        mode: typeof e.mode === "string" && e.mode.length > 0 ? e.mode : "quiz",
+      }));
+    return mode ? normalized.filter((e) => e.mode === mode) : normalized;
   } catch {
     return [];
   }
 }
 
-export function pushQuizResult(entry: QuizHistoryEntry): void {
+export function pushQuizResult(entry: {
+  ts: number;
+  score: number;
+  total: number;
+  mode?: string;
+}): void {
   try {
     const history = readQuizHistory();
-    history.push(entry);
+    history.push({
+      ts: entry.ts,
+      score: entry.score,
+      total: entry.total,
+      mode: entry.mode ?? "quiz",
+    });
     writeStored(QUIZ_HISTORY_KEY, history.slice(-50));
   } catch {
     /* private mode or quota */

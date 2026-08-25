@@ -141,15 +141,28 @@ New page `web/src/app/train/page.tsx` + `components/train/train-hub.tsx`:
 
 ## Round 3 checklist (update as you go)
 
-- [ ] R1 — audition feature removed
-- [ ] T2 — quiz kit + pinyin toggle (wired into /quiz)
-- [ ] T3 — /train hub + cover cards
-- [ ] Q1 — listening quiz
-- [ ] Q2 — match the audio
-- [ ] Q3 — flashcards + SRS
-- [ ] Q4 — who said it?
-- [ ] Q5 — tone drill
-- [ ] B1 (optional) — written bank v2
+- [x] R1 — audition feature removed
+  - Deleted `/audition`, `voice-audition.tsx`, `AUDITION_CAST`, the `audition` field on character voices, cover/header links, and `public/lessons/ep05/auditions/` (5 mp3s).
+  - README no longer mentions the audition page. Cover still has quiz + study cards; Training is added in T3.
+- [x] T2 — quiz kit + pinyin toggle (wired into /quiz)
+  - New `quiz-kit.tsx` (`usePinyinPref`, `PinyinToggle`, choice/reveal/score-card, tap-to-play helper). Preference key `hwk-ep05:quiz-pinyin:v1`, default ON, read after mount.
+  - History entries now include `mode`; missing mode counts as `"quiz"`. `/quiz` filters to that mode, shows the toggle, and hides beat-pinyin beside `promptZh` / in the reveal when off.
+- [x] T3 — /train hub + cover cards
+  - `/train` hub matches `/study` furniture: six mode cards with icon, blurb, and best/attempts (flashcards shows SRS due count, 0 until cards are graded).
+  - Cover and player header now point to Training / Exit quiz / Study guide.
+- [x] Q1 — listening quiz
+  - `/train/listening`: 8 questions after mount from dialogue beats with ≥6 Han characters. Large tap-to-play chinese clip, 4 English choices from similar-length lines, reveal Chinese + pinyin (toggle) and jump link. History `mode: "listening"`.
+- [x] Q2 — match the audio
+  - `/train/match-audio`: 8 rounds. Written English + Chinese (pinyin if on), three tap-to-play clips (one match, two similar-length decoys), lock in A/B/C. Reveal labels the match and prints all three Chinese lines. History `mode: "match-audio"`.
+- [x] Q3 — flashcards + SRS
+  - Deck is every vocab item plus every idiom. Session: due (shuffled) then new, 15 max. Again = due now; Good/Easy seed 1d/3d then double interval, cap 30d, stored at `hwk-ep05:srs:v1`.
+  - Front is Chinese + "hear it in the show"; back shows English/note and pinyin (toggle, or a second "show pinyin" tap). Hub due count includes unseen cards.
+- [x] Q4 — who said it?
+  - `/train/who-said-it`: 8 rounds from `spokenByCast()` (夏雪 / 刘梅 / 夏东海 / 夏雨). Large tap-to-play chinese clip, four character chips with `EP05_META` colors, reveal scene still + Chinese/pinyin/English + speaker. History `mode: "who-said-it"`.
+- [x] Q5 — tone drill
+  - `/train/tones`: 8 vocab items whose pinyin has tone marks. Chinese + first `heardAt` chinese clip, four deterministic variants of the first toned vowel (e.g. hàozi / háozi / hǎozi / hāozi). Pinyin toggle hidden. Reveal English + jump. History `mode: "tones"`.
+- [x] B1 (optional) — written bank v2
+  - `generateSentenceQuestions()` adds one item per quizable dialogue line (Chinese prompt, English among 4, nearest-length distractors). `pickQuiz` still always includes ≥2 handwritten. Bank is 185 (was ~33).
 
 ---
 

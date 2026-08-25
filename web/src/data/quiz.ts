@@ -5,6 +5,7 @@ import {
   IDIOMS,
   VOCAB_DECKS,
 } from "@/data/curriculum";
+import { nearestBeats, quizableDialogue } from "@/lib/train-pool";
 
 export interface QuizChoice {
   id: string;
@@ -239,19 +240,34 @@ function generateGrammarQuestions(): QuizQuestion[] {
   });
 }
 
+function generateSentenceQuestions(): QuizQuestion[] {
+  const pool = quizableDialogue();
+  return pool.map((beat, index) => {
+    const distractors = nearestBeats(pool, beat, 3).map((b) => b.english);
+    const packed = packChoices(beat.english, distractors, hashSalt(beat.id) + index);
+    return {
+      id: `gen-sent-${beat.id}`,
+      prompt: "What does this line mean?",
+      promptZh: beat.chinese,
+      ...packed,
+      why: beat.speaker
+        ? `${beat.speaker}: ${beat.chinese} (${beat.pinyin}) — ${beat.english}`
+        : `${beat.chinese} (${beat.pinyin}) — ${beat.english}`,
+      beatId: beat.id,
+    };
+  });
+}
+
 const GENERATED_QUIZ: QuizQuestion[] = [
   ...generateIdiomQuestions(),
   ...generateBeijingQuestions(),
   ...generateVocabQuestions(),
   ...generateGrammarQuestions(),
+  ...generateSentenceQuestions(),
 ];
 
-/* AGENT-TASK(B1) [optional — written bank v2] — per /CURSOR-TASKS.md task
-   B1: add a sentence-comprehension generator (show a dialogue line's
-   Chinese, pick its English among 4; distractors from other lines of
-   similar length) and grow the bank to 60+. Keep pickQuiz semantics.
-   Replace with AGENT-DONE(B1). */
-/** AGENT-DONE(3a): bank is the 5 handwritten questions plus 28 generated from curriculum/beats (idiom, Beijing, vocab, grammar cloze); pickQuiz(n) samples client-side and always includes ≥2 handwritten. */
+/* AGENT-DONE(B1): sentence-comprehension generator from quizable dialogue (Chinese prompt, 4 English choices, similar-length distractors); bank is handwritten + curriculum + those lines (60+). pickQuiz still samples client-side with ≥2 handwritten. */
+/** AGENT-DONE(3a): bank is the 5 handwritten questions plus generated items from curriculum/beats (idiom, Beijing, vocab, grammar cloze, sentence comprehension); pickQuiz(n) samples client-side and always includes ≥2 handwritten. */
 
 export const EP05_QUIZ: QuizQuestion[] = [...HANDWRITTEN_QUIZ, ...GENERATED_QUIZ];
 
