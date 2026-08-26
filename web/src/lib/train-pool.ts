@@ -9,7 +9,7 @@ const ALL = beatsData as Beat[];
 
 export const DIALOGUE_BEATS = ALL.filter((b) => b.type === "dialogue");
 
-function hanLength(text: string): number {
+export function hanLength(text: string): number {
   return [...text].filter((ch) => /\p{Script=Han}/u.test(ch)).length;
 }
 
@@ -54,6 +54,36 @@ export function shuffle<T>(items: T[]): T[] {
     [copy[i], copy[j]] = [copy[j], copy[i]];
   }
   return copy;
+}
+
+export function hashSalt(s: string): number {
+  let n = 0;
+  for (let i = 0; i < s.length; i++) n = (n * 31 + s.charCodeAt(i)) | 0;
+  return Math.abs(n) || 1;
+}
+
+export function seededShuffle<T>(items: T[], seed: number): T[] {
+  const copy = [...items];
+  let s = seed >>> 0 || 1;
+  for (let i = copy.length - 1; i > 0; i--) {
+    s = (Math.imul(s, 1664525) + 1013904223) >>> 0;
+    const j = s % (i + 1);
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+/** Characters left after stripping whitespace and punctuation — the dictation tiles. */
+export function dictationChars(chinese: string): string[] {
+  return [...chinese].filter((ch) => !/[\s\p{P}\p{S}]/u.test(ch));
+}
+
+/** Dialogue lines of 6–14 Han characters, suitable for the dictation builder. */
+export function dictationBeats(): Beat[] {
+  return DIALOGUE_BEATS.filter((b) => {
+    const n = hanLength(b.chinese);
+    return n >= 6 && n <= 14 && dictationChars(b.chinese).length >= 6 && Boolean(b.english?.trim());
+  });
 }
 
 /** Closest `n` other dialogue beats by Chinese length (stable tie-break on id). */

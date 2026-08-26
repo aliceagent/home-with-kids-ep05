@@ -76,7 +76,8 @@ One-tap mixed review session:
 
 ## Round 4 checklist (update as you go)
 
-- [ ] C1 — dictation builder
+- [x] C1 — dictation builder
+  - `/train/dictation`: 8 lines of 6–14 Han characters. Tap-to-play chinese clip; punctuation-stripped character chips shuffled with a per-question seed; Check grades exact order and highlights wrong slots. History `mode: "dictation"`.
 - [ ] C2 — scene order
 - [ ] C3 — daily mix + hub cards
 
