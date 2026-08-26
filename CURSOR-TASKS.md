@@ -91,15 +91,10 @@ flashcard deck size, and generated quiz-bank size all grow, and that
 
 ---
 
-## Backlog — Round 4 games (still open, build AFTER round 5 or on request)
-
-Dictation builder (`/train/dictation`), Scene order (`/train/scenes`), Daily
-mix (`/train/daily`) + hub cards. Full specs are in the git history of this
-file (commit e8699f6 and earlier); ask for them to be restored if you pick
-this up.
-
 ## Archive
 
+- Round 4 games (PR #14): dictation builder, scene order, daily mix + hub
+  Games section; shared question builders extracted to `lib/train-questions.ts`.
 - Round 4 (agents): player line-loop/word-hints/activity (PR #9), transcript +
   progress pages (PR #10), ten quiz modes from Cursor (PRs #11/#12).
 - Round 3: training hub + 5 modes, quiz kit + pinyin toggle, audition removed

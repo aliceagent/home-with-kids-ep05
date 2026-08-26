@@ -4,8 +4,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { chineseClip, shuffle } from "@/lib/train-pool";
-import { fourToneChoices, tonedVocab, type ToneItem } from "@/lib/tone-drill";
+import { chineseClip } from "@/lib/train-pool";
+import { buildToneQuestions, type ToneQ } from "@/lib/train-questions";
 import { pushQuizResult, readQuizHistory, type QuizHistoryEntry } from "@/lib/player-storage";
 import {
   PlayClipButton,
@@ -16,24 +16,8 @@ import {
 } from "@/components/train/quiz-kit";
 import { TrainModeShell } from "@/components/train/train-shell";
 
-type ToneQ = {
-  item: ToneItem;
-  choices: { id: string; label: string; correct: boolean }[];
-  correctId: string;
-};
-
 function buildRound(): ToneQ[] {
-  const pool = tonedVocab();
-  return shuffle(pool)
-    .slice(0, 8)
-    .map((item) => {
-      const choices = fourToneChoices(item.pinyin);
-      return {
-        item,
-        choices,
-        correctId: choices.find((c) => c.correct)?.id ?? "a",
-      };
-    });
+  return buildToneQuestions(8);
 }
 
 export function ToneDrill() {
