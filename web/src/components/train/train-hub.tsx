@@ -2,6 +2,7 @@
 
 /* AGENT-DONE(T3): /train hub lists all modes with icons, one-line blurbs, and per-mode best/attempts (flashcards shows SRS due count). Cover cards are Training / Exit quiz / Study guide. */
 /* AGENT-DONE(R5): grouped hub — core, listen/read, and episode-note quizzes. */
+/* AGENT-DONE(C3): Games section first — Daily mix, Dictation, Scene order — with the same best/attempts stats. */
 
 import { useEffect, useState, type ComponentType } from "react";
 import Link from "next/link";
@@ -12,12 +13,15 @@ import {
   ArrowLeft,
   AudioLines,
   BookOpen,
+  CalendarDays,
   Ear,
   Gauge,
   Headphones,
+  Keyboard,
   Landmark,
   Languages,
   Layers,
+  ListOrdered,
   ListTree,
   MapPin,
   Music2,
@@ -40,6 +44,30 @@ type Section = {
   title: string;
   modes: readonly Mode[];
 };
+
+const GAMES: Mode[] = [
+  {
+    href: "/train/daily",
+    id: "daily",
+    label: "Daily mix",
+    description: "Ten questions from quizzes, listening, who-said-it, and tones",
+    icon: CalendarDays,
+  },
+  {
+    href: "/train/dictation",
+    id: "dictation",
+    label: "Dictation",
+    description: "Hear a line, then tap characters back into order",
+    icon: Keyboard,
+  },
+  {
+    href: "/train/scenes",
+    id: "scenes",
+    label: "Scene order",
+    description: "Four consecutive lines — restore the spoken order",
+    icon: ListOrdered,
+  },
+];
 
 const CORE: Mode[] = [
   {
@@ -163,6 +191,7 @@ const NOTES: Mode[] = [
 ];
 
 const SECTIONS: Section[] = [
+  { title: "Games", modes: GAMES },
   { title: "Core", modes: CORE },
   { title: "Listen & read", modes: LISTEN_READ },
   { title: "Episode notes", modes: NOTES },

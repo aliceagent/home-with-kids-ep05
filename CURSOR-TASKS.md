@@ -80,7 +80,10 @@ One-tap mixed review session:
   - `/train/dictation`: 8 lines of 6–14 Han characters. Tap-to-play chinese clip; punctuation-stripped character chips shuffled with a per-question seed; Check grades exact order and highlights wrong slots. History `mode: "dictation"`.
 - [x] C2 — scene order
   - `/train/scenes`: 5 rounds. Four consecutive dialogue beats from one `resolveChapters` window, shuffled. Tap into a numbered column (tap again to undo). Full credit for exact order; reveal prints timestamps. History `mode: "scenes"`.
-- [ ] C3 — daily mix + hub cards
+- [x] C3 — daily mix + hub cards
+  - `/train/daily`: 10 questions (4 `pickQuiz`, 2 listening, 2 who-said-it, 2 tones). Shuffle; backfill from the written bank if a type runs short. History `mode: "daily"`.
+  - Builders live in `web/src/lib/train-questions.ts`; listening / who-said-it / tone drill import them so the mix cannot drift.
+  - Hub Games section is first: Daily mix, Dictation, Scene order, each with best/attempts.
 
 ---
 

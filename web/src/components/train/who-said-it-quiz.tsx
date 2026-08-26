@@ -5,15 +5,9 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { Beat } from "@/types/lesson";
-import { EP05_META } from "@/lib/episode-meta";
 import { getSceneImageCandidates } from "@/lib/lesson-utils";
-import {
-  chineseClip,
-  sampleBeats,
-  shuffle,
-  spokenByCast,
-} from "@/lib/train-pool";
+import { chineseClip } from "@/lib/train-pool";
+import { buildWhoSaidItQuestions, type WhoQ } from "@/lib/train-questions";
 import { pushQuizResult, readQuizHistory, type QuizHistoryEntry } from "@/lib/player-storage";
 import {
   PlayClipButton,
@@ -25,34 +19,8 @@ import {
 } from "@/components/train/quiz-kit";
 import { TrainModeShell } from "@/components/train/train-shell";
 
-const CHOICE_IDS = ["a", "b", "c", "d"] as const;
-
-type WhoQ = {
-  beat: Beat;
-  choices: {
-    id: (typeof CHOICE_IDS)[number];
-    name: string;
-    nameEn: string;
-    color: string;
-  }[];
-  correctId: string;
-};
-
 function buildRound(): WhoQ[] {
-  const pool = spokenByCast();
-  return sampleBeats(pool, 8).map((beat) => {
-    const choices = shuffle([...EP05_META.characters]).map((c, i) => ({
-      id: CHOICE_IDS[i],
-      name: c.name,
-      nameEn: c.nameEn,
-      color: c.color,
-    }));
-    return {
-      beat,
-      choices,
-      correctId: choices.find((c) => c.name === beat.speaker)?.id ?? "a",
-    };
-  });
+  return buildWhoSaidItQuestions(8);
 }
 
 function SceneStill({ source, alt }: { source: string | null; alt: string }) {

@@ -4,14 +4,8 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import type { Beat } from "@/types/lesson";
-import {
-  chineseClip,
-  fourEnglishChoices,
-  quizableDialogue,
-  sampleBeats,
-  similarBeats,
-} from "@/lib/train-pool";
+import { chineseClip } from "@/lib/train-pool";
+import { buildListeningQuestions, type ListeningQ } from "@/lib/train-questions";
 import { pushQuizResult, readQuizHistory, type QuizHistoryEntry } from "@/lib/player-storage";
 import {
   PlayClipButton,
@@ -23,22 +17,8 @@ import {
 } from "@/components/train/quiz-kit";
 import { TrainModeShell } from "@/components/train/train-shell";
 
-type ListeningQ = {
-  beat: Beat;
-  choices: { id: string; label: string; correct: boolean }[];
-  correctId: string;
-};
-
 function buildRound(): ListeningQ[] {
-  const pool = quizableDialogue();
-  return sampleBeats(pool, 8).map((beat) => {
-    const choices = fourEnglishChoices(beat, similarBeats(pool, beat, 3));
-    return {
-      beat,
-      choices: choices.map((c) => ({ id: c.id, label: c.label, correct: c.correct })),
-      correctId: choices.find((c) => c.correct)?.id ?? "a",
-    };
-  });
+  return buildListeningQuestions(8);
 }
 
 export function ListeningQuiz() {
